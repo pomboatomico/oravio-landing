@@ -15,6 +15,7 @@
     --shadow:0 40px 90px -30px rgba(0,0,0,.75);
     --shadow-sm:0 18px 40px -18px rgba(0,0,0,.55);
     --shadow-card:0 24px 60px -28px rgba(0,0,0,.7);
+    --ease-out:cubic-bezier(.23,1,.32,1); --ease-in-out:cubic-bezier(.77,0,.175,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -212,8 +213,21 @@
   .foot-col a:hover{color:var(--text)}
   .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:26px;border-top:1px solid rgba(53,71,65,.4);color:var(--muted);font-size:13.5px;opacity:.8}
 
-  .reveal{opacity:0;transform:translateY(14px)}
-  .reveal.in{opacity:1;transform:none;transition:opacity .7s ease,transform .7s ease}
+  .reveal{opacity:0;transform:translateY(16px)}
+  .reveal.in{opacity:1;transform:none;transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
+
+  @media (hover:hover) and (pointer:fine){
+    .feat{transition:border-color .2s ease,transform .2s var(--ease-out),box-shadow .2s var(--ease-out)}
+    .feat:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
+    .plan{transition:transform .2s var(--ease-out),box-shadow .2s var(--ease-out),border-color .2s ease}
+    .plan:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
+    .g{transition:transform .2s var(--ease-out),border-color .2s ease}
+    .g:hover{transform:translateY(-3px);border-color:#43584d}
+    .pillar .pi{transition:transform .2s var(--ease-out)}
+    .pillar:hover .pi{transform:scale(1.08)}
+    .avatars .a{transition:transform .2s var(--ease-out)}
+    .avatars .a:hover{transform:translateY(-3px)}
+  }
 
   @media (max-width:900px){
     .nav-links,.nav-cta .btn-ghost{display:none}
