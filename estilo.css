@@ -212,7 +212,11 @@
   .cta-final{padding:96px 0}
   .cta-box{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:62px 40px;text-align:center;position:relative;overflow:hidden}
   .cta-box .glow{left:50%;bottom:-330px;transform:translateX(-50%);width:640px;height:520px;opacity:.2}
-  .cta-box>*{position:relative;z-index:1}
+  /* `:not(.glow)` e não `*`: o alvo aqui é o CONTEÚDO, que precisa ficar por cima
+     do brilho. Pegando todos os filhos, esta regra vencia o `position:absolute` do
+     próprio `.glow` (mesma especificidade, e ela vem depois), e o brilho de 520px
+     de altura voltava pro fluxo — abrindo um vão vazio no topo da caixa final. */
+  .cta-box>:not(.glow){position:relative;z-index:1}
   .cta-box h2{margin-bottom:16px}
   .cta-box p{color:var(--muted);font-size:17px;margin:0 auto 32px;max-width:48ch}
 
