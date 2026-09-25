@@ -22,7 +22,10 @@
   body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  img{display:block;max-width:100%}
+  /* `height:auto` é obrigatório junto dos atributos width/height do HTML: eles
+     reservam o espaço da imagem antes de ela baixar (e evitam o salto da página),
+     mas sem isto o `height` vira altura fixa e a imagem estica. */
+  img{display:block;max-width:100%;height:auto}
 
   .brand{display:inline-flex;align-items:center;gap:11px}
   .brand svg{flex:none;display:block}
@@ -76,13 +79,25 @@
   .glow{position:absolute;z-index:0;border-radius:50%;background:var(--green-fill);filter:blur(90px);pointer-events:none}
   .hero-media .glow{width:520px;height:520px;top:-30px;right:-20px;opacity:.24}
   .device{position:relative;z-index:1;background:#0a0f0c;border:1px solid var(--line);border-radius:42px;padding:9px;box-shadow:var(--shadow);width:280px}
-  .device img{border-radius:34px;width:100%}
-  .float{position:absolute;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:11px 14px;display:flex;align-items:center;gap:11px;box-shadow:var(--shadow-card)}
+  .device img{border-radius:34px;width:100%;display:block}
+
+  /* Os dois celulares do herói: a fala entrando e o documento saindo.
+     Sobrepostos na MESMA célula de grade — assim o par continua centrado
+     sozinho, sem depender de margem negativa calculada na mão. */
+  .devices{position:relative;z-index:1;display:grid;justify-items:center}
+  .devices .device{grid-area:1/1;width:248px}
+  .devices .device-front{z-index:2;transform:translateX(-54px)}
+  .devices .device-back{z-index:1;transform:translateX(54px) scale(.945);opacity:.92}
+
+  /* Um selo só, e encostado na BORDA de baixo do par: dois selos, ou um selo no
+     meio da tela, cobriam justamente o print que eles servem pra provar.
+     Ancorado em .devices (não em .hero-media) pra continuar colado nos celulares
+     quando a coluna fica larga no tablet. */
+  .float{position:absolute;z-index:3;max-width:206px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:11px 14px;display:flex;align-items:center;gap:11px;box-shadow:var(--shadow-card)}
   .float .fi{width:34px;height:34px;border-radius:9px;background:var(--green-fill);color:var(--green);display:flex;align-items:center;justify-content:center;flex:none}
   .float .ft{font-size:13.5px;font-weight:700;line-height:1.2}
   .float .fs{font-size:12px;color:var(--muted)}
-  .float.tl{top:64px;left:-26px}
-  .float.br{bottom:56px;right:-22px}
+  .float.br{bottom:-18px;inset-inline-end:-46px}
 
   /* Faixa de pilares (escura, on-brand) */
   .pillars{background:var(--green-fill);border-top:1px solid rgba(255,255,255,.04)}
@@ -111,7 +126,7 @@
   .amber-note svg{color:var(--amber);flex:none}
   .amber-note span{font-size:14.5px}
 
-  /* Visão geral (checklist | cartão desenhado) */
+  /* Visão geral (checklist | print real da página do cliente) */
   .overview-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
   .ov-copy .kicker{margin-bottom:16px}
   .ov-copy h2{margin-bottom:18px}
@@ -122,27 +137,17 @@
   .ov-media{position:relative;display:flex;justify-content:center}
   .ov-media .glow{width:440px;height:440px;opacity:.16;top:0;left:20px}
 
-  /* Cartão de orçamento desenhado */
-  .quote{position:relative;z-index:1;width:100%;max-width:440px;background:var(--surface-alt);border:1px solid var(--line);border-radius:var(--radius-lg);padding:8px;box-shadow:var(--shadow-card)}
-  .quote-head{background:#0c110e;border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:8px}
-  .quote-head .lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);font-weight:600}
-  .quote-head .cli{font-size:18px;font-weight:700;margin-top:6px}
-  .quote-head .meta{font-size:12.5px;color:var(--muted);margin-top:3px}
-  .quote-tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-  .tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 15px}
-  .tile .tl{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
-  .tile .tv{font-size:21px;font-weight:800;margin-top:5px;font-variant-numeric:tabular-nums}
-  .tile .tv.g{color:var(--green)}
-  .quote-items{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 16px}
-  .qi{display:flex;align-items:center;justify-content:space-between;padding:13px 0;font-size:14.5px;border-bottom:1px solid rgba(53,71,65,.5)}
-  .qi:last-child{border-bottom:none}
-  .qi .name{display:flex;align-items:center;gap:10px}
-  .qi .name svg{color:var(--green);flex:none}
-  .qi .val{font-variant-numeric:tabular-nums;font-weight:600}
-  .quote-total{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 6px}
-  .quote-total .lab{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
-  .quote-total b{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
-  .quote-btn{margin:8px;background:var(--green);color:var(--on-green);border-radius:12px;padding:14px;text-align:center;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px}
+  /* Moldura de navegador — a página que o cliente abre é web, não app.
+     A barra de endereço é o que diz isso sem precisar de legenda. */
+  .browser{position:relative;z-index:1;width:100%;max-width:430px;background:var(--surface-alt);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);overflow:hidden}
+  .browser-bar{display:flex;align-items:center;gap:14px;padding:12px 14px;background:#0c110e;border-bottom:1px solid var(--line)}
+  .browser-bar .dots{display:flex;gap:6px;flex:none}
+  .browser-bar .dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+  .browser-bar .url{display:flex;align-items:center;gap:7px;min-width:0;flex:1;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .browser-bar .url svg{color:var(--green);flex:none}
+  .browser-bar .url .dim{color:var(--muted)}
+  .browser>img{width:100%}
+  .browser figcaption{padding:13px 16px;font-size:12.5px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
 
   /* Barra de segmentos */
   .segbar{background:var(--green-fill);padding:26px 0}
@@ -158,6 +163,21 @@
   .feat .ic{width:46px;height:46px;border-radius:12px;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--green);margin-bottom:18px}
   .feat h3{font-size:17.5px;font-weight:700;margin-bottom:9px;letter-spacing:-.01em}
   .feat p{color:var(--muted);font-size:14.5px}
+
+  /* Acompanhamento + tema (par de prints reais da mesma tela) */
+  .themes-band{background:var(--surface-alt);border-top:1px solid var(--surface-alt);border-bottom:1px solid var(--surface-alt)}
+  .themes{display:flex;justify-content:center;align-items:flex-start;gap:clamp(16px,4vw,40px)}
+  .theme-shot{display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0}
+  /* O claro é um retângulo branco sobre fundo escuro: sem a moldura ele flutua
+     sem pé. A moldura de celular é o que dá borda aos dois por igual.
+     Medida em vw e travada nas pontas: o par precisa caber LADO A LADO em
+     qualquer tela, porque a comparação entre os dois temas é o conteúdo. */
+  .theme-shot .device{width:clamp(126px,40vw,236px)}
+  .theme-shot figcaption{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--muted)}
+  .theme-shot .dot{width:11px;height:11px;border-radius:50%;border:1px solid var(--line);flex:none}
+  .theme-shot .dot.dark{background:#0d120f}
+  .theme-shot .dot.light{background:#eef1f0}
+  .themes-note{max-width:52ch;margin:44px auto 0;text-align:center;color:var(--muted);font-size:15px}
 
   /* Acesso (sem planos pagos — o Oravio ainda não cobra) */
   .plans{background:var(--surface-alt);border-top:1px solid var(--surface-alt);border-bottom:1px solid var(--surface-alt)}
@@ -206,14 +226,10 @@
   .reveal{opacity:0;transform:translateY(16px)}
   .reveal.in{opacity:1;transform:none;transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
 
-  .quote-step{opacity:0;transform:translateY(10px)}
-  .quote-step.in{opacity:1;transform:none;transition:opacity .45s var(--ease-out),transform .45s var(--ease-out)}
 
   @media (hover:hover) and (pointer:fine){
     .feat{transition:border-color .2s ease,transform .2s var(--ease-out),box-shadow .2s var(--ease-out)}
     .feat:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
-    .plan{transition:transform .2s var(--ease-out),box-shadow .2s var(--ease-out),border-color .2s ease}
-    .plan:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
     .g{transition:transform .2s var(--ease-out),border-color .2s ease}
     .g:hover{transform:translateY(-3px);border-color:#43584d}
     .pillar .pi{transition:transform .2s var(--ease-out)}
@@ -238,15 +254,28 @@
     .guar{grid-template-columns:1fr}
     .segbar .row{gap:12px 22px}
     .foot-grid{flex-direction:column;gap:32px}
-    .float.tl{left:-6px;top:40px}
-    .float.br{right:-6px}
+    .themes-note{margin-top:34px}
+  }
+  /* O par de celulares encolhe em dois passos porque ele tem que caber INTEIRO:
+     com os dois deslocados, o que ocupa a tela é a largura de um mais o recuo
+     do outro, não a largura de um. */
+  @media (max-width:900px){
+    .devices .device{width:224px}
+    .devices .device-front{transform:translateX(-48px)}
+    .devices .device-back{transform:translateX(48px) scale(.945)}
+  }
+  @media (max-width:620px){
+    .devices .device{width:192px}
+    .devices .device-front{transform:translateX(-46px)}
+    .devices .device-back{transform:translateX(46px) scale(.945)}
+    /* O selo some no celular: sobre uma composição de ~280px ele cobria metade
+       do print. O que ele diz já está no título e na faixa de pilares logo abaixo. */
+    .float{display:none}
   }
   @media (max-width:560px){
     .cta-box{padding:44px 22px}
-    .device{width:250px}
-    .float .fs{display:none}
   }
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal,.quote-step{opacity:1;transform:none;transition:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
 
 /* ====== Páginas internas (ajuda, privacidade, termos) ====== */
 .page-top{padding:66px 0 40px;text-align:center;border-bottom:1px solid var(--surface-alt)}
