@@ -83,19 +83,10 @@
      ter espessura igual no canto e na reta, em vez de engrossar na curva. */
   .device{--bezel:5px;--raio:27px;position:relative;z-index:1;background:#0a0f0c;border:1px solid var(--line);border-radius:var(--raio);padding:var(--bezel);box-shadow:var(--shadow);width:280px}
   .device img{border-radius:calc(var(--raio) - var(--bezel));width:100%;display:block}
+  .hero-media .device{width:min(280px,72vw)}
 
-  /* Os dois celulares do herói: a fala entrando e o documento saindo.
-     Sobrepostos na MESMA célula de grade — assim o par continua centrado
-     sozinho, sem depender de margem negativa calculada na mão. */
-  .devices{position:relative;z-index:1;display:grid;justify-items:center}
-  .devices .device{grid-area:1/1;width:248px}
-  .devices .device-front{z-index:2;transform:translateX(-54px)}
-  .devices .device-back{z-index:1;transform:translateX(54px) scale(.945);opacity:.92}
-
-  /* Um selo só, e encostado na BORDA de baixo do par: dois selos, ou um selo no
-     meio da tela, cobriam justamente o print que eles servem pra provar.
-     Ancorado em .devices (não em .hero-media) pra continuar colado nos celulares
-     quando a coluna fica larga no tablet. */
+  /* Selo encostado na borda de baixo do aparelho: ancorado nele mesmo
+     (que já tem position:relative), então acompanha o celular em qualquer largura. */
   .float{position:absolute;z-index:3;max-width:206px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:11px 14px;display:flex;align-items:center;gap:11px;box-shadow:var(--shadow-card)}
   .float .fi{width:34px;height:34px;border-radius:9px;background:var(--green-fill);color:var(--green);display:flex;align-items:center;justify-content:center;flex:none}
   .float .ft{font-size:13.5px;font-weight:700;line-height:1.2}
@@ -265,21 +256,10 @@
     .foot-grid{flex-direction:column;gap:32px}
     .themes-note{margin-top:34px}
   }
-  /* O par de celulares encolhe em dois passos porque ele tem que caber INTEIRO:
-     com os dois deslocados, o que ocupa a tela é a largura de um mais o recuo
-     do outro, não a largura de um. */
-  @media (max-width:900px){
-    .devices .device{width:224px}
-    .devices .device-front{transform:translateX(-48px)}
-    .devices .device-back{transform:translateX(48px) scale(.945)}
-  }
   @media (max-width:620px){
-    .devices .device{width:192px;--bezel:4px;--raio:21px}
     .theme-shot .device{--bezel:3px;--raio:15px}
-    .devices .device-front{transform:translateX(-46px)}
-    .devices .device-back{transform:translateX(46px) scale(.945)}
-    /* O selo some no celular: sobre uma composição de ~280px ele cobria metade
-       do print. O que ele diz já está no título e na faixa de pilares logo abaixo. */
+    /* O selo some no celular: sobre um print estreito ele cobria parte da tela.
+       O que ele diz já está no título e na faixa de pilares logo abaixo. */
     .float{display:none}
   }
   @media (max-width:560px){
