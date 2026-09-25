@@ -159,23 +159,13 @@
   .feat h3{font-size:17.5px;font-weight:700;margin-bottom:9px;letter-spacing:-.01em}
   .feat p{color:var(--muted);font-size:14.5px}
 
-  /* Planos */
+  /* Acesso (sem planos pagos — o Oravio ainda não cobra) */
   .plans{background:var(--surface-alt);border-top:1px solid var(--surface-alt);border-bottom:1px solid var(--surface-alt)}
-  .plan-scroll{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
-  .plan{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:30px 26px;display:flex;flex-direction:column}
-  .plan.featured{border-color:var(--green);border-width:1.5px}
-  .plan .badge{align-self:flex-start;font-size:12px;font-weight:700;color:var(--on-green);background:var(--green);padding:5px 11px;border-radius:100px;margin-bottom:14px}
-  .plan .pname{font-size:20px;font-weight:700;letter-spacing:-.01em}
-  .plan .pdesc{color:var(--muted);font-size:14px;margin:6px 0 18px;min-height:38px}
-  .plan .price{display:flex;align-items:baseline;gap:4px;margin-bottom:22px}
-  .plan .price .cur{font-size:16px;color:var(--muted);font-weight:600}
-  .plan .price .val{font-size:40px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-  .plan .price .per{font-size:14px;color:var(--muted)}
-  .plan ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
-  .plan li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
-  .plan li svg{color:var(--green);flex:none;margin-top:2px}
-  .plan .btn{margin-top:auto;width:100%}
-  .plans-foot{text-align:center;color:var(--muted);font-size:13px;margin-top:26px;opacity:.7}
+  .access-card{max-width:520px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:36px 34px;text-align:center}
+  .access-card ul{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:28px;text-align:left}
+  .access-card li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
+  .access-card li svg{color:var(--green);flex:none;margin-top:3px}
+  .access-card .btn{width:100%}
 
   /* Garantias */
   .guar{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:0 auto}
@@ -242,7 +232,6 @@
     .overview-grid{grid-template-columns:1fr;gap:36px}
     .ov-media{order:-1}
     .features{grid-template-columns:1fr}
-    .plan-scroll{grid-template-columns:1fr;max-width:400px;margin:0 auto}
     .guar{grid-template-columns:1fr}
     .segbar .row{gap:12px 22px}
     .foot-grid{flex-direction:column;gap:32px}
