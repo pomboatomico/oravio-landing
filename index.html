@@ -1,365 +1,493 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oravio — O orçamento sai na hora</title>
-<meta name="description" content="Fale o serviço, do jeito que você já fala. O Oravio monta o orçamento com a sua tabela de preços, mostra o que entendeu e gera o PDF na hora.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="estilo.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="O Oravio transforma mensagens de clientes em orçamentos com os preços do seu catálogo. Beta fechado.">
+  <meta name="theme-color" content="#e9edeb">
+  <title>Oravio — Orçamento pronto com os preços do seu catálogo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2318b98a'/%3E%3Cpath d='M18 20v17c0 8 6 13 14 13s14-5 14-13V20h-8v17c0 4-2 6-6 6s-6-2-6-6V20z' fill='%23132420'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #e9edeb;
+      --card: #ffffff;
+      --borda: #eaeeec;
+      --tinta: #132420;
+      --apoio: #5f6e66;
+      --mint: #18b98a;
+      --mint-fundo: #0e9d74;
+      --mint-texto: #0b7d5c;
+      --mint-suave: #e6f7f1;
+      --sobre-mint: #132420;
+      --ambar: #e8930f;
+      --escuro: #0b100e;
+      --sombra: 0 1px 3px rgba(19,36,32,.04), 0 12px 32px rgba(19,36,32,.06);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--tinta);
+      background: var(--bg);
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    svg { display: block; }
+    .wrap { width: min(100% - 40px, 1120px); margin-inline: auto; }
+    .section { padding: 88px 0; }
+    .section-head { max-width: 700px; margin: 0 auto 44px; text-align: center; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      color: var(--mint-texto);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 18px; height: 2px; border-radius: 99px; background: var(--mint); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { line-height: 1.15; letter-spacing: -.015em; }
+    h1 { margin-bottom: 20px; font-size: 30px; font-weight: 600; }
+    h2 { margin-bottom: 14px; font-size: 32px; font-weight: 600; }
+    h3 { margin-bottom: 10px; font-size: 20px; font-weight: 600; }
+    .section-head p { margin: 0; color: var(--apoio); font-size: 16px; }
+
+    .btn {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 11px 22px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--sobre-mint);
+      background: linear-gradient(135deg, var(--mint), var(--mint-fundo));
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: none;
+      transition: transform 200ms ease, filter 200ms ease;
+    }
+    .btn:hover { transform: translateY(-2px); filter: saturate(1.08); }
+    .btn:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
+      outline: 3px solid rgba(24,185,138,.35);
+      outline-offset: 3px;
+    }
+
+    .site-header {
+      position: fixed;
+      z-index: 20;
+      inset: 0 0 auto;
+      border-bottom: 1px solid rgba(234,238,236,.85);
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .header-inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { font-size: 20px; font-weight: 600; letter-spacing: -.015em; }
+    .header-inner .btn { min-height: 44px; padding-inline: 18px; }
+
+    .hero { padding: 142px 0 96px; min-height: 900px; display: grid; align-items: center; background: var(--card); }
+    .hero-grid { display: grid; gap: 62px; align-items: center; justify-items: center; }
+    .hero-copy { max-width: 680px; text-align: center; margin-inline: auto; }
+    .hero-sub { max-width: 620px; margin: 0 auto 28px; color: var(--apoio); font-size: 16px; }
+    .hero-sub strong { color: var(--tinta); font-weight: 600; }
+    .hero-note { margin: 12px 0 0; color: var(--apoio); font-size: 13px; }
+    .phone-wrap { position: relative; display: grid; justify-items: center; gap: 12px; width: min(100%, 620px); }
+    .phone {
+      width: min(248px, 68vw);
+      aspect-ratio: 9 / 18.5;
+      padding: 12px;
+      border: 2px solid #d7ddda;
+      border-radius: 38px;
+      background: #f5f7f6;
+      box-shadow: var(--sombra);
+    }
+    .phone-screen {
+      position: relative;
+      overflow: hidden;
+      width: 100%; height: 100%;
+      border: 1px solid var(--borda);
+      border-radius: 28px;
+      background: var(--card);
+    }
+    .phone-screen::before {
+      content: "";
+      position: absolute;
+      top: 10px; left: 50%;
+      width: 54px; height: 5px;
+      border-radius: 99px;
+      background: #d7ddda;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+    .phone-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .phone-caption { margin: 0; color: var(--apoio); font-size: 13px; }
+    .input-chip {
+      position: absolute;
+      z-index: 2;
+      min-height: 44px;
+      display: none;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 14px;
+      border: 1px solid var(--borda);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--tinta);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--sombra);
+    }
+    .input-chip svg { color: var(--mint-texto); }
+    .input-chip.audio { top: 20%; left: 7%; }
+    .input-chip.texto { top: 48%; right: 2%; }
+    .input-chip.print { bottom: 18%; left: 1%; }
+
+    .how { background: var(--card); }
+    .steps { display: grid; gap: 30px; }
+    .step { position: relative; }
+    .step-number {
+      width: 44px; height: 44px;
+      display: grid; place-items: center;
+      margin-bottom: 18px;
+      border-radius: 50%;
+      color: var(--mint-texto);
+      background: var(--mint-suave);
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .step p { margin: 0; color: var(--apoio); font-size: 14px; }
+    .flow-stage {
+      display: grid;
+      gap: 28px;
+      align-items: center;
+      margin-top: 72px;
+      padding: 28px 20px;
+      border-radius: 28px;
+      background: var(--bg);
+    }
+    .flow-shot { display: grid; justify-items: center; gap: 12px; margin: 0; }
+    .flow-shot img { display: block; width: 100%; height: auto; }
+    .flow-shot.phone-shot img {
+      width: min(100%, 250px);
+      border: 8px solid #d7ddda;
+      border-radius: 34px;
+      box-shadow: var(--sombra);
+    }
+    .flow-shot.paper-shot img {
+      width: min(100%, 400px);
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      background: var(--card);
+      box-shadow: var(--sombra);
+    }
+    .flow-shot figcaption { color: var(--apoio); font-size: 13px; text-align: center; }
+
+    .features-grid { display: grid; gap: 14px; }
+    .feature-card {
+      padding: 24px;
+      border: 1px solid var(--borda);
+      border-radius: 24px;
+      background: var(--card);
+      box-shadow: var(--sombra);
+    }
+    .feature-icon {
+      width: 44px; height: 44px;
+      display: grid; place-items: center;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      color: var(--mint-texto);
+      background: var(--mint-suave);
+    }
+    .feature-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .feature-card h3 { margin-bottom: 8px; font-size: 16px; }
+    .feature-card p { margin: 0; color: var(--apoio); font-size: 13px; }
+
+    .trust-wrap { padding: 0 0 88px; }
+    .trust {
+      position: relative;
+      overflow: hidden;
+      padding: 48px 24px;
+      border-radius: 28px;
+      color: #eef3f0;
+      background: var(--escuro);
+    }
+    .trust::after {
+      content: "";
+      position: absolute;
+      right: 28px; top: 28px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--mint);
+    }
+    .trust-copy { max-width: 680px; }
+    .trust .eyebrow { color: #9ccfbd; }
+    .trust h2 { max-width: 560px; }
+    .trust p { max-width: 650px; margin: 0; color: #b7c2bd; font-size: 16px; }
+    .trust strong { color: var(--mint); font-weight: 600; }
+
+    .waitlist { padding: 88px 0; background: #f1f4f2; }
+    .form-card {
+      width: min(100%, 520px);
+      margin-inline: auto;
+      padding: 28px 20px;
+      border: 1px solid var(--borda);
+      border-radius: 24px;
+      background: var(--card);
+      box-shadow: var(--sombra);
+    }
+    .form-head { margin-bottom: 26px; text-align: center; }
+    .form-head h2 { margin-bottom: 10px; font-size: 32px; }
+    .form-head p { margin: 0; color: var(--apoio); font-size: 14px; }
+    .fields { display: grid; gap: 16px; }
+    .field { display: grid; gap: 7px; }
+    .field label { font-size: 13px; font-weight: 600; }
+    .field input, .field select {
+      width: 100%; min-height: 48px;
+      padding: 12px 14px;
+      border: 1px solid #d8dfdc;
+      border-radius: 16px;
+      color: var(--tinta);
+      background: #fbfcfb;
+      font-size: 14px;
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+    .field input::placeholder { color: #77857e; }
+    .field input:hover, .field select:hover { border-color: #b8c4bf; }
+    .field input:focus, .field select:focus { border-color: var(--mint-fundo); background: var(--card); outline: none; }
+    .form-card .btn { width: 100%; margin-top: 4px; }
+    .form-note { margin: 12px 0 0; color: var(--apoio); font-size: 13px; text-align: center; }
+
+    footer { padding: 22px 0; border-top: 1px solid var(--borda); background: var(--card); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--apoio); font-size: 13px; }
+    .footer-inner .brand { color: var(--tinta); font-size: 16px; }
+
+    @media (min-width: 720px) {
+      .hero-copy { max-width: 760px; }
+      .input-chip { display: inline-flex; }
+      .steps { grid-template-columns: repeat(3, 1fr); gap: 38px; }
+      .step:not(:last-child)::after { content: ""; position: absolute; top: 22px; left: 60px; right: -18px; height: 1px; background: var(--borda); }
+      .features-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .flow-stage { grid-template-columns: .85fr 1.15fr; padding: 48px; }
+      .form-card { padding: 40px; }
+      .trust { padding: 64px; }
+    }
+    @media (min-width: 960px) {
+      h1 { font-size: 44px; }
+      .hero { padding-top: 162px; padding-bottom: 120px; }
+      .hero-grid { gap: 76px; }
+      .section { padding: 128px 0; }
+      .trust-wrap { padding-bottom: 112px; }
+      .feature-card { padding: 28px; }
+    }
+    @media (max-width: 430px) {
+      .header-inner .btn { padding-inline: 15px; font-size: 13px; }
+      .hero { min-height: 0; }
+      .section { padding-block: 72px; }
+      .trust-wrap { padding-bottom: 72px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0ms !important; }
+    }
+  </style>
 </head>
 <body>
-
-<!-- ====== NAV ====== -->
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a href="#" class="brand" aria-label="Oravio"><svg width="30" height="30" viewBox="0 0 512 512" aria-hidden="true"><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z" fill="#18b98a"></path><rect x="120.7" y="137.2" width="102.6" height="153.6" rx="12" fill="#ffffff"></rect><rect x="281.8" y="54.5" width="102.6" height="236.2" rx="12" fill="#ffffff"></rect><path d="M56 299 C156 480 356 480 456 299 C356 404 156 404 56 299 Z" fill="#ffffff"></path></svg> <svg viewBox="77 465 248.181 60.823" width="81.6" height="20" fill="none" aria-hidden="true"><path d="M100.233 480.592C103.887 480.592 107.129 481.184 109.959 482.367C112.841 483.499 115.285 485.068 117.292 487.075C119.299 489.082 120.842 491.424 121.923 494.1C123.003 496.724 123.544 499.503 123.544 502.436V504.211C123.544 507.093 123.029 509.846 122 512.471C120.971 515.043 119.453 517.333 117.446 519.34C115.491 521.347 113.072 522.942 110.19 524.126C107.309 525.258 103.99 525.823 100.233 525.823C96.5285 525.823 93.2351 525.258 90.3535 524.126C87.4719 522.942 85.0274 521.347 83.0205 519.34C81.0653 517.333 79.5731 515.043 78.5439 512.471C77.5148 509.846 77 507.093 77 504.211V502.436C77 499.503 77.5148 496.724 78.5439 494.1C79.6246 491.424 81.168 489.082 83.1748 487.075C85.2331 485.068 87.7034 483.499 90.585 482.367C93.4666 481.184 96.6828 480.592 100.233 480.592ZM100.233 491.012C97.9693 491.012 96.0138 491.552 94.3672 492.633C92.7205 493.713 91.4598 495.181 90.585 497.033C89.7617 498.834 89.3496 500.944 89.3496 503.362C89.3496 505.626 89.7617 507.685 90.585 509.537C91.4083 511.39 92.6434 512.83 94.29 513.859C95.9367 514.889 97.9178 515.403 100.233 515.403C102.652 515.403 104.659 514.889 106.254 513.859C107.849 512.83 109.059 511.39 109.882 509.537C110.757 507.685 111.194 505.626 111.194 503.362C111.194 500.944 110.757 498.834 109.882 497.033C109.007 495.181 107.746 493.713 106.1 492.633C104.504 491.552 102.549 491.012 100.233 491.012Z" fill="#eef3f0" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M179.71 481.363C184.032 481.363 187.661 481.981 190.594 483.216C193.578 484.451 195.842 486.329 197.386 488.851C198.929 491.321 199.701 494.511 199.701 498.422V524.357H189.898V516.205C189.554 517.292 189.117 518.285 188.586 519.186C187.454 521.192 185.859 522.736 183.801 523.816C181.794 524.897 179.324 525.438 176.391 525.438C173.355 525.437 170.679 524.897 168.363 523.816C166.099 522.736 164.324 521.192 163.037 519.186C161.751 517.127 161.107 514.683 161.107 511.853C161.107 508.765 161.906 506.243 163.501 504.288C165.096 502.281 167.334 500.815 170.216 499.889C173.097 498.911 176.416 498.422 180.173 498.422H187.814V498.268C187.814 496.106 187.3 494.486 186.271 493.405C185.241 492.325 183.595 491.784 181.331 491.784C180.199 491.784 178.706 491.81 176.854 491.861C175.001 491.913 173.097 491.99 171.142 492.093C169.186 492.196 167.411 492.298 165.816 492.401V481.981C167 481.879 168.389 481.776 169.984 481.673C171.579 481.57 173.226 481.492 174.924 481.44C176.622 481.389 178.218 481.363 179.71 481.363ZM180.096 505.292C177.934 505.292 176.262 505.832 175.078 506.913C173.946 507.942 173.381 509.357 173.381 511.158C173.381 512.856 173.946 514.246 175.078 515.326C176.262 516.355 177.934 516.87 180.096 516.87C181.485 516.87 182.72 516.638 183.801 516.175C184.933 515.66 185.859 514.811 186.579 513.628C187.299 512.444 187.712 510.798 187.814 508.688V505.292H180.096Z" fill="#eef3f0" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M158.252 492.17H155.165C151.769 492.17 149.144 493.096 147.292 494.948C145.439 496.749 144.513 499.375 144.513 502.822V524.357H132.163V482.059H141.966V496.02C142.435 492.034 143.619 488.821 145.517 486.381C148.09 483.139 151.795 481.519 156.632 481.519H158.252V492.17Z" fill="#eef3f0"></path><path d="M226.687 514.091H228.513L236.287 482.059H248.174L237.213 524.357H217.607L204.949 482.059H217.685L226.687 514.091Z" fill="#eef3f0"></path><path d="M301.87 480.592C305.524 480.592 308.766 481.184 311.596 482.367C314.477 483.499 316.922 485.068 318.929 487.075C320.936 489.082 322.479 491.424 323.56 494.1C324.64 496.724 325.181 499.503 325.181 502.436V504.211C325.181 507.093 324.666 509.846 323.637 512.471C322.608 515.043 321.09 517.333 319.083 519.34C317.128 521.347 314.709 522.942 311.827 524.126C308.946 525.258 305.626 525.823 301.87 525.823C298.165 525.823 294.872 525.258 291.99 524.126C289.109 522.942 286.664 521.347 284.657 519.34C282.702 517.333 281.21 515.043 280.181 512.471C279.151 509.846 278.637 507.093 278.637 504.211V502.436C278.637 499.503 279.152 496.724 280.181 494.1C281.261 491.424 282.805 489.082 284.812 487.075C286.87 485.068 289.34 483.499 292.222 482.367C295.103 481.184 298.32 480.592 301.87 480.592ZM296.004 492.633C297.651 491.552 299.606 491.012 301.87 491.012C304.186 491.012 306.141 491.552 307.736 492.633C309.383 493.713 310.644 495.181 311.519 497.033C312.393 498.834 312.831 500.944 312.831 503.362C312.831 505.626 312.393 507.685 311.519 509.537C310.695 511.39 309.486 512.83 307.891 513.859C306.295 514.888 304.289 515.403 301.87 515.403C299.555 515.403 297.573 514.889 295.927 513.859C294.28 512.83 293.045 511.39 292.222 509.537C291.398 507.685 290.987 505.626 290.987 503.362C290.987 500.944 291.398 498.834 292.222 497.033C293.096 495.181 294.357 493.713 296.004 492.633Z" fill="#18b98a" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M269.839 524.357H257.489V491.167H251.854V482.059H269.839V524.357Z" fill="#18b98a"></path><path d="M262.274 465C264.59 465 266.289 465.618 267.369 466.853C268.501 468.036 269.067 469.58 269.067 471.483C269.067 473.336 268.501 474.88 267.369 476.115C266.289 477.299 264.59 477.891 262.274 477.891C259.959 477.891 258.235 477.299 257.103 476.115C256.022 474.88 255.481 473.336 255.481 471.483C255.482 469.58 256.022 468.036 257.103 466.853C258.235 465.618 259.959 465 262.274 465Z" fill="#18b98a"></path></svg></a>
-    <nav class="nav-links">
-      <a href="#como">Como funciona</a>
-      <a href="#recursos">Recursos</a>
-      <a href="#planos">Planos</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <div class="nav-cta">
-      <a href="https://app.oravio.com.br" class="btn btn-ghost">Entrar</a>
-      <a href="https://app.oravio.com.br" class="btn btn-primary">Testar grátis</a>
-      <button class="hamburger" id="ham" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#inicio" aria-label="Oravio, início">Oravio</a>
+      <a class="btn" href="#lista">Solicitar acesso</a>
     </div>
-  </div>
-  <div class="mobile-menu" id="mob">
-    <a href="#como">Como funciona</a>
-    <a href="#recursos">Recursos</a>
-    <a href="#planos">Planos</a>
-    <a href="#faq">FAQ</a>
-    <a href="https://app.oravio.com.br">Entrar</a>
-    <a href="https://app.oravio.com.br" class="btn btn-primary">Testar grátis</a>
-  </div>
-</header>
+  </header>
 
-<!-- ====== HERÓI ====== -->
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-copy reveal">
-      <span class="eyebrow"><span class="d"></span>Orçamento por voz para quem vive de serviço</span>
-      <h1 class="hero-title">Seu orçamento pronto antes do cliente ir embora.</h1>
-      <p class="hero-sub">Descreva o serviço falando, do jeito que você já fala. O Oravio monta o orçamento com a <strong>sua</strong> tabela de preços, mostra o que entendeu pra você conferir, e gera o PDF na hora.</p>
-      <div class="hero-cta">
-        <a href="https://app.oravio.com.br" class="btn btn-primary btn-lg">Testar grátis <span class="arrow">→</span></a>
-        <div class="hero-note">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>
-          14 dias grátis · sem cartão
+  <main>
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Orçamento sem enrolação</span>
+          <h1>O cliente manda a mensagem. O orçamento sai pronto.</h1>
+          <p class="hero-sub">Áudio, texto ou print da conversa viram um orçamento com os preços do <strong>seu catálogo</strong>.</p>
+          <a class="btn" href="#lista">Solicitar acesso
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <p class="hero-note">Beta fechado. Liberamos poucas empresas por vez.</p>
+        </div>
+        <div class="phone-wrap">
+          <span class="input-chip audio" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3ZM5 11a7 7 0 0 0 14 0M12 18v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Áudio do cliente
+          </span>
+          <span class="input-chip texto" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 5h14v11H9l-4 4V5ZM8 9h8M8 12h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Mensagem colada
+          </span>
+          <span class="input-chip print" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="m7 16 4-4 3 3 2-2 2 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Print da conversa
+          </span>
+          <div class="phone"><div class="phone-screen"><img src="app-inicio.jpg" alt="Tela inicial do Oravio com atalhos para criar um orçamento e registrar um cliente"></div></div>
+          <p class="phone-caption">O pedido começa por áudio, texto ou print.</p>
         </div>
       </div>
-      <div class="proof">
-        <div class="avatars">
-          <span class="a" style="background:#2de0ac"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>
-          <span class="a" style="background:#3ec7a6"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 1-5.6 5.6l-4.4 4.4a2 2 0 1 0 2.8 2.8l4.4-4.4a4 4 0 0 1 5.6-5.6"/></svg></span>
-          <span class="a" style="background:#49b596"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20"/></svg></span>
-          <span class="a" style="background:#57a889"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 2v6M13 2v6M7 8h10l-1 13H8z"/></svg></span>
+    </section>
+
+    <section class="section how" aria-labelledby="como-title">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Como funciona</span>
+          <h2 id="como-title">Da conversa ao orçamento em três passos.</h2>
         </div>
-        <p><b>Locação, oficina, clínica, salão…</b> qualquer serviço com tabela de preços.</p>
-      </div>
-    </div>
-
-    <div class="hero-media reveal">
-      <div class="glow"></div>
-      <div class="device"><img src="app-inicio.jpg" alt="Tela inicial do app Oravio com o campo para descrever o orçamento por voz ou texto"></div>
-      <div class="float tl">
-        <span class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span>
-        <span><span class="ft">Orçamento pronto</span><br><span class="fs">em segundos</span></span>
-      </div>
-      <div class="float br">
-        <span class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
-        <span><span class="ft">PDF gerado</span><br><span class="fs">com a sua marca</span></span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== PILARES (faixa escura) ====== -->
-<div class="pillars">
-  <div class="wrap pillars-inner">
-    <div class="pillar">
-      <div class="pi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg></div>
-      <h3>Usa a sua tabela</h3>
-      <p>A IA nunca inventa um preço</p>
-    </div>
-    <div class="pillar">
-      <div class="pi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/><circle cx="12" cy="12" r="3"/></svg></div>
-      <h3>Funciona offline</h3>
-      <p>Monta e salva sem internet</p>
-    </div>
-    <div class="pillar">
-      <div class="pi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></div>
-      <h3>Pronto pra enviar</h3>
-      <p>PDF com o nome do seu negócio</p>
-    </div>
-  </div>
-</div>
-
-<!-- ====== DOR ====== -->
-<section class="pain">
-  <div class="wrap pain-inner">
-    <span class="kicker">Por que o Oravio existe</span>
-    <h2>Você fecha o serviço. O orçamento fica pra depois.</h2>
-    <p>O cliente pergunta o preço, você diz “já te mando”. Aí vem o corre do dia, o orçamento atrasa, e quando você lembra o cliente já fechou com outro. <span class="hot">Orçamento frio é serviço que não fecha.</span></p>
-    <div class="amber-note">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      <span>O próprio Oravio te avisa quando um orçamento está parado há dias esperando resposta.</span>
-    </div>
-  </div>
-</section>
-
-<!-- ====== VISÃO GERAL (checklist | cartão desenhado) ====== -->
-<section class="band" id="como">
-  <div class="wrap overview-grid">
-    <div class="ov-copy">
-      <span class="kicker">Como funciona</span>
-      <h2>Do jeito que você fala, pronto pra enviar.</h2>
-      <p>Fale o serviço, confira o que o Oravio entendeu e mande o PDF. Sem formulário no meio do atendimento, sem somar nada na mão.</p>
-      <div class="checklist">
-        <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span>Cada item vem do <strong>seu</strong> catálogo de preços — a IA não chuta valor.</span></div>
-        <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span>Você confere e ajusta antes de salvar. Nada é enviado sem o seu ok.</span></div>
-        <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span>O cliente recebe um documento com o nome da sua empresa, não um print.</span></div>
-      </div>
-    </div>
-    <div class="ov-media">
-      <div class="glow"></div>
-      <div class="quote">
-        <div class="quote-head">
-          <div class="lbl">Orçamento · #ORC-2026-0039</div>
-          <div class="cli">Construtora Rio Claro</div>
-          <div class="meta">Montado pela sua fala · valores da sua tabela</div>
+        <div class="steps">
+          <article class="step">
+            <div class="step-number" aria-hidden="true">1</div>
+            <h3>Manda como já chega</h3>
+            <p>Áudio gravado, mensagem colada ou print da conversa.</p>
+          </article>
+          <article class="step">
+            <div class="step-number" aria-hidden="true">2</div>
+            <h3>Confere na tela</h3>
+            <p>Cliente, itens e quantidades, tudo editável antes de salvar.</p>
+          </article>
+          <article class="step">
+            <div class="step-number" aria-hidden="true">3</div>
+            <h3>Envia</h3>
+            <p>PDF com o cabeçalho do seu negócio, ou um link pro cliente abrir.</p>
+          </article>
         </div>
-        <div class="quote-tiles">
-          <div class="tile"><div class="tl">Itens</div><div class="tv">3</div></div>
-          <div class="tile"><div class="tl">Do catálogo</div><div class="tv g">100%</div></div>
-        </div>
-        <div class="quote-items">
-          <div class="qi"><span class="name"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Plataforma elevatória</span><span class="val">R$ 780,00</span></div>
-          <div class="qi"><span class="name"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Betoneira 400L</span><span class="val">R$ 180,00</span></div>
-          <div class="qi"><span class="name"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Transporte e entrega</span><span class="val">R$ 140,00</span></div>
-        </div>
-        <div class="quote-total"><span class="lab">Total</span><b>R$ 1.100,00</b></div>
-        <div class="quote-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>Enviar o PDF</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== BARRA DE SEGMENTOS ====== -->
-<div class="segbar">
-  <div class="wrap">
-    <div class="lbl">Feito pra todo tipo de serviço</div>
-    <div class="row">
-      <span class="seg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Locação</span>
-      <span class="seg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 1-5.6 5.6l-4.4 4.4a2 2 0 1 0 2.8 2.8l4.4-4.4a4 4 0 0 1 5.6-5.6"/></svg>Oficina</span>
-      <span class="seg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Clínica</span>
-      <span class="seg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20"/></svg>Salão</span>
-      <span class="seg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/><circle cx="12" cy="12" r="3"/></svg>Assistência técnica</span>
-    </div>
-  </div>
-</div>
-
-<!-- ====== RECURSOS ====== -->
-<section class="band" id="recursos">
-  <div class="wrap">
-    <div class="band-head">
-      <span class="kicker">Recursos</span>
-      <h2>Feito pra quem faz orçamento o dia todo.</h2>
-      <p>Cada recurso pensado pra tirar a tarefa chata da sua lista e te devolver tempo pro que importa.</p>
-    </div>
-    <div class="features">
-      <div class="feat">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></div>
-        <h3>Da fala ao PDF em segundos</h3>
-        <p>Grava um áudio ou digita e o documento sai pronto. O que levava minutos vira questão de segundos.</p>
-      </div>
-      <div class="feat">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg></div>
-        <h3>Com o nome do seu negócio</h3>
-        <p>PDF formal com a sua marca. O cliente recebe algo profissional, não um textão no chat.</p>
-      </div>
-      <div class="feat">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 11 3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <h3>Preço sempre certo</h3>
-        <p>Cada item vem da sua tabela. A IA nunca inventa um valor — ela casa com o que você já cadastrou.</p>
-      </div>
-      <div class="feat">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></div>
-        <h3>Ajuste na conversa</h3>
-        <p>Errou uma quantidade ou quer dar um desconto? Corrige o item ali mesmo, sem refazer tudo.</p>
-      </div>
-      <div class="feat">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <h3>Funciona offline</h3>
-        <p>Sem sinal na casa do cliente? Monta e salva mesmo assim. Quando a internet volta, sobe sozinho.</p>
-      </div>
-      <div class="feat">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="7"/><rect x="12" y="7" width="3" height="11"/><rect x="17" y="13" width="3" height="5"/></svg></div>
-        <h3>Tudo guardado</h3>
-        <p>Cada orçamento fica salvo e organizado. Precisou consultar o que passou mês passado? Está lá.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== PLANOS (PLACEHOLDER: preços fictícios) ====== -->
-<section class="band plans" id="planos">
-  <div class="wrap">
-    <div class="band-head">
-      <span class="kicker">Planos</span>
-      <h2>Comece grátis. Pague só se valer.</h2>
-      <p>Todos os planos incluem 14 dias grátis. Sem fidelidade — cancela quando quiser.</p>
-    </div>
-    <div class="plan-scroll">
-      <div class="plan">
-        <div class="pname">Início</div>
-        <div class="pdesc">Pra quem faz orçamento de vez em quando.</div>
-        <div class="price"><span class="cur">R$</span><span class="val">29</span><span class="per">/mês</span></div>
-        <ul>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>30 orçamentos por mês</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>1 usuário</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>PDF com a sua marca</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Orçamento por voz e texto</li>
-        </ul>
-        <a href="https://app.oravio.com.br" class="btn btn-ghost">Começar grátis</a>
-      </div>
-      <div class="plan featured">
-        <span class="badge">Mais usado</span>
-        <div class="pname">Profissional</div>
-        <div class="pdesc">Pra quem vive de fechar serviço.</div>
-        <div class="price"><span class="cur">R$</span><span class="val">59</span><span class="per">/mês</span></div>
-        <ul>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Orçamentos ilimitados</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Até 3 usuários</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Catálogo de preços completo</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Histórico e busca de orçamentos</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Funciona offline</li>
-        </ul>
-        <a href="https://app.oravio.com.br" class="btn btn-primary">Começar grátis</a>
-      </div>
-      <div class="plan">
-        <div class="pname">Equipe</div>
-        <div class="pdesc">Pra negócio com várias mãos no atendimento.</div>
-        <div class="price"><span class="cur">R$</span><span class="val">119</span><span class="per">/mês</span></div>
-        <ul>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Tudo do Profissional</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Usuários ilimitados</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Vários catálogos por unidade</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>Suporte prioritário</li>
-        </ul>
-        <a href="https://app.oravio.com.br" class="btn btn-ghost">Começar grátis</a>
-      </div>
-    </div>
-    <p class="plans-foot">Valores ilustrativos — ajuste conforme o plano real do Oravio.</p>
-  </div>
-</section>
-
-<!-- ====== GARANTIAS ====== -->
-<section class="band">
-  <div class="wrap">
-    <div class="band-head">
-      <span class="kicker">Sem pegadinha</span>
-      <h2>Você testa sem risco.</h2>
-    </div>
-    <div class="guar">
-      <div class="g"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><h3>14 dias grátis</h3><p>Teste com clientes de verdade antes de decidir qualquer coisa.</p></div></div>
-      <div class="g"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div><div><h3>Sem cartão pra começar</h3><p>Cria a conta e usa na hora. Só pede pagamento se você quiser continuar.</p></div></div>
-      <div class="g"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></div><div><h3>Cancela quando quiser</h3><p>Sem multa, sem fidelidade, sem letra miúda. Saiu, parou de pagar.</p></div></div>
-      <div class="g"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div><h3>Seus dados são seus</h3><p>Sua tabela e seus clientes ficam com você. A gente não vende nem compartilha nada.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== FAQ ====== -->
-<section class="band" id="faq" style="background:var(--surface-alt);border-top:1px solid var(--surface-alt);border-bottom:1px solid var(--surface-alt)">
-  <div class="wrap">
-    <div class="band-head">
-      <span class="kicker">Dúvidas</span>
-      <h2>Perguntas de quem tá começando.</h2>
-    </div>
-    <div class="faq">
-      <details>
-        <summary>A IA pode inventar um preço errado?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <div class="ans">Não. O Oravio só usa os valores da sua tabela de preços. Ele casa cada item do que você falou com o que está cadastrado — e mostra tudo pra você conferir antes de salvar. O preço quem manda é você.</div>
-      </details>
-      <details>
-        <summary>Preciso de internet pra usar?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <div class="ans">Dá pra montar e salvar o orçamento mesmo sem sinal — por exemplo, na casa do cliente. Quando a internet volta, o Oravio sincroniza sozinho.</div>
-      </details>
-      <details>
-        <summary>Serve pro meu tipo de negócio?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <div class="ans">Se você faz orçamento com tabela de preços, serve. Locação, oficina, clínica, salão, assistência técnica e por aí vai — o Oravio não é preso a um único ramo.</div>
-      </details>
-      <details>
-        <summary>Como o cliente recebe o orçamento?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <div class="ans">Num PDF com o nome e a marca da sua empresa, pronto pra mandar no WhatsApp — ou num link que ele abre direto no celular. Nada de print de tela.</div>
-      </details>
-      <details>
-        <summary>Posso cancelar quando quiser?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <div class="ans">Pode. São 14 dias grátis pra testar, sem cartão. Depois, sem fidelidade e sem multa: se cancelar, é só parar de pagar.</div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ====== CTA FINAL ====== -->
-<section class="cta-final">
-  <div class="wrap">
-    <div class="cta-box">
-      <div class="glow"></div>
-      <h2>O orçamento sai na hora.</h2>
-      <p>Crie sua conta, cadastre sua tabela de preços e faça o primeiro orçamento hoje mesmo.</p>
-      <a href="https://app.oravio.com.br" class="btn btn-primary btn-lg">Criar minha conta grátis <span class="arrow">→</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ====== FOOTER ====== -->
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a href="#" class="brand"><svg width="32" height="32" viewBox="0 0 512 512" aria-hidden="true"><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z" fill="#18b98a"></path><rect x="120.7" y="137.2" width="102.6" height="153.6" rx="12" fill="#ffffff"></rect><rect x="281.8" y="54.5" width="102.6" height="236.2" rx="12" fill="#ffffff"></rect><path d="M56 299 C156 480 356 480 456 299 C356 404 156 404 56 299 Z" fill="#ffffff"></path></svg> <svg viewBox="77 465 248.181 60.823" width="85.7" height="21" fill="none" aria-hidden="true"><path d="M100.233 480.592C103.887 480.592 107.129 481.184 109.959 482.367C112.841 483.499 115.285 485.068 117.292 487.075C119.299 489.082 120.842 491.424 121.923 494.1C123.003 496.724 123.544 499.503 123.544 502.436V504.211C123.544 507.093 123.029 509.846 122 512.471C120.971 515.043 119.453 517.333 117.446 519.34C115.491 521.347 113.072 522.942 110.19 524.126C107.309 525.258 103.99 525.823 100.233 525.823C96.5285 525.823 93.2351 525.258 90.3535 524.126C87.4719 522.942 85.0274 521.347 83.0205 519.34C81.0653 517.333 79.5731 515.043 78.5439 512.471C77.5148 509.846 77 507.093 77 504.211V502.436C77 499.503 77.5148 496.724 78.5439 494.1C79.6246 491.424 81.168 489.082 83.1748 487.075C85.2331 485.068 87.7034 483.499 90.585 482.367C93.4666 481.184 96.6828 480.592 100.233 480.592ZM100.233 491.012C97.9693 491.012 96.0138 491.552 94.3672 492.633C92.7205 493.713 91.4598 495.181 90.585 497.033C89.7617 498.834 89.3496 500.944 89.3496 503.362C89.3496 505.626 89.7617 507.685 90.585 509.537C91.4083 511.39 92.6434 512.83 94.29 513.859C95.9367 514.889 97.9178 515.403 100.233 515.403C102.652 515.403 104.659 514.889 106.254 513.859C107.849 512.83 109.059 511.39 109.882 509.537C110.757 507.685 111.194 505.626 111.194 503.362C111.194 500.944 110.757 498.834 109.882 497.033C109.007 495.181 107.746 493.713 106.1 492.633C104.504 491.552 102.549 491.012 100.233 491.012Z" fill="#eef3f0" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M179.71 481.363C184.032 481.363 187.661 481.981 190.594 483.216C193.578 484.451 195.842 486.329 197.386 488.851C198.929 491.321 199.701 494.511 199.701 498.422V524.357H189.898V516.205C189.554 517.292 189.117 518.285 188.586 519.186C187.454 521.192 185.859 522.736 183.801 523.816C181.794 524.897 179.324 525.438 176.391 525.438C173.355 525.437 170.679 524.897 168.363 523.816C166.099 522.736 164.324 521.192 163.037 519.186C161.751 517.127 161.107 514.683 161.107 511.853C161.107 508.765 161.906 506.243 163.501 504.288C165.096 502.281 167.334 500.815 170.216 499.889C173.097 498.911 176.416 498.422 180.173 498.422H187.814V498.268C187.814 496.106 187.3 494.486 186.271 493.405C185.241 492.325 183.595 491.784 181.331 491.784C180.199 491.784 178.706 491.81 176.854 491.861C175.001 491.913 173.097 491.99 171.142 492.093C169.186 492.196 167.411 492.298 165.816 492.401V481.981C167 481.879 168.389 481.776 169.984 481.673C171.579 481.57 173.226 481.492 174.924 481.44C176.622 481.389 178.218 481.363 179.71 481.363ZM180.096 505.292C177.934 505.292 176.262 505.832 175.078 506.913C173.946 507.942 173.381 509.357 173.381 511.158C173.381 512.856 173.946 514.246 175.078 515.326C176.262 516.355 177.934 516.87 180.096 516.87C181.485 516.87 182.72 516.638 183.801 516.175C184.933 515.66 185.859 514.811 186.579 513.628C187.299 512.444 187.712 510.798 187.814 508.688V505.292H180.096Z" fill="#eef3f0" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M158.252 492.17H155.165C151.769 492.17 149.144 493.096 147.292 494.948C145.439 496.749 144.513 499.375 144.513 502.822V524.357H132.163V482.059H141.966V496.02C142.435 492.034 143.619 488.821 145.517 486.381C148.09 483.139 151.795 481.519 156.632 481.519H158.252V492.17Z" fill="#eef3f0"></path><path d="M226.687 514.091H228.513L236.287 482.059H248.174L237.213 524.357H217.607L204.949 482.059H217.685L226.687 514.091Z" fill="#eef3f0"></path><path d="M301.87 480.592C305.524 480.592 308.766 481.184 311.596 482.367C314.477 483.499 316.922 485.068 318.929 487.075C320.936 489.082 322.479 491.424 323.56 494.1C324.64 496.724 325.181 499.503 325.181 502.436V504.211C325.181 507.093 324.666 509.846 323.637 512.471C322.608 515.043 321.09 517.333 319.083 519.34C317.128 521.347 314.709 522.942 311.827 524.126C308.946 525.258 305.626 525.823 301.87 525.823C298.165 525.823 294.872 525.258 291.99 524.126C289.109 522.942 286.664 521.347 284.657 519.34C282.702 517.333 281.21 515.043 280.181 512.471C279.151 509.846 278.637 507.093 278.637 504.211V502.436C278.637 499.503 279.152 496.724 280.181 494.1C281.261 491.424 282.805 489.082 284.812 487.075C286.87 485.068 289.34 483.499 292.222 482.367C295.103 481.184 298.32 480.592 301.87 480.592ZM296.004 492.633C297.651 491.552 299.606 491.012 301.87 491.012C304.186 491.012 306.141 491.552 307.736 492.633C309.383 493.713 310.644 495.181 311.519 497.033C312.393 498.834 312.831 500.944 312.831 503.362C312.831 505.626 312.393 507.685 311.519 509.537C310.695 511.39 309.486 512.83 307.891 513.859C306.295 514.888 304.289 515.403 301.87 515.403C299.555 515.403 297.573 514.889 295.927 513.859C294.28 512.83 293.045 511.39 292.222 509.537C291.398 507.685 290.987 505.626 290.987 503.362C290.987 500.944 291.398 498.834 292.222 497.033C293.096 495.181 294.357 493.713 296.004 492.633Z" fill="#18b98a" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M269.839 524.357H257.489V491.167H251.854V482.059H269.839V524.357Z" fill="#18b98a"></path><path d="M262.274 465C264.59 465 266.289 465.618 267.369 466.853C268.501 468.036 269.067 469.58 269.067 471.483C269.067 473.336 268.501 474.88 267.369 476.115C266.289 477.299 264.59 477.891 262.274 477.891C259.959 477.891 258.235 477.299 257.103 476.115C256.022 474.88 255.481 473.336 255.481 471.483C255.482 469.58 256.022 468.036 257.103 466.853C258.235 465.618 259.959 465 262.274 465Z" fill="#18b98a"></path></svg></a>
-        <p>Orçamento por voz para quem vive de serviço. Fale, confira e envie — o resto é com a gente.</p>
-      </div>
-      <div class="foot-cols">
-        <div class="foot-col">
-          <h4>Produto</h4>
-          <a href="#como">Como funciona</a>
-          <a href="#recursos">Recursos</a>
-          <a href="#planos">Planos</a>
-          <a href="#faq">FAQ</a>
-          <a href="https://app.oravio.com.br">Entrar</a>
-        </div>
-        <div class="foot-col">
-          <h4>Empresa</h4>
-          <a href="ajuda.html">Ajuda</a>
-          <a href="privacidade.html">Privacidade</a>
-          <a href="termos.html">Termos</a>
-          <a href="mailto:contato@oravio.com.br">Contato</a>
+        <div class="flow-stage" aria-label="Fluxo real do Oravio">
+          <figure class="flow-shot phone-shot">
+            <img src="app-orcamento.jpg" alt="Tela de conferência do orçamento no Oravio com cliente, item, quantidade e total editáveis">
+            <figcaption>Confira cliente, item, quantidade e valor antes de salvar.</figcaption>
+          </figure>
+          <figure class="flow-shot paper-shot">
+            <img src="app-pdf.jpg" alt="Exemplo de orçamento em PDF gerado pelo Oravio com dados do negócio e do cliente">
+            <figcaption>Depois, envie um PDF com os dados do seu negócio.</figcaption>
+          </figure>
         </div>
       </div>
-    </div>
-    <div class="foot-bottom">
-      <span>© 2026 Oravio. Todos os direitos reservados.</span>
-      <span>oravio.com.br</span>
-    </div>
-  </div>
-</footer>
+    </section>
 
-<script>
-  var ham=document.getElementById('ham'), mob=document.getElementById('mob');
-  ham.addEventListener('click',function(){ham.classList.toggle('open');mob.classList.toggle('show');});
-  mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){ham.classList.remove('open');mob.classList.remove('show');});});
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  window.addEventListener('load',function(){
-    if(reduce){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in');});return;}
-    document.querySelectorAll('.hero .reveal').forEach(function(e,i){setTimeout(function(){e.classList.add('in');},120+i*110);});
-  });
-</script>
+    <section class="section" aria-labelledby="faz-title">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">O que o Oravio faz</span>
+          <h2 id="faz-title">Menos digitação. Mais orçamento enviado.</h2>
+          <p>O trabalho continua do seu jeito. O Oravio só organiza o que chegou e deixa tudo pronto pra você conferir.</p>
+        </div>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M17 7.5c0-2-2.2-3.5-5-3.5S7 5.2 7 7c0 5 10 2 10 7 0 1.8-2.2 3-5 3s-5-1.5-5-3.5"/></svg></div>
+            <h3>Nunca inventa preço</h3>
+            <p>Todo valor vem do seu catálogo. Item sem preço fica marcado e nunca vira zero.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg></div>
+            <h3>Catálogo seu</h3>
+            <p>Cadastre item a item ou importe a sua planilha de preços.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c.5-4 2.5-6 6-6s5.5 2 6 6M16 7h5M18.5 4.5v5"/></svg></div>
+            <h3>Clientes sem digitar</h3>
+            <p>Nome e telefone viram cadastro. Se houver nomes iguais, o app para e pergunta.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM15 3v5h5M9 13h7M9 17h5"/></svg></div>
+            <h3>Orçamento em PDF</h3>
+            <p>A4 com os dados do seu negócio, pronto pro WhatsApp — ou um link pra abrir.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 9a10 10 0 0 1 14 0M8 12a6 6 0 0 1 8 0M11 15a2 2 0 0 1 2 0M3 3l18 18"/></svg></div>
+            <h3>Funciona sem sinal</h3>
+            <p>Abre, mostra e grava offline. A rede voltou, sobe sozinho. Nada se perde.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.6M8.2 13.2l7.6 4.6"/></svg></div>
+            <h3>Entra pelo Compartilhar</h3>
+            <p>O Oravio aparece no menu do Android ao compartilhar uma conversa ou foto.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-wrap" aria-labelledby="preco-title">
+      <div class="wrap">
+        <div class="trust">
+          <div class="trust-copy">
+            <span class="eyebrow">Preço certo</span>
+            <h2 id="preco-title">A mensagem pode mudar. O preço não é inventado.</h2>
+            <p>O Oravio lê o pedido e encontra os itens. Quem define o valor é a tabela do seu negócio, <strong>conferida item a item</strong>. Se algo não estiver cadastrado, fica sem preço até você decidir.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="waitlist" id="lista" aria-labelledby="lista-title">
+      <div class="wrap">
+        <form class="form-card" action="mailto:contato@oravio.com.br" method="post" enctype="text/plain">
+          <div class="form-head">
+            <span class="eyebrow">Beta fechado</span>
+            <h2 id="lista-title">Solicite seu acesso.</h2>
+            <p>Conte um pouco do seu negócio. A gente entra em contato quando abrir uma vaga.</p>
+          </div>
+          <div class="fields">
+            <div class="field">
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome" required>
+            </div>
+            <div class="field">
+              <label for="negocio">Nome do negócio</label>
+              <input id="negocio" name="negocio" type="text" autocomplete="organization" placeholder="Nome da empresa" required>
+            </div>
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="voce@empresa.com.br" required>
+            </div>
+            <div class="field">
+              <label for="whatsapp">WhatsApp</label>
+              <input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000" required>
+            </div>
+            <div class="field">
+              <label for="segmento">Segmento</label>
+              <select id="segmento" name="segmento" required>
+                <option value="" selected disabled>Escolha uma opção</option>
+                <option>Oficina</option>
+                <option>Salão</option>
+                <option>Pet shop</option>
+                <option>Consultório</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <button class="btn" type="submit">Entrar na lista de espera</button>
+          </div>
+          <p class="form-note">Sem cobrança. A gente chama pelo WhatsApp quando abrir vaga.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span class="brand">Oravio</span>
+      <span>© <span id="ano">2026</span> Oravio.</span>
+    </div>
+  </footer>
+  <script>document.getElementById('ano').textContent = new Date().getFullYear();</script>
 </body>
 </html>
