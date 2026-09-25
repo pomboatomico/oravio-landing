@@ -78,8 +78,11 @@
   .hero-media{display:flex;justify-content:center;position:relative}
   .glow{position:absolute;z-index:0;border-radius:50%;background:var(--green-fill);filter:blur(90px);pointer-events:none}
   .hero-media .glow{width:520px;height:520px;top:-30px;right:-20px;opacity:.24}
-  .device{position:relative;z-index:1;background:#0a0f0c;border:1px solid var(--line);border-radius:42px;padding:9px;box-shadow:var(--shadow);width:280px}
-  .device img{border-radius:34px;width:100%;display:block}
+  /* Perfil de aparelho Android atual: canto reto e moldura fina.
+     O raio de dentro é o de fora MENOS a moldura — é isso que faz a borda
+     ter espessura igual no canto e na reta, em vez de engrossar na curva. */
+  .device{--bezel:5px;--raio:27px;position:relative;z-index:1;background:#0a0f0c;border:1px solid var(--line);border-radius:var(--raio);padding:var(--bezel);box-shadow:var(--shadow);width:280px}
+  .device img{border-radius:calc(var(--raio) - var(--bezel));width:100%;display:block}
 
   /* Os dois celulares do herói: a fala entrando e o documento saindo.
      Sobrepostos na MESMA célula de grade — assim o par continua centrado
@@ -172,7 +175,9 @@
      sem pé. A moldura de celular é o que dá borda aos dois por igual.
      Medida em vw e travada nas pontas: o par precisa caber LADO A LADO em
      qualquer tela, porque a comparação entre os dois temas é o conteúdo. */
-  .theme-shot .device{width:clamp(126px,40vw,236px)}
+  /* Aparelho menor pede canto e moldura menores na mesma proporção, senão a
+     borda vira um quadro grosso em volta de um print pequeno. */
+  .theme-shot .device{--bezel:4px;--raio:22px;width:clamp(126px,40vw,236px)}
   .theme-shot figcaption{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--muted)}
   .theme-shot .dot{width:11px;height:11px;border-radius:50%;border:1px solid var(--line);flex:none}
   .theme-shot .dot.dark{background:#0d120f}
@@ -265,7 +270,8 @@
     .devices .device-back{transform:translateX(48px) scale(.945)}
   }
   @media (max-width:620px){
-    .devices .device{width:192px}
+    .devices .device{width:192px;--bezel:4px;--raio:21px}
+    .theme-shot .device{--bezel:3px;--raio:15px}
     .devices .device-front{transform:translateX(-46px)}
     .devices .device-back{transform:translateX(46px) scale(.945)}
     /* O selo some no celular: sobre uma composição de ~280px ele cobria metade
