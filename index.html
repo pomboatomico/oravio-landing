@@ -124,22 +124,22 @@
     <div class="ov-media reveal">
       <div class="glow"></div>
       <div class="quote">
-        <div class="quote-head">
+        <div class="quote-head quote-step">
           <div class="lbl">Orçamento · #ORC-2026-0039</div>
           <div class="cli">Construtora Rio Claro</div>
           <div class="meta">Montado pela sua fala · valores da sua tabela</div>
         </div>
-        <div class="quote-tiles">
+        <div class="quote-tiles quote-step">
           <div class="tile"><div class="tl">Itens</div><div class="tv">3</div></div>
           <div class="tile"><div class="tl">Do catálogo</div><div class="tv g">100%</div></div>
         </div>
         <div class="quote-items">
-          <div class="qi"><span class="name"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Plataforma elevatória</span><span class="val">R$ 780,00</span></div>
-          <div class="qi"><span class="name"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Betoneira 400L</span><span class="val">R$ 180,00</span></div>
-          <div class="qi"><span class="name"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Transporte e entrega</span><span class="val">R$ 140,00</span></div>
+          <div class="qi quote-step"><span class="name"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Plataforma elevatória</span><span class="val">R$ 780,00</span></div>
+          <div class="qi quote-step"><span class="name"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Betoneira 400L</span><span class="val">R$ 180,00</span></div>
+          <div class="qi quote-step"><span class="name"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Transporte e entrega</span><span class="val">R$ 140,00</span></div>
         </div>
-        <div class="quote-total"><span class="lab">Total</span><b>R$ 1.100,00</b></div>
-        <div class="quote-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>Enviar o PDF</div>
+        <div class="quote-total quote-step"><span class="lab">Total</span><b>R$ 1.100,00</b></div>
+        <div class="quote-btn quote-step"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>Enviar o PDF</div>
       </div>
     </div>
   </div>
@@ -338,6 +338,19 @@
       });
     },{threshold:.15,rootMargin:'0px 0px -60px 0px'});
     targets.forEach(function(e){io.observe(e);});
+
+    var quote=document.querySelector('.quote');
+    if(quote){
+      var steps=quote.querySelectorAll('.quote-step');
+      var quoteIo=new IntersectionObserver(function(entries,obs){
+        entries.forEach(function(entry){
+          if(!entry.isIntersecting)return;
+          steps.forEach(function(step,i){setTimeout(function(){step.classList.add('in');},i*160);});
+          obs.disconnect();
+        });
+      },{threshold:.4});
+      quoteIo.observe(quote);
+    }
   });
 </script>
 </body>
