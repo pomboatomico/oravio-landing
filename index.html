@@ -69,92 +69,125 @@
   </div>
 </section>
 
-<!-- ====== OS TRÊS PASSOS ======
+<!-- ====== OS TRÊS PASSOS + CTA — "a jornada" ======
      Cada afirmação do produto tem UMA casa: o passo onde ela acontece.
-     Offline mora no Fale, a tabela de preços mora no Confira, PDF e link moram
-     no Envie. É isso que impede a página de repetir o mesmo argumento em
-     quatro lugares diferentes, como fazia a versão anterior. -->
-<div class="steps-band" id="passos">
-  <div class="wrap steps">
+     Jeito de falar e offline moram no Fale, a tabela de preços e a sugestão
+     moram no Confira, PDF, link e o estado da negociação moram no Envie. É isso
+     que impede a página de repetir o mesmo argumento em quatro lugares.
 
-    <!-- 1 — FALE -->
-    <section class="step">
-      <div class="step-copy reveal">
-        <span class="step-n"><b>1</b>Fale</span>
-        <h2>Descreva do jeito que você já fala.</h2>
-        <p class="step-lead">Aperta o microfone e fala o serviço. Sem formulário no meio do atendimento.</p>
-        <div class="checklist">
-          <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sem sinal na casa do cliente? Monta e salva offline — sobe sozinho quando a internet volta.</span></div>
-          <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Prefere digitar? Dá também.</span></div>
+     O TRILHO. Um fio só liga o aparelho do herói ao passo 1, ao 2, ao 3 e ao
+     botão final, e vai se preenchendo conforme a rolagem; cada número acende
+     quando o fio chega nele. Sem ele, os três passos eram três ilhas soltas no
+     escuro — a página não dizia que uma coisa leva à outra, nem onde você está.
+     Os números do trilho são só desenho (aria-hidden): quem usa leitor de tela
+     ouve "Passo 1 de 3" no rótulo de cada passo.
+
+     O FIO DA HISTÓRIA. É o MESMO orçamento nos três passos: a frase do passo 1
+     é a que aparece no topo da tela do passo 2, e os itens dela são os do PDF
+     do passo 3. As legendas dizem isso, pra quem rola sem ler os textos. -->
+<div class="jornada" id="passos">
+  <div class="trilho" aria-hidden="true"><i></i></div>
+
+  <div class="steps-band">
+    <div class="wrap steps">
+
+      <!-- 1 — FALE -->
+      <section class="step">
+        <span class="no" aria-hidden="true">1</span>
+        <div class="step-copy reveal">
+          <p class="step-n"><span class="sr">Passo 1 de 3: </span>Fale</p>
+          <h2>Descreva do jeito que você já fala.</h2>
+          <p class="step-lead">Aperta o microfone e fala o serviço — ou digita, se preferir. Sem formulário no meio do atendimento.</p>
+          <div class="checklist">
+            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Apelido, marca pela metade, “blutufi”: ele entende — e aprende como a sua loja chama cada item.</span></div>
+            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sem sinal na casa do cliente? Monte à mão e salve no aparelho — sobe sozinho quando a internet volta.</span></div>
+          </div>
         </div>
-      </div>
-      <div class="step-media reveal">
-        <div class="glow"></div>
-        <!-- Recorte, não outro print: é o rodapé da MESMA tela do herói, com o
-             enquadramento fechado no campo de voz. Repetir o aparelho inteiro
-             dois blocos seguidos parecia erro, e o microfone — que é o assunto
-             do passo — some quando a tela aparece por completo. -->
-        <figure class="shot-detail">
-          <img src="tela-inicio.jpg" width="600" height="1194" loading="lazy" decoding="async" alt="O campo Descreva o orçamento, com o botão de microfone ao lado">
-          <figcaption>Detalhe da tela inicial — é daqui que o orçamento começa.</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- 2 — CONFIRA -->
-    <section class="step">
-      <div class="step-copy reveal">
-        <span class="step-n"><b>2</b>Confira</span>
-        <h2>Veja o que ele entendeu, antes de salvar.</h2>
-        <p class="step-lead">Cada item aparece com o preço que veio da sua tabela. Nada é salvo sem o seu ok.</p>
-        <div class="checklist">
-          <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>A IA não inventa valor — ela casa o que você falou com o seu catálogo.</span></div>
-          <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Quantidade errada ou desconto? Corrige ali mesmo, sem refazer tudo.</span></div>
+        <div class="step-media reveal">
+          <div class="glow"></div>
+          <!-- Dois recortes do MESMO campo da tela inicial, empilhados: parado e
+               gravando. Ao entrar na tela, o "gravando" aparece por cima (é o
+               toque no microfone) e, logo depois, a frase dita surge acima dele.
+               A frase é um balão de fala, não uma tela do app: o Oravio não
+               transcreve ao vivo, e o desenho não pode sugerir que sim. -->
+          <div class="fala">
+            <blockquote class="fala-frase">
+              <span class="fala-quem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Você, no balcão</span>
+              <p>“Um Galaxy S24, 128 GB branco, um fone Bluetooth TWS e uma película de vidro 3D.”</p>
+            </blockquote>
+            <figure class="campo">
+              <div class="campo-telas">
+                <img src="campo-repouso.webp" width="600" height="140" loading="lazy" decoding="async" alt="O campo Descreva o orçamento, com o botão de microfone ao lado">
+                <img class="campo-grav" src="campo-gravando.webp" width="780" height="182" loading="lazy" decoding="async" alt="" aria-hidden="true">
+              </div>
+              <figcaption>Detalhe da tela inicial — é daqui que o orçamento começa.</figcaption>
+            </figure>
+          </div>
         </div>
-      </div>
-      <div class="step-media reveal">
-        <div class="glow"></div>
-        <img class="phone" src="aparelho-conferir.webp" width="600" height="1064" loading="lazy" decoding="async" alt="Tela de conferência do Oravio: a frase falada no topo, o cliente Samuel, três itens marcados como vindos do catálogo com quantidade ajustável, e o total de R$ 5.458,80">
-      </div>
-    </section>
+      </section>
 
-    <!-- 3 — ENVIE -->
-    <section class="step">
-      <div class="step-copy reveal">
-        <span class="step-n"><b>3</b>Envie</span>
-        <h2>Chega como documento, não como textão.</h2>
-        <p class="step-lead">PDF com o nome, o endereço e o telefone do seu negócio — ou um link que o cliente abre no navegador, sem instalar nada.</p>
-        <div class="checklist">
-          <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Nada de print de tela no WhatsApp.</span></div>
-          <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Mudou de ideia? Você derruba o link e ele para de abrir.</span></div>
+      <!-- 2 — CONFIRA -->
+      <section class="step">
+        <span class="no" aria-hidden="true">2</span>
+        <div class="step-copy reveal">
+          <p class="step-n"><span class="sr">Passo 2 de 3: </span>Confira</p>
+          <h2>Veja o que ele entendeu, antes de salvar.</h2>
+          <p class="step-lead">Cada item aparece com o preço que veio da sua tabela. Nada é salvo sem o seu ok.</p>
+          <div class="checklist">
+            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>A IA não inventa valor — ela casa o que você falou com o seu catálogo.</span></div>
+            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Ficou entre dois itens parecidos? Ele sugere o mais provável e deixa os outros a um toque.</span></div>
+            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Quantidade errada ou desconto? Corrige ali mesmo, sem refazer tudo.</span></div>
+          </div>
         </div>
-      </div>
-      <div class="step-media reveal">
-        <div class="glow"></div>
-        <!-- O PDF de verdade, recortado no fim da tabela (a metade de baixo da
-             folha é branco vazio). É o mesmo orçamento dos passos 1 e 2. -->
-        <figure class="paper">
-          <img src="tela-pdf.jpg" width="640" height="509" loading="lazy" decoding="async" alt="PDF do orçamento: Bits Celulares no topo com atendimento, endereço e telefone; cliente Samuel; Galaxy S24 128GB Branco, fone Bluetooth TWS e película de vidro 3D; total de R$ 5.458,80">
-          <figcaption>PDF real do Oravio — é isto que chega pro seu cliente.</figcaption>
-        </figure>
-      </div>
-    </section>
+        <div class="step-media reveal">
+          <div class="glow"></div>
+          <figure class="aparelho">
+            <img class="phone" src="aparelho-conferir.webp" width="600" height="1064" loading="lazy" decoding="async" alt="Tela de conferência do Oravio: a frase falada no topo, o cliente Samuel, três itens marcados como vindos do catálogo com quantidade ajustável, e o total de R$ 5.458,80">
+            <figcaption>A mesma frase, já virada em três itens.</figcaption>
+          </figure>
+        </div>
+      </section>
 
-  </div>
-</div>
+      <!-- 3 — ENVIE -->
+      <section class="step">
+        <span class="no" aria-hidden="true">3</span>
+        <div class="step-copy reveal">
+          <p class="step-n"><span class="sr">Passo 3 de 3: </span>Envie</p>
+          <h2>Chega como documento, não como textão.</h2>
+          <p class="step-lead">PDF com o nome, o endereço e o telefone do seu negócio — ou um link que o cliente abre no navegador, sem instalar nada.</p>
+          <div class="checklist">
+            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Cliente aceitou? Marque no app — a lista mostra em que pé está cada orçamento.</span></div>
+            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Mudou de ideia? Você derruba o link e ele para de abrir.</span></div>
+          </div>
+        </div>
+        <div class="step-media reveal">
+          <div class="glow"></div>
+          <!-- O PDF de verdade, recortado no fim da tabela (a metade de baixo da
+               folha é branco vazio). É o mesmo orçamento dos passos 1 e 2. -->
+          <figure class="paper">
+            <img src="tela-pdf.jpg" width="640" height="509" loading="lazy" decoding="async" alt="PDF do orçamento: Bits Celulares no topo com atendimento, endereço e telefone; cliente Samuel; Galaxy S24 128GB Branco, fone Bluetooth TWS e película de vidro 3D; total de R$ 5.458,80">
+            <figcaption>O mesmo orçamento, em PDF — é isto que chega pro seu cliente.</figcaption>
+          </figure>
+        </div>
+      </section>
 
-<!-- ====== CTA FINAL ====== -->
-<section class="cta-final">
-  <div class="wrap">
-    <div class="cta-box reveal">
-      <div class="glow"></div>
-      <h2>O orçamento sai na hora.</h2>
-      <p>A primeira turma é pequena de propósito: cada empresa é acompanhada de perto no começo. Garanta sua vaga — a gente libera a conta pelo WhatsApp.</p>
-      <a href="#vaga" data-vaga class="btn btn-primary btn-lg">Quero minha vaga no beta <span class="arrow">→</span></a>
-      <p class="vagas">Turma 1 · 15 vagas · sem custo nesta fase</p>
     </div>
   </div>
-</section>
+
+  <!-- ====== CTA FINAL — o fim do trilho ====== -->
+  <section class="cta-final">
+    <div class="wrap">
+      <span class="no no-fim" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <div class="cta-box reveal">
+        <div class="glow"></div>
+        <h2>O orçamento sai na hora.</h2>
+        <p>A primeira turma é pequena de propósito: cada empresa é acompanhada de perto no começo. Garanta sua vaga — a gente libera a conta pelo WhatsApp.</p>
+        <a href="#vaga" data-vaga class="btn btn-primary btn-lg">Quero minha vaga no beta <span class="arrow">→</span></a>
+        <p class="vagas">Turma 1 · 15 vagas · sem custo nesta fase</p>
+      </div>
+    </div>
+  </section>
+</div>
 
 <!-- ====== FOOTER ====== -->
 <footer>
@@ -237,6 +270,40 @@
     },{threshold:.15,rootMargin:'0px 0px -60px 0px'});
     targets.forEach(function(e){io.observe(e);});
   });
+
+  /* O TRILHO. Mede, não calcula: a posição de cada número é lida da tela, e
+     refeita sempre que a jornada muda de tamanho (imagem que termina de baixar,
+     fonte que chega, giro do celular). A "linha de chegada" fica a 55% da
+     altura da tela: o fio se enche até ela, e o número que ela já passou
+     acende — os dois usam a mesma conta, então o fio chega JUNTO com o número.
+     No computador o fio sai de baixo do aparelho do herói; no celular, que não
+     tem aparelho centralizado em cima, ele começa no número 1. */
+  (function(){
+    var j=document.querySelector('.jornada'); if(!j)return;
+    var trilho=j.querySelector('.trilho'), cheio=trilho.firstElementChild;
+    var nos=Array.prototype.slice.call(j.querySelectorAll('.no'));
+    var largo=window.matchMedia('(min-width:901px)');
+    var topo=0, alt=0, centros=[], agendado=false;
+    function pintar(){
+      agendado=false;
+      var linha=window.innerHeight*.55-j.getBoundingClientRect().top;
+      var p=alt?Math.min(1,Math.max(0,(linha-topo)/alt)):0;
+      cheio.style.transform='scaleY('+p+')';
+      for(var i=0;i<nos.length;i++)nos[i].classList.toggle('on',centros[i]<=linha);
+    }
+    function medir(){
+      var jt=j.getBoundingClientRect().top;
+      centros=nos.map(function(n){var r=n.getBoundingClientRect();return r.top+r.height/2-jt;});
+      topo=largo.matches?0:centros[0];
+      alt=Math.max(0,centros[centros.length-1]-topo);
+      trilho.style.top=topo+'px';trilho.style.height=alt+'px';
+      pintar();
+    }
+    window.addEventListener('scroll',function(){if(!agendado){agendado=true;requestAnimationFrame(pintar);}},{passive:true});
+    window.addEventListener('resize',medir);
+    if('ResizeObserver' in window)new ResizeObserver(medir).observe(j);
+    medir();
+  })();
 
   (function(){
     var URL='https://pdpjgshtjozxhdxekrha.supabase.co/rest/v1/lista_espera';

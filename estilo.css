@@ -52,7 +52,7 @@
   .nav-links a{color:var(--muted);font-size:15px;font-weight:500;transition:color .2s}
   .nav-links a:hover{color:var(--text)}
   .nav-cta{display:flex;align-items:center;gap:12px}
-  .nav-cta .btn{padding:11px 18px}
+  .nav-cta .btn{padding:11px 18px;white-space:nowrap}
   .hamburger{display:none;background:none;border:1px solid var(--line);border-radius:10px;padding:9px;cursor:pointer}
   .hamburger span{display:block;width:20px;height:2px;background:var(--text);margin:4px 0;border-radius:2px;transition:.25s}
   .hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
@@ -114,33 +114,72 @@
      espaço com vizinhos. Densidade baixa é a mensagem — o produto é simples. */
   .steps-band{padding:clamp(72px,9vw,104px) 0}
   .steps{display:flex;flex-direction:column;gap:clamp(72px,9vw,128px)}
-  .step{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,72px);align-items:center}
+  /* Três colunas: texto · trilho · imagem. A do meio é a faixa por onde o fio
+     passa, e o número do passo mora nela, no centro vertical da linha. */
+  .step{--no:48px;display:grid;grid-template-columns:1fr var(--no) 1fr;column-gap:clamp(28px,4vw,56px);align-items:center}
+  .step>.no{grid-column:2;grid-row:1}
+  .step-copy{grid-column:1;grid-row:1}
+  .step-media{grid-column:3;grid-row:1}
   /* Alterna o lado da imagem. O olho volta pro começo da linha a cada passo, e
-     é isso que marca a virada de etapa — sem precisar de linha divisória. */
-  .step:nth-child(even) .step-media{order:-1}
-  .step-n{display:inline-flex;align-items:center;gap:12px;color:var(--green);font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
-  .step-n b{width:30px;height:30px;border-radius:50%;background:var(--green-fill);border:1px solid rgba(45,224,172,.3);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;letter-spacing:0}
+     é isso que marca a virada de etapa. */
+  .step:nth-child(even) .step-copy{grid-column:3}
+  .step:nth-child(even) .step-media{grid-column:1}
+  .step-n{color:var(--green);font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
   .step h2{font-size:clamp(26px,3vw,38px);margin-bottom:16px}
   .step-lead{color:var(--muted);font-size:17px;max-width:44ch;margin-bottom:28px}
   .step-media{position:relative;display:flex;justify-content:center}
   .step-media .glow{width:440px;height:440px;opacity:.16;top:0;left:20px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
   .checklist{display:flex;flex-direction:column;gap:15px}
   .checklist .c{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
   .checklist .c svg{color:var(--green);flex:none;margin-top:3px}
 
-  /* Recorte de tela (passo 1) — mostra só a faixa do campo de voz.
-     `object-fit:cover` faz a imagem cobrir a moldura pela largura; o
-     `object-position` vertical é que escolhe QUAL faixa dos 1194px aparece.
-     89,1% cai logo acima da barra de navegação: pega o campo inteiro e não
-     deixa entrar meia fileira de ícones cortada no rodapé. */
-  .shot-detail{position:relative;z-index:1;width:100%;max-width:400px;background:#0a0f0c;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)}
-  .shot-detail img{width:100%;aspect-ratio:600/140;object-fit:cover;object-position:0 89.1%}
-  .shot-detail figcaption{padding:13px 16px;font-size:12.5px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
+  /* ====== O trilho ======
+     `.trilho` é o fio apagado; o `<i>` dentro dele é a parte já percorrida.
+     Posição e altura vêm do script, MEDIDAS dos números na tela (o fio começa
+     embaixo do aparelho do herói e termina no ✓ da caixa final) — calcular
+     por CSS erraria a cada imagem que termina de baixar e empurra a página.
+     O preenchimento é `scaleY` no próprio `<i>`: só transform, sem mexer em
+     altura, então rolar não refaz o layout da página. */
+  /* `clip` e não `hidden`: corta o brilho das imagens que passava da borda da
+     tela no celular (a página ficava 140px mais larga que o aparelho), sem
+     transformar a jornada numa caixa com rolagem própria. */
+  .jornada{position:relative;overflow-x:clip}
+  .trilho{position:absolute;z-index:0;left:50%;width:2px;margin-left:-1px;top:0;height:0;background:var(--line);border-radius:2px;pointer-events:none}
+  .trilho i{position:absolute;inset:0;background:var(--green);border-radius:inherit;transform:scaleY(0);transform-origin:top}
+  /* Número do passo. Apagado até o fio chegar; aí acende em verde. O fundo
+     sólido é que "corta" o fio: a linha passa por trás, não por cima.
+     O anel é um contorno (sem desfoque), não um brilho. */
+  .no{position:relative;z-index:1;width:var(--no,48px);height:var(--no,48px);border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--line);color:var(--muted);font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}
+  .no.on{background:var(--green);border-color:var(--green);color:var(--on-green);box-shadow:0 0 0 6px rgba(45,224,172,.12)}
+  .no-fim{--no:48px;margin:0 auto -24px;z-index:2}
+
+  /* ====== Passo 1: a fala ======
+     Um balão com a frase dita, e embaixo dele o campo real da tela inicial.
+     O campo tem duas camadas do MESMO enquadramento — parado e gravando. Ao
+     entrar na tela, o "gravando" aparece por cima (o toque no microfone) e só
+     depois a frase sobe: primeiro você aperta, depois fala. É uma vez só, na
+     primeira passagem; nada fica repetindo em loop. */
+  .fala{position:relative;z-index:1;width:100%;max-width:420px;display:flex;flex-direction:column;gap:16px}
+  .fala-frase{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg) var(--radius-lg) var(--radius-lg) 6px;padding:18px 20px;opacity:0;transform:translateY(8px)}
+  .fala-quem{display:flex;align-items:center;gap:8px;color:var(--green);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+  .fala-frase p{font-size:17px;line-height:1.45;color:var(--text)}
+  .campo{background:#0a0f0c;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)}
+  .campo-telas{position:relative}
+  .campo-telas img{width:100%;aspect-ratio:600/140;object-fit:cover}
+  .campo-telas .campo-grav{position:absolute;inset:0;height:100%;opacity:0}
+  .campo figcaption{padding:13px 16px;font-size:12.5px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
+  .step-media.in .campo-grav{opacity:1;transition:opacity .4s var(--ease-out) .7s}
+  .step-media.in .fala-frase{opacity:1;transform:none;transition:opacity .5s var(--ease-out) 1.2s,transform .5s var(--ease-out) 1.2s}
+
+  /* Aparelho com legenda (passo 2). A legenda é o elo com o passo anterior. */
+  .aparelho{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+  .aparelho figcaption{margin-top:18px;font-size:12.5px;color:var(--muted);text-align:center}
 
   /* Folha do PDF (passo 3). O branco do papel sobre o fundo escuro já é
      contraste suficiente: a borda fica fina e a legenda vai num rodapé escuro,
-     igual ao recorte do passo 1, pra os dois lerem como a mesma família. */
+     igual ao campo do passo 1, pra os dois lerem como a mesma família. */
   .paper{position:relative;z-index:1;width:100%;max-width:440px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card)}
   .paper figcaption{padding:13px 16px;font-size:12.5px;color:var(--muted);text-align:center;background:var(--surface-alt);border-top:1px solid var(--line)}
 
@@ -174,6 +213,9 @@
   .cta-box>:not(.glow){position:relative;z-index:1}
   .cta-box h2{margin-bottom:16px}
   .cta-box p{color:var(--muted);font-size:17px;margin:0 auto 32px;max-width:48ch}
+  /* A regra acima é mais específica que `.vagas` e zerava o espaço acima da
+     linha das vagas (ela grudava no botão) e punha 32px sobrando embaixo. */
+  .cta-box .vagas{margin:14px auto 0;font-size:14px}
 
   /* Footer */
   footer{border-top:1px solid var(--surface-alt);padding:56px 0 40px;background:var(--surface-alt)}
@@ -203,16 +245,25 @@
     .band{padding:64px 0}
     .features{grid-template-columns:1fr}
     .foot-grid{flex-direction:column;gap:32px}
-    /* Numa coluna só, o texto do passo vem ANTES da imagem: "Passo 1 · Fale"
-       precisa chegar primeiro pra tela seguinte fazer sentido. Por isso a
-       alternância de lados é desligada aqui, em vez de virar ordem aleatória. */
-    .step{grid-template-columns:1fr;gap:32px}
-    .step:nth-child(even) .step-media{order:0}
+    /* Numa coluna só, o fio desce pela margem esquerda e o número fica ao lado
+       do rótulo do passo. O texto vem ANTES da imagem: "Fale" precisa chegar
+       primeiro pra tela seguinte fazer sentido — por isso a alternância de
+       lados é desligada aqui, em vez de virar ordem aleatória.
+       O `left` do trilho é a margem da página (24px) + metade do número (16px). */
+    .step{--no:32px;grid-template-columns:1fr;row-gap:32px;position:relative;padding-left:calc(var(--no) + 14px)}
+    .step>.no{position:absolute;left:0;top:-6px;grid-column:auto;grid-row:auto;font-size:14px}
+    .step-copy,.step-media,.step:nth-child(even) .step-copy,.step:nth-child(even) .step-media{grid-column:1;grid-row:auto}
+    .trilho{left:40px}
+    .no-fim{--no:32px;margin:0 0 16px}
+    .no.on{box-shadow:0 0 0 4px rgba(45,224,172,.12)}
   }
   @media (max-width:560px){
     .cta-box{padding:44px 22px}
+    /* "Quero minha vaga" quebrava em duas linhas ao lado da marca e empurrava
+       o menu: o botão do topo encolhe um pouco no celular. */
+    .nav-cta .btn-primary{padding:10px 14px;font-size:14px}
   }
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.fala-frase{transform:none}}
 
 /* ====== Páginas internas (ajuda, privacidade, termos) ====== */
 .page-top{padding:66px 0 40px;text-align:center;border-bottom:1px solid var(--surface-alt)}
