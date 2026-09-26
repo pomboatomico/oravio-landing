@@ -93,11 +93,11 @@
      sombra é `drop-shadow` — ela segue o contorno do celular, não o retângulo. */
   .phone{position:relative;z-index:1;width:min(300px,76vw);filter:drop-shadow(0 30px 50px rgba(0,0,0,.55))}
 
-  /* O corte de baixo é o convite pra rolar. A proporção 600/481 corta a imagem
+  /* O corte de baixo é o convite pra rolar. A proporção 600/469 corta a imagem
      logo abaixo da fileira de meses do faturamento, antes da linha
      "Enviados · Aprovados". Por ser `aspect-ratio`, o corte acompanha a
      largura do aparelho em qualquer tela — não precisa recalcular. */
-  .hero-peek{position:relative;z-index:1;width:min(300px,76vw);aspect-ratio:600/481;margin:clamp(40px,5vw,60px) auto 0;overflow:hidden}
+  .hero-peek{position:relative;z-index:1;width:min(300px,76vw);aspect-ratio:600/469;margin:clamp(40px,5vw,60px) auto 0;overflow:hidden}
   .hero-peek .phone{width:100%;filter:none}
 
   /* Bandas */
@@ -131,11 +131,11 @@
 
   /* Recorte de tela (passo 1) — mostra só a faixa do campo de voz.
      `object-fit:cover` faz a imagem cobrir a moldura pela largura; o
-     `object-position` vertical é que escolhe QUAL faixa dos 1202px aparece.
-     89% cai logo acima da barra de navegação: pega o campo inteiro e não
+     `object-position` vertical é que escolhe QUAL faixa dos 1194px aparece.
+     89,1% cai logo acima da barra de navegação: pega o campo inteiro e não
      deixa entrar meia fileira de ícones cortada no rodapé. */
   .shot-detail{position:relative;z-index:1;width:100%;max-width:400px;background:#0a0f0c;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)}
-  .shot-detail img{width:100%;aspect-ratio:600/170;object-fit:cover;object-position:0 89%}
+  .shot-detail img{width:100%;aspect-ratio:600/140;object-fit:cover;object-position:0 89.1%}
   .shot-detail figcaption{padding:13px 16px;font-size:12.5px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
 
   /* Folha do PDF (passo 3). O branco do papel sobre o fundo escuro já é
