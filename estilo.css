@@ -1,11 +1,16 @@
 /* ============================================================
-     ORAVIO — landing v3 (disposição estilo EBDClass, identidade Oravio)
+     ORAVIO — landing v4 (três passos)
      Paleta exata do briefing · Inter · Emoção-alvo: ALÍVIO
        #18b98a = verde da MARCA (símbolo + "io")
        #2de0ac = verde principal (ações e destaques)
      Sem gradiente colorido, sem neon, sem sombra colorida.
-     Um único print de app (herói). Resto é UI desenhada.
-     PLACEHOLDER: preços dos planos e links Ajuda/Privacidade/Termos.
+
+     O índice é: herói → passo 1 Fale → passo 2 Confira → passo 3 Envie → CTA.
+     Cada afirmação do produto mora em UM passo só; foi assim que a repetição
+     da v3 (sete "sem custo", quatro "não inventa preço") deixou de existir.
+
+     .band / .band-head / .kicker / .features / .feat / .faq continuam aqui
+     porque ajuda.html usa — não são sobra do índice.
      ============================================================ */
   :root{
     --bg:#0f1613; --surface:#25312d; --surface-alt:#161f1b; --line:#354741;
@@ -68,13 +73,6 @@
   .hero-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:28px}
   .hero-note{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13.5px}
   .hero-note svg{color:var(--green);flex:none}
-  .proof{display:flex;align-items:center;gap:14px}
-  .avatars{display:flex}
-  .avatars .a{width:38px;height:38px;border-radius:50%;border:2px solid var(--bg);margin-left:-10px;display:flex;align-items:center;justify-content:center;color:#04140f}
-  .avatars .a:first-child{margin-left:0}
-  .proof p{font-size:14px;color:var(--muted);max-width:30ch}
-  .proof p b{color:var(--text);font-weight:600}
-
   .hero-media{display:flex;justify-content:center;position:relative}
   .glow{position:absolute;z-index:0;border-radius:50%;background:var(--green-fill);filter:blur(90px);pointer-events:none}
   .hero-media .glow{width:520px;height:520px;top:-30px;right:-20px;opacity:.24}
@@ -85,23 +83,6 @@
   .device img{border-radius:calc(var(--raio) - var(--bezel));width:100%;display:block}
   .hero-media .device{width:min(280px,72vw)}
 
-  /* Selo encostado na borda de baixo do aparelho: ancorado nele mesmo
-     (que já tem position:relative), então acompanha o celular em qualquer largura. */
-  .float{position:absolute;z-index:3;max-width:206px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:11px 14px;display:flex;align-items:center;gap:11px;box-shadow:var(--shadow-card)}
-  .float .fi{width:34px;height:34px;border-radius:9px;background:var(--green-fill);color:var(--green);display:flex;align-items:center;justify-content:center;flex:none}
-  .float .ft{font-size:13.5px;font-weight:700;line-height:1.2}
-  .float .fs{font-size:12px;color:var(--muted)}
-  .float.br{bottom:-18px;inset-inline-end:-46px}
-
-  /* Faixa de pilares (escura, on-brand) */
-  .pillars{background:var(--green-fill);border-top:1px solid rgba(255,255,255,.04)}
-  .pillars-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:34px 0}
-  .pillar{text-align:center;padding:0 24px;position:relative}
-  .pillar+.pillar::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:1px;background:rgba(255,255,255,.1)}
-  .pillar .pi{width:46px;height:46px;border-radius:12px;background:rgba(45,224,172,.12);border:1px solid rgba(45,224,172,.3);display:flex;align-items:center;justify-content:center;color:var(--green);margin:0 auto 14px}
-  .pillar h3{font-size:16.5px;font-weight:700;margin-bottom:5px}
-  .pillar p{font-size:13.5px;color:#a9c3ba}
-
   /* Bandas */
   .band{padding:92px 0;position:relative}
   .band-head{max-width:680px;margin:0 auto 54px;text-align:center}
@@ -110,26 +91,41 @@
   h2{font-size:clamp(28px,3.3vw,42px);font-weight:800;letter-spacing:-.025em;line-height:1.07}
   .band-head p{color:var(--muted);font-size:17px;margin-top:16px}
 
-  /* Dor */
-  .pain{background:var(--surface-alt);border-top:1px solid var(--surface-alt);border-bottom:1px solid var(--surface-alt);padding:80px 0}
-  .pain-inner{max-width:720px;margin:0 auto;text-align:center}
-  .pain-inner h2{margin-bottom:18px;font-size:clamp(26px,3vw,38px)}
-  .pain-inner p{font-size:clamp(17px,1.5vw,20px);color:var(--muted);line-height:1.55}
-  .pain-inner p .hot{color:var(--text);font-weight:600}
-  .amber-note{display:inline-flex;align-items:center;gap:12px;margin-top:30px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:12px;padding:14px 18px;text-align:left}
-  .amber-note svg{color:var(--amber);flex:none}
-  .amber-note span{font-size:14.5px}
+  /* ====== Os três passos ======
+     O respiro entre um passo e outro é o que faz a página parecer curta mesmo
+     tendo três blocos: cada passo ocupa a tela sozinho, em vez de dividir
+     espaço com vizinhos. Densidade baixa é a mensagem — o produto é simples. */
+  .steps-band{padding:clamp(72px,9vw,104px) 0}
+  .steps{display:flex;flex-direction:column;gap:clamp(72px,9vw,128px)}
+  .step{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,72px);align-items:center}
+  /* Alterna o lado da imagem. O olho volta pro começo da linha a cada passo, e
+     é isso que marca a virada de etapa — sem precisar de linha divisória. */
+  .step:nth-child(even) .step-media{order:-1}
+  .step-n{display:inline-flex;align-items:center;gap:12px;color:var(--green);font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+  .step-n b{width:30px;height:30px;border-radius:50%;background:var(--green-fill);border:1px solid rgba(45,224,172,.3);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;letter-spacing:0}
+  .step h2{font-size:clamp(26px,3vw,38px);margin-bottom:16px}
+  .step-lead{color:var(--muted);font-size:17px;max-width:44ch;margin-bottom:28px}
+  .step-media{position:relative;display:flex;justify-content:center}
+  .step-media .glow{width:440px;height:440px;opacity:.16;top:0;left:20px}
+  .step-media .device{width:min(280px,72vw)}
 
-  /* Visão geral (checklist | print real da página do cliente) */
-  .overview-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
-  .ov-copy .kicker{margin-bottom:16px}
-  .ov-copy h2{margin-bottom:18px}
-  .ov-copy>p{color:var(--muted);font-size:16.5px;margin-bottom:26px;max-width:46ch}
   .checklist{display:flex;flex-direction:column;gap:15px}
   .checklist .c{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
   .checklist .c svg{color:var(--green);flex:none;margin-top:3px}
-  .ov-media{position:relative;display:flex;justify-content:center}
-  .ov-media .glow{width:440px;height:440px;opacity:.16;top:0;left:20px}
+
+  /* Ilustração da conferência (passo 2) — NÃO é print, e não pode parecer um.
+     Por isso fica fora da moldura de celular e leva legenda dizendo o que é.
+     Trocar pelo print real da tela de conferência quando ele existir. */
+  .confer{position:relative;z-index:1;width:100%;max-width:400px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow-card)}
+  .confer-said{display:flex;gap:10px;align-items:flex-start;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:4px;font-size:14.5px;color:var(--muted);line-height:1.5}
+  .confer-said svg{color:var(--green);flex:none;margin-top:3px}
+  .confer-item{display:grid;grid-template-columns:1fr auto;gap:3px 16px;padding:15px 2px;border-top:1px solid var(--line)}
+  .confer-item:first-of-type{margin-top:12px}
+  .ci-t{font-size:15px;font-weight:600}
+  .ci-src{grid-column:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--green)}
+  .ci-v{grid-column:2;grid-row:1/3;align-self:center;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+  .confer-total{display:flex;justify-content:space-between;align-items:center;padding:15px 2px 0;border-top:1px solid var(--line);font-weight:700;font-size:16.5px;font-variant-numeric:tabular-nums}
+  .confer figcaption{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);text-align:center;line-height:1.5}
 
   /* Moldura de navegador — a página que o cliente abre é web, não app.
      A barra de endereço é o que diz isso sem precisar de legenda. */
@@ -143,14 +139,7 @@
   .browser>img{width:100%}
   .browser figcaption{padding:13px 16px;font-size:12.5px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
 
-  /* Barra de segmentos */
-  .segbar{background:var(--green-fill);padding:26px 0}
-  .segbar .lbl{text-align:center;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#a9c3ba;font-weight:600;margin-bottom:16px}
-  .segbar .row{display:flex;justify-content:center;flex-wrap:wrap;gap:14px 34px}
-  .segbar .seg{display:flex;align-items:center;gap:9px;color:var(--text);font-size:15px;font-weight:600}
-  .segbar .seg svg{color:var(--green);flex:none}
-
-  /* Recursos */
+  /* Recursos (usado hoje só por ajuda.html) */
   .features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .feat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;transition:border-color .2s}
   .feat:hover{border-color:#43584d}
@@ -158,39 +147,7 @@
   .feat h3{font-size:17.5px;font-weight:700;margin-bottom:9px;letter-spacing:-.01em}
   .feat p{color:var(--muted);font-size:14.5px}
 
-  /* Acompanhamento + tema (par de prints reais da mesma tela) */
-  .themes-band{background:var(--surface-alt);border-top:1px solid var(--surface-alt);border-bottom:1px solid var(--surface-alt)}
-  .themes{display:flex;justify-content:center;align-items:flex-start;gap:clamp(16px,4vw,40px)}
-  .theme-shot{display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0}
-  /* O claro é um retângulo branco sobre fundo escuro: sem a moldura ele flutua
-     sem pé. A moldura de celular é o que dá borda aos dois por igual.
-     Medida em vw e travada nas pontas: o par precisa caber LADO A LADO em
-     qualquer tela, porque a comparação entre os dois temas é o conteúdo. */
-  /* Aparelho menor pede canto e moldura menores na mesma proporção, senão a
-     borda vira um quadro grosso em volta de um print pequeno. */
-  .theme-shot .device{--bezel:4px;--raio:22px;width:clamp(126px,40vw,236px)}
-  .theme-shot figcaption{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--muted)}
-  .theme-shot .dot{width:11px;height:11px;border-radius:50%;border:1px solid var(--line);flex:none}
-  .theme-shot .dot.dark{background:#0d120f}
-  .theme-shot .dot.light{background:#eef1f0}
-  .themes-note{max-width:52ch;margin:44px auto 0;text-align:center;color:var(--muted);font-size:15px}
-
-  /* Acesso (sem planos pagos — o Oravio ainda não cobra) */
-  .plans{background:var(--surface-alt);border-top:1px solid var(--surface-alt);border-bottom:1px solid var(--surface-alt)}
-  .access-card{max-width:520px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:36px 34px;text-align:center}
-  .access-card ul{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:28px;text-align:left}
-  .access-card li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
-  .access-card li svg{color:var(--green);flex:none;margin-top:3px}
-  .access-card .btn{width:100%}
-
-  /* Garantias */
-  .guar{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:0 auto}
-  .g{display:flex;gap:16px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
-  .g .ic{width:46px;height:46px;border-radius:12px;background:var(--green-fill);display:flex;align-items:center;justify-content:center;color:var(--green);flex:none}
-  .g h3{font-size:16.5px;font-weight:700;margin-bottom:5px}
-  .g p{color:var(--muted);font-size:14px}
-
-  /* FAQ */
+  /* FAQ (usado hoje só por ajuda.html) */
   .faq{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
   .faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
   .faq summary{list-style:none;cursor:pointer;padding:20px 22px;font-size:16.5px;font-weight:600;display:flex;align-items:center;justify-content:space-between;gap:16px}
@@ -230,12 +187,6 @@
   @media (hover:hover) and (pointer:fine){
     .feat{transition:border-color .2s ease,transform .2s var(--ease-out),box-shadow .2s var(--ease-out)}
     .feat:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
-    .g{transition:transform .2s var(--ease-out),border-color .2s ease}
-    .g:hover{transform:translateY(-3px);border-color:#43584d}
-    .pillar .pi{transition:transform .2s var(--ease-out)}
-    .pillar:hover .pi{transform:scale(1.08)}
-    .avatars .a{transition:transform .2s var(--ease-out)}
-    .avatars .a:hover{transform:translateY(-3px)}
   }
 
   @media (max-width:900px){
@@ -245,22 +196,14 @@
     .hero-grid{grid-template-columns:1fr;gap:46px}
     .hero-sub{max-width:none}
     .hero-media{order:-1}
-    .pillars-inner{grid-template-columns:1fr;gap:26px;padding:30px 0}
-    .pillar+.pillar::before{display:none}
     .band{padding:64px 0}
-    .overview-grid{grid-template-columns:1fr;gap:36px}
-    .ov-media{order:-1}
     .features{grid-template-columns:1fr}
-    .guar{grid-template-columns:1fr}
-    .segbar .row{gap:12px 22px}
     .foot-grid{flex-direction:column;gap:32px}
-    .themes-note{margin-top:34px}
-  }
-  @media (max-width:620px){
-    .theme-shot .device{--bezel:3px;--raio:15px}
-    /* O selo some no celular: sobre um print estreito ele cobria parte da tela.
-       O que ele diz já está no título e na faixa de pilares logo abaixo. */
-    .float{display:none}
+    /* Numa coluna só, o texto do passo vem ANTES da imagem: "Passo 1 · Fale"
+       precisa chegar primeiro pra tela seguinte fazer sentido. Por isso a
+       alternância de lados é desligada aqui, em vez de virar ordem aleatória. */
+    .step{grid-template-columns:1fr;gap:32px}
+    .step:nth-child(even) .step-media{order:0}
   }
   @media (max-width:560px){
     .cta-box{padding:44px 22px}
