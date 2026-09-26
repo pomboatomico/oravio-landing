@@ -63,25 +63,39 @@
   .mobile-menu .btn{margin-top:14px;width:100%}
   .mobile-menu.show{display:flex}
 
-  /* Herói */
-  .hero{padding:74px 0 52px;position:relative;overflow:hidden}
-  .hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:48px;align-items:center;position:relative;z-index:1}
+  /* Herói — centralizado. Em duas colunas, a coluna da direita competia com a
+     promessa; aqui existe um caminho só: título, frase, botão. */
+  .hero{padding:clamp(54px,7.5vw,88px) 0 0;position:relative;overflow:hidden;text-align:center}
+  .hero-inner{position:relative;z-index:1;max-width:820px}
   .eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--green);font-size:13.5px;font-weight:600;background:rgba(45,224,172,.09);border:1px solid rgba(45,224,172,.24);padding:7px 14px;border-radius:100px;margin-bottom:22px}
   .eyebrow .d{width:7px;height:7px;border-radius:50%;background:var(--green)}
-  h1.hero-title{font-size:clamp(35px,4.8vw,58px);font-weight:800;line-height:1.03;letter-spacing:-.03em;margin-bottom:22px}
-  .hero-sub{font-size:clamp(16px,1.35vw,18.5px);color:var(--muted);max-width:34ch;margin-bottom:30px}
-  .hero-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:28px}
+  /* Centralizado aguenta corpo maior que o alinhado à esquerda: o `max-width`
+     encurta a linha, então o olho não se perde ao voltar pro começo.
+     `text-wrap:balance` distribui as linhas do título em vez de deixar uma
+     palavra órfã sozinha na última — em texto centralizado isso salta à vista. */
+  h1.hero-title{font-size:clamp(36px,5.6vw,64px);font-weight:800;line-height:1.03;letter-spacing:-.03em;margin-bottom:22px;text-wrap:balance}
+  .hero-sub{font-size:clamp(16.5px,1.5vw,19.5px);color:var(--muted);max-width:46ch;margin:0 auto 32px;text-wrap:balance}
+  .hero-cta{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
   .hero-note{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13.5px}
   .hero-note svg{color:var(--green);flex:none}
-  .hero-media{display:flex;justify-content:center;position:relative}
+  /* Qualifica quem chegou. Sem esta linha, dono de clínica lê "cliente" e
+     "orçamento" e não descobre que serve pra ele — a barra de segmentos da v3
+     fazia esse trabalho e saiu junto com o resto dela. */
+  .hero-for{margin:30px auto 0;max-width:56ch;color:var(--muted);font-size:14px;opacity:.85}
+
   .glow{position:absolute;z-index:0;border-radius:50%;background:var(--green-fill);filter:blur(90px);pointer-events:none}
-  .hero-media .glow{width:520px;height:520px;top:-30px;right:-20px;opacity:.24}
+  .hero>.glow{width:min(660px,94vw);height:460px;top:20px;left:50%;transform:translateX(-50%);opacity:.22}
+
+  /* O corte de baixo é o convite pra rolar. Altura e largura do aparelho andam
+     juntas em vw: se só a largura crescesse, em tela larga o corte subiria pro
+     meio do cartão de faturamento em vez de parar antes dos números. */
+  .hero-peek{position:relative;z-index:1;display:flex;justify-content:center;margin-top:clamp(40px,5vw,60px);max-height:clamp(186px,26vw,268px);overflow:hidden}
+  .hero-peek .device{width:min(300px,76vw)}
   /* Perfil de aparelho Android atual: canto reto e moldura fina.
      O raio de dentro é o de fora MENOS a moldura — é isso que faz a borda
      ter espessura igual no canto e na reta, em vez de engrossar na curva. */
   .device{--bezel:5px;--raio:27px;position:relative;z-index:1;background:#0a0f0c;border:1px solid var(--line);border-radius:var(--raio);padding:var(--bezel);box-shadow:var(--shadow);width:280px}
   .device img{border-radius:calc(var(--raio) - var(--bezel));width:100%;display:block}
-  .hero-media .device{width:min(280px,72vw)}
 
   /* Bandas */
   .band{padding:92px 0;position:relative}
@@ -201,10 +215,7 @@
   @media (max-width:900px){
     .nav-links,.nav-cta .btn-ghost{display:none}
     .hamburger{display:block}
-    .hero{padding:46px 0 34px}
-    .hero-grid{grid-template-columns:1fr;gap:46px}
-    .hero-sub{max-width:none}
-    .hero-media{order:-1}
+    .hero{padding-top:44px}
     .band{padding:64px 0}
     .features{grid-template-columns:1fr}
     .foot-grid{flex-direction:column;gap:32px}
