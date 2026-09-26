@@ -325,7 +325,7 @@
       if(d.whatsapp.replace(/\D/g,'').length<10){err.textContent='WhatsApp com DDD, por favor.';f.whatsapp.focus();return;}
       if(!d.ramo){err.textContent='Escolha o seu ramo.';f.ramo.focus();return;}
       var btn=f.querySelector('[type=submit]');btn.disabled=true;btn.firstChild.textContent='Guardando sua vaga… ';
-      var msg='Oi! Acabei de pedir minha vaga no beta do Oravio.\nNome: '+d.nome+'\nE-mail: '+d.email+'\nRamo: '+d.ramo;
+      var msg='Oi! Acabei de pedir minha vaga no beta do Oravio.\nNome: '+d.nome+'\nE-mail: '+d.email+'\nWhatsApp: '+d.whatsapp+'\nRamo: '+d.ramo;
       var wa='https://wa.me/558688197951?text='+encodeURIComponent(msg);
       var ir=function(){btn.disabled=false;btn.firstChild.textContent='Garantir minha vaga ';dlg.close();f.reset();window.location.href=wa;};
       var ctl=window.AbortController?new AbortController():null;
