@@ -53,7 +53,7 @@
   .nav-links a:hover{color:var(--text)}
   .nav-cta{display:flex;align-items:center;gap:12px}
   .nav-cta .btn{padding:11px 18px;white-space:nowrap}
-  .hamburger{display:none;background:none;border:1px solid var(--line);border-radius:10px;padding:9px;cursor:pointer}
+  .hamburger{display:block;background:none;border:1px solid var(--line);border-radius:10px;padding:9px;cursor:pointer}
   .hamburger span{display:block;width:20px;height:2px;background:var(--text);margin:4px 0;border-radius:2px;transition:.25s}
   .hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
   .hamburger.open span:nth-child(2){opacity:0}
@@ -239,8 +239,6 @@
   }
 
   @media (max-width:900px){
-    .nav-links,.nav-cta .btn-ghost{display:none}
-    .hamburger{display:block}
     .hero{padding-top:44px}
     .band{padding:64px 0}
     .features{grid-template-columns:1fr}
