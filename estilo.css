@@ -47,7 +47,7 @@
 
   /* Nav */
   header.nav{position:sticky;top:0;z-index:50;background:rgba(15,22,19,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--surface-alt)}
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;position:relative}
   .nav-links{display:flex;align-items:center;gap:32px}
   .nav-links a{color:var(--muted);font-size:15px;font-weight:500;transition:color .2s}
   .nav-links a:hover{color:var(--text)}
@@ -58,9 +58,10 @@
   .hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
   .hamburger.open span:nth-child(2){opacity:0}
   .hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-  .mobile-menu{display:none;flex-direction:column;padding:10px 24px 22px;background:var(--surface-alt)}
-  .mobile-menu a{padding:13px 6px;color:var(--muted);font-weight:500;border-bottom:1px solid rgba(53,71,65,.4)}
-  .mobile-menu .btn{margin-top:14px;width:100%}
+  .mobile-menu{display:none;flex-direction:column;position:absolute;top:calc(100% + 10px);right:24px;width:300px;padding:8px 10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);overflow:hidden}
+  .mobile-menu a{padding:13px 14px;color:var(--muted);font-weight:500;border-radius:10px;transition:background .15s ease,color .15s ease}
+  .mobile-menu a:hover{background:var(--surface-alt);color:var(--text)}
+  .mobile-menu .btn{margin-top:8px;width:100%}
   .mobile-menu.show{display:flex}
 
   /* Herói — centralizado. Em duas colunas, a coluna da direita competia com a
@@ -239,6 +240,9 @@
   }
 
   @media (max-width:900px){
+    .mobile-menu{position:static;width:auto;right:auto;top:auto;border:none;border-radius:0;box-shadow:none;background:var(--surface-alt);padding:10px 24px 22px}
+    .mobile-menu a{border-radius:0;padding:13px 6px;border-bottom:1px solid rgba(53,71,65,.4)}
+    .mobile-menu a:hover{background:transparent}
     .hero{padding-top:44px}
     .band{padding:64px 0}
     .features{grid-template-columns:1fr}
