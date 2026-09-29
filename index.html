@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oravio — Orçamento por voz para prestadores de serviço</title>
-<meta name="description" content="Fale o serviço, confira e envie. O Oravio monta o orçamento em PDF na hora, com a sua tabela de preços. Para oficinas, clínicas, salões, assistências técnicas e locadoras. Acesso por convite, sem custo nesta fase.">
+<meta name="description" content="Fale o serviço, confira e envie. O Oravio monta o orçamento em PDF na hora, com a sua tabela de preços. Para oficinas, clínicas, salões, assistências técnicas e locadoras. Beta fechado, sem custo nesta fase.">
 <meta property="og:title" content="Oravio — Seu orçamento pronto antes do cliente ir embora">
 <meta property="og:description" content="Fale o serviço, confira e envie. O PDF sai na hora, com a sua tabela de preços.">
 <meta property="og:url" content="https://oravio.com.br">
@@ -70,7 +70,7 @@
 <!-- ====== OS TRÊS PASSOS + CTA — "a jornada" ======
      Cada afirmação do produto tem UMA casa: o passo onde ela acontece.
      Jeito de falar e offline moram no Fale, a tabela de preços e a sugestão
-     moram no Confira, PDF, link e o estado da negociação moram no Envie. É isso
+     moram no Confira, PDF, PIX, link e aceite moram no Envie. É isso
      que impede a página de repetir o mesmo argumento em quatro lugares.
 
      O TRILHO. Um fio só liga o aparelho do herói ao passo 1, ao 2, ao 3 e ao
@@ -95,7 +95,7 @@
         <div class="step-copy reveal">
           <p class="step-n"><span class="sr">Passo 1 de 3: </span>Fale</p>
           <h2>Descreva do jeito que você já fala.</h2>
-          <p class="step-lead">Aperta o microfone e fala o serviço — ou digita, se preferir. Sem formulário no meio do atendimento.</p>
+          <p class="step-lead">Segura o microfone e fala o serviço — ou digita, se preferir. Sem formulário no meio do atendimento.</p>
           <div class="checklist">
             <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Apelido, marca pela metade, “blutufi”: ele entende — e aprende como a sua loja chama cada item.</span></div>
             <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sem sinal na casa do cliente? Monte à mão e salve no aparelho — sobe sozinho quando a internet volta.</span></div>
@@ -152,9 +152,9 @@
         <div class="step-copy reveal">
           <p class="step-n"><span class="sr">Passo 3 de 3: </span>Envie</p>
           <h2>Chega como documento, não como textão.</h2>
-          <p class="step-lead">PDF com o nome, o endereço e o telefone do seu negócio — ou um link que o cliente abre no navegador, sem instalar nada.</p>
+          <p class="step-lead">PDF com a logo e os dados do seu negócio — ou um link que o cliente abre no navegador, sem instalar nada. Com a sua chave PIX, o QR Code já vai junto.</p>
           <div class="checklist">
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Cliente aceitou? Marque no app — a lista mostra em que pé está cada orçamento.</span></div>
+            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Ele aceita pelo próprio link, sem precisar te responder — e você vê no app quando ele abriu e quando aceitou.</span></div>
             <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Mudou de ideia? Você derruba o link e ele para de abrir.</span></div>
           </div>
         </div>
@@ -312,6 +312,7 @@
       if(dlg.showModal){dlg.showModal();}else{dlg.setAttribute('open','');}
       f.nome.focus();
     });});
+    if(location.hash==='#vaga'&&dlg.showModal){dlg.showModal();}
     dlg.querySelector('[data-fechar]').addEventListener('click',function(){dlg.close();});
     dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
     f.addEventListener('submit',function(e){
