@@ -58,12 +58,46 @@
     <p class="hero-for">…e qualquer serviço com tabela de preços.</p>
   </div>
 
-  <!-- O aparelho entra cortado de propósito: a borda que some embaixo diz que
-       a página continua, e o corte para antes da linha "2 Enviados · 1
-       Aprovados" — número que, na dobra de abertura, conta pro visitante que
-       quase ninguém usou o produto ainda. -->
-  <div class="hero-peek reveal">
-    <img class="phone" src="aparelho-inicio.webp" width="600" height="1064" decoding="async" fetchpriority="high" alt="Tela inicial do Oravio num celular Android, com o faturamento do mês">
+  <!-- O PALCO. O aparelho no centro e, em volta, o dia de quem usa, na ordem em
+       que acontece: a fala vira itens, o cliente aceita pelo link, o mês cresce.
+       Os cartões repetem em dois segundos o que os passos explicam com calma —
+       por isso são aria-hidden: o leitor de tela ouve a versão dos passos.
+       Os números são os mesmos do resto da página: o orçamento do Samuel
+       (R$ 5.458,80) e o gráfico real da Início no banco de teste. -->
+  <div class="palco" id="palco">
+    <div class="palco-fone">
+      <img class="phone" src="aparelho-inicio.webp" width="600" height="1147" decoding="async" fetchpriority="high" alt="Tela inicial do Oravio num celular Android: quem cobrar hoje, o resumo do dia e os últimos orçamentos">
+    </div>
+
+    <div class="cartao cartao-voz" aria-hidden="true">
+      <span class="cartao-rot">Você, no balcão</span>
+      <div class="voz-linha">
+        <span class="voz-mic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+        <span class="voz-ondas"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="voz-tempo" id="voz-tempo">00:00</span>
+      </div>
+      <div class="voz-virou"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Virou 3 itens <span>· R$ 5.458,80</span></div>
+    </div>
+
+    <div class="cartao cartao-aceite" aria-hidden="true">
+      <span class="selo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <div>
+        <p class="aceite-quem">Samuel aceitou</p>
+        <p class="aceite-quanto"><b>R$ 5.458,80</b> · pelo link</p>
+      </div>
+    </div>
+
+    <div class="cartao cartao-mes" aria-hidden="true">
+      <div class="mes-topo">
+        <span class="cartao-rot">Faturamento · set</span>
+        <span class="recorde"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6-4.9-4.6 6.6-.8z"/></svg>Recorde</span>
+      </div>
+      <p class="mes-valor">R$ 36.451,90</p>
+      <div class="mes-barras">
+        <span style="--e:30%;--a:11%"></span><span style="--e:30%;--a:11%"></span><span style="--e:40%;--a:6%"></span><span style="--e:67%;--a:40%"></span><span style="--e:63%;--a:44%"></span><span style="--e:100%;--a:61%"></span>
+      </div>
+      <div class="mes-meses"><span>abr</span><span>mai</span><span>jun</span><span>jul</span><span>ago</span><b>set</b></div>
+    </div>
   </div>
 </section>
 
@@ -115,8 +149,8 @@
             </blockquote>
             <figure class="campo">
               <div class="campo-telas">
-                <img src="campo-repouso.webp" width="600" height="140" loading="lazy" decoding="async" alt="O campo Descreva o orçamento, com o botão de microfone ao lado">
-                <img class="campo-grav" src="campo-gravando.webp" width="780" height="182" loading="lazy" decoding="async" alt="" aria-hidden="true">
+                <img src="campo-repouso.webp" width="780" height="194" loading="lazy" decoding="async" alt="O campo Descreva o orçamento, com o botão de microfone ao lado">
+                <img class="campo-grav" src="campo-gravando.webp" width="780" height="194" loading="lazy" decoding="async" alt="" aria-hidden="true">
               </div>
               <figcaption>Detalhe da tela inicial — é daqui que o orçamento começa.</figcaption>
             </figure>
@@ -140,7 +174,7 @@
         <div class="step-media reveal">
           <div class="glow"></div>
           <figure class="aparelho">
-            <img class="phone" src="aparelho-conferir.webp" width="600" height="1064" loading="lazy" decoding="async" alt="Tela de conferência do Oravio: a frase falada no topo, o cliente Samuel, três itens marcados como vindos do catálogo com quantidade ajustável, e o total de R$ 5.458,80">
+            <img class="phone" src="aparelho-conferir.webp" width="600" height="1147" loading="lazy" decoding="async" alt="Tela de conferência do Oravio: a frase falada no topo, o cliente Samuel Almeida, três itens com o preço da tabela e quantidade ajustável, e o total de R$ 5.458,80 ao lado do botão Salvar">
             <figcaption>A mesma frase, já virada em três itens.</figcaption>
           </figure>
         </div>
@@ -160,10 +194,11 @@
         </div>
         <div class="step-media reveal">
           <div class="glow"></div>
-          <!-- O PDF de verdade, recortado no fim da tabela (a metade de baixo da
-               folha é branco vazio). É o mesmo orçamento dos passos 1 e 2. -->
+          <!-- O PDF de verdade, a folha inteira: o canhoto do PIX mora no pé dela,
+               e cortá-lo esconderia justo o que é novo. É o mesmo orçamento dos
+               passos 1 e 2. -->
           <figure class="paper">
-            <img src="tela-pdf.jpg" width="640" height="509" loading="lazy" decoding="async" alt="PDF do orçamento: Bits Celulares no topo com atendimento, endereço e telefone; cliente Samuel; Galaxy S24 128GB Branco, fone Bluetooth TWS e película de vidro 3D; total de R$ 5.458,80">
+            <img src="folha-pdf.jpg" width="640" height="906" loading="lazy" decoding="async" alt="PDF do orçamento: logo e dados da Bits Celulares no topo; cliente Samuel Almeida; Galaxy S24 128GB Branco, fone Bluetooth TWS e película de vidro 3D; no pé da folha, o canhoto para pagar R$ 5.458,80 com chave PIX, QR Code e o link para aceitar">
             <figcaption>O mesmo orçamento, em PDF — é isto que chega pro seu cliente.</figcaption>
           </figure>
         </div>
@@ -248,9 +283,43 @@
   ham.addEventListener('click',function(){ham.classList.toggle('open');mob.classList.toggle('show');});
   mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){ham.classList.remove('open');mob.classList.remove('show');});});
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* A CENA DO PALCO. Uma vez só, quando o palco aparece, na ordem da história: o aparelho
+     sobe; a fala "grava" por 2s (o relógio conta junto) e vira "3 itens"; o
+     cliente aceita; o mês cresce. Cada etapa é uma classe no palco — o CSS
+     decide o como, o script só o quando. Com movimento reduzido, tudo nasce
+     pronto e o relógio já para no fim. */
+  var palco=document.getElementById('palco'), tempo=document.getElementById('voz-tempo');
+  var cenaFeita=false;
+  function cena(){
+    if(!palco||cenaFeita)return;cenaFeita=true;
+    if(reduce){palco.classList.add('in','pronto','aceitou','cresceu');tempo.textContent='00:03';return;}
+    palco.classList.add('in');
+    setTimeout(function(){palco.classList.add('gravando');
+      var s=0,rel=setInterval(function(){s++;tempo.textContent='00:0'+s;if(s>=3)clearInterval(rel);},620);
+    },500);
+    setTimeout(function(){palco.classList.remove('gravando');palco.classList.add('pronto');},2500);
+    setTimeout(function(){palco.classList.add('aceitou');},3000);
+    setTimeout(function(){palco.classList.add('cresceu');},3450);
+  }
+
+  /* PROFUNDIDADE. Ao rolar, cada cartão sobe num ritmo diferente do aparelho —
+     o da frente mais rápido; o aparelho fica parado (descer o levaria pro corte do herói). Só `translate` (a entrada usa `transform`), só
+     enquanto o herói está na tela, e nada com movimento reduzido. */
+  (function(){
+    if(!palco||reduce)return;
+    var camadas=[['.cartao-voz',-.10],['.cartao-aceite',-.18],['.cartao-mes',-.06]].map(function(c){return [palco.querySelector(c[0]),c[1]];});
+    var agendado=false;
+    function mover(){agendado=false;var y=window.scrollY;if(y>window.innerHeight*1.2)return;
+      camadas.forEach(function(c){if(c[0])c[0].style.translate='0 '+(y*c[1]).toFixed(1)+'px';});}
+    window.addEventListener('scroll',function(){if(!agendado){agendado=true;requestAnimationFrame(mover);}},{passive:true});
+  })();
+
   window.addEventListener('load',function(){
-    if(reduce){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in');});return;}
+    if(reduce){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in');});cena();return;}
     document.querySelectorAll('.hero .reveal').forEach(function(e,i){setTimeout(function(){e.classList.add('in');},120+i*110);});
+    /* O palco pode estar abaixo da dobra (celular, notebook baixo): a cena só
+       começa quando um terço dele aparece — senão ela terminava sem plateia. */
+    if('IntersectionObserver' in window&&palco){new IntersectionObserver(function(en,o){if(en[0].isIntersecting){o.disconnect();cena();}},{threshold:.33}).observe(palco);}else{cena();}
 
     var targets=Array.prototype.slice.call(document.querySelectorAll('.reveal')).filter(function(e){return !e.closest('.hero');});
     if(!('IntersectionObserver' in window)){targets.forEach(function(e){e.classList.add('in');});return;}

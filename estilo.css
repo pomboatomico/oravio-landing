@@ -21,6 +21,8 @@
     --shadow-sm:0 18px 40px -18px rgba(0,0,0,.55);
     --shadow-card:0 24px 60px -28px rgba(0,0,0,.7);
     --ease-out:cubic-bezier(.23,1,.32,1); --ease-in-out:cubic-bezier(.77,0,.175,1);
+    /* O coral do "gravando" do app: vermelho só aparece quando o microfone está aberto. */
+    --rec:#ff7b73; --on-rec:#2a0f0d;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -108,12 +110,103 @@
      sombra é `drop-shadow` — ela segue o contorno do celular, não o retângulo. */
   .phone{position:relative;z-index:1;width:min(300px,76vw);filter:drop-shadow(0 30px 50px rgba(0,0,0,.55))}
 
-  /* O corte de baixo é o convite pra rolar. A proporção 600/469 corta a imagem
-     logo abaixo da fileira de meses do faturamento, antes da linha
-     "Enviados · Aprovados". Por ser `aspect-ratio`, o corte acompanha a
-     largura do aparelho em qualquer tela — não precisa recalcular. */
-  .hero-peek{position:relative;z-index:1;width:min(300px,76vw);aspect-ratio:600/469;margin:clamp(40px,5vw,60px) auto 0;overflow:hidden}
-  .hero-peek .phone{width:100%;filter:none}
+  /* ====== O palco do herói ======
+     O aparelho sozinho, cortado, parecia esquecido ali. Agora ele é o centro de
+     uma cena: três cartões de vidro em volta contam o dia de quem usa, NA ORDEM
+     em que acontece — a fala vira itens, o cliente aceita, o mês cresce.
+     Os cartões são desenho (aria-hidden): repetem o que os passos explicam,
+     só que em dois segundos.
+
+     Três camadas de movimento, cada uma numa propriedade própria, pra uma não
+     apagar a outra:
+       · `transform` — a entrada (sobe e assenta, uma vez);
+       · `translate` — a profundidade ao rolar (o script mexe, cada cartão num ritmo);
+       · `scale`     — o tamanho menor no celular (só CSS).
+     O aparelho some embaixo num degradê em vez de um corte seco: o corte reto
+     parecia imagem quebrada; o degradê diz "continua". */
+  .palco{--fone:320px;position:relative;z-index:1;width:100%;max-width:980px;margin:clamp(44px,5vw,64px) auto 0;height:calc(var(--fone) * 1.28);pointer-events:none}
+  .palco-fone{position:absolute;left:50%;top:0;width:var(--fone);margin-left:calc(var(--fone) / -2);height:100%;overflow:hidden;
+    -webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
+  .palco-fone .phone{width:100%;filter:none}
+
+  .cartao{position:absolute;z-index:2;background:rgba(37,49,45,.72);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(238,243,240,.08);border-radius:var(--radius);box-shadow:var(--shadow-card);padding:16px 18px;text-align:left}
+  .cartao-rot{display:block;color:var(--muted);font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+
+  /* Posições: presas às bordas do aparelho (50% ± meia largura), então os
+     cartões encostam nele em qualquer largura de tela, sem recalcular. */
+  .cartao-voz{width:248px;top:36px;right:calc(50% + var(--fone) / 2 - 28px)}
+  .cartao-aceite{width:252px;top:150px;left:calc(50% + var(--fone) / 2 - 32px)}
+  .cartao-mes{width:292px;top:178px;right:calc(50% + var(--fone) / 2 + 12px)}
+
+  /* 1 · A fala. Enquanto "grava", as barras oscilam; quando para, elas baixam
+     e aparece o que a fala virou. */
+  .voz-linha{display:flex;align-items:center;gap:12px;margin-top:10px}
+  .voz-mic{flex:none;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--rec);color:var(--on-rec)}
+  .voz-ondas{display:flex;align-items:center;gap:3px;height:26px;flex:1}
+  /* Parada, a onda fica no desenho de uma fala gravada (alturas de --h); gravando, oscila. */
+  .voz-ondas i{display:block;width:3px;height:100%;border-radius:2px;background:var(--rec);transform:scaleY(var(--h,.4));transform-origin:center;transition:transform .45s var(--ease-out)}
+  .voz-ondas i:nth-child(odd){--h:.55}.voz-ondas i:nth-child(3n){--h:.8}.voz-ondas i:nth-child(4n+1){--h:.3}.voz-ondas i:nth-child(5n){--h:.95}.voz-ondas i:nth-child(7n+2){--h:.65}
+  .palco.pronto .voz-ondas i{opacity:.55}
+  .voz-tempo{color:var(--rec);font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+  .palco.gravando .voz-ondas i{animation:onda .9s ease-in-out infinite alternate}
+  .voz-ondas i:nth-child(3n){animation-delay:-.3s}
+  .voz-ondas i:nth-child(3n+1){animation-delay:-.6s}
+  .voz-ondas i:nth-child(4n){animation-duration:.7s}
+  .voz-ondas i:nth-child(5n+2){animation-duration:1.1s}
+  @keyframes onda{from{transform:scaleY(.2)}to{transform:scaleY(1)}}
+  .voz-virou{display:flex;align-items:center;gap:8px;white-space:nowrap;margin-top:12px;padding-top:12px;border-top:1px solid rgba(238,243,240,.08);font-size:14px;font-weight:600;opacity:0;transform:translateY(4px);transition:opacity .35s var(--ease-out),transform .35s var(--ease-out)}
+  .voz-virou svg{color:var(--green);flex:none}
+  .voz-virou span{color:var(--muted);font-weight:500}
+  .palco.pronto .voz-virou{opacity:1;transform:none}
+
+  /* 2 · O aceite: o selo entra e o ✓ se desenha. */
+  .cartao-aceite{display:flex;align-items:center;gap:14px}
+  .selo{flex:none;width:40px;height:40px;border-radius:50%;background:var(--green);color:var(--on-green);display:flex;align-items:center;justify-content:center;transform:scale(.6);opacity:0;transition:transform .5s var(--ease-out),opacity .25s ease}
+  .selo path{stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .4s var(--ease-out) .25s}
+  .aceite-quem{font-size:15.5px;font-weight:700;line-height:1.25}
+  .aceite-quanto{color:var(--muted);font-size:13.5px;margin-top:2px}
+  .aceite-quanto b{color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
+
+  /* 3 · O mês: as barras crescem do chão, uma depois da outra. Mesmo desenho do
+     gráfico da Início — o escuro é o que foi enviado, o verde o que fechou. */
+  .mes-topo{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .recorde{display:inline-flex;align-items:center;gap:5px;color:var(--green);font-size:12px;font-weight:600;background:var(--green-fill);padding:4px 9px;border-radius:100px}
+  .mes-valor{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-top:6px;font-variant-numeric:tabular-nums}
+  .mes-barras{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:end;height:84px;margin-top:14px}
+  .mes-barras span{position:relative;display:block;height:var(--e);border-radius:5px 5px 2px 2px;background:#1f4a3c;transform:scaleY(0);transform-origin:bottom;transition:transform .7s var(--ease-out)}
+  .mes-barras span::after{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--a);border-radius:inherit;background:var(--green)}
+  .mes-meses{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:8px;color:var(--muted);font-size:11.5px;text-align:center}
+  .mes-meses b{color:var(--text);font-weight:600}
+
+  /* Entrada: cada cartão sobe e assenta na sua vez. A ordem É a história. */
+  .palco .cartao{opacity:0;transform:translateY(14px) scale(.97);transition:opacity .5s var(--ease-out),transform .6s var(--ease-out)}
+  .palco-fone{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease-out),transform .8s var(--ease-out)}
+  .palco.in .palco-fone{opacity:1;transform:none}
+  .palco.in .cartao-voz{opacity:1;transform:none;transition-delay:.35s}
+  .palco.aceitou .cartao-aceite{opacity:1;transform:none}
+  .palco.aceitou .selo{opacity:1;transform:none;transition-delay:.15s}
+  .palco.aceitou .selo path{stroke-dashoffset:0}
+  .palco.cresceu .cartao-mes{opacity:1;transform:none}
+  .palco.cresceu .mes-barras span{transform:none}
+  .mes-barras span:nth-child(2){transition-delay:.06s}
+  .mes-barras span:nth-child(3){transition-delay:.12s}
+  .mes-barras span:nth-child(4){transition-delay:.18s}
+  .mes-barras span:nth-child(5){transition-delay:.24s}
+  .mes-barras span:nth-child(6){transition-delay:.3s}
+
+  /* Celular: não cabe cartão ao lado do aparelho, então eles encostam POR CIMA
+     das bordas dele, menores. O do mês fica de fora — três cartões sobre um
+     aparelho de 240px viravam bagunça. */
+  @media (max-width:760px){
+    .palco{--fone:min(250px,64vw)}
+    .cartao-voz{right:auto;left:0;top:56%;scale:.72;transform-origin:left top}
+    .cartao-aceite{left:auto;right:0;top:34%;scale:.72;transform-origin:right top}
+    .cartao-mes{display:none}
+  }
+  @media (max-width:760px) and (min-width:560px){
+    .cartao-voz{left:calc(50% - var(--fone) / 2 - 150px)}
+    .cartao-aceite{right:calc(50% - var(--fone) / 2 - 150px)}
+  }
 
   /* Bandas */
   .band{padding:92px 0;position:relative}
@@ -182,7 +275,7 @@
   .fala-frase p{font-size:17px;line-height:1.45;color:var(--text)}
   .campo{background:#0a0f0c;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)}
   .campo-telas{position:relative}
-  .campo-telas img{width:100%;aspect-ratio:600/140;object-fit:cover}
+  .campo-telas img{width:100%;aspect-ratio:780/194;object-fit:cover}
   .campo-telas .campo-grav{position:absolute;inset:0;height:100%;opacity:0}
   .campo figcaption{padding:13px 16px;font-size:12.5px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
   .step-media.in .campo-grav{opacity:1;transition:opacity .4s var(--ease-out) .7s}
@@ -279,7 +372,11 @@
        o menu: o botão do topo encolhe um pouco no celular. */
     .nav-cta .btn-primary{padding:10px 14px;font-size:14px}
   }
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.fala-frase{transform:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.fala-frase{transform:none}
+    /* Sem movimento, a cena já nasce pronta: nada sobe nem cresce, só aparece. */
+    .palco .cartao,.palco-fone,.selo,.mes-barras span,.voz-virou{opacity:1;transform:none;transition:opacity .2s ease}
+    .selo path{stroke-dashoffset:0;transition:none}
+    .palco.gravando .voz-ondas i{animation:none}}
 
 /* ====== Páginas internas (ajuda, privacidade, termos) ====== */
 .page-top{padding:66px 0 40px;text-align:center;border-bottom:1px solid var(--surface-alt)}
