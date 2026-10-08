@@ -418,7 +418,7 @@
        e do menu sem quebrar em duas linhas. */
     .nav-cta .btn-primary{padding:1rem 1.4rem;font-size:1.4rem}
   }
-  /* Celular pequeno (até 340px): "Quero minha vaga no beta →" não cabia numa
+  /* Celular pequeno (até 340px): "Criar conta grátis →" não cabia numa
      linha só e a seta ficava sozinha na ponta do botão. Ele perde um pouco de
      folga dos lados e de tamanho de letra — só aqui; de 341px pra cima ele já
      cabe inteiro. */
@@ -459,32 +459,8 @@
 .doc-cta p{color:var(--muted);font-size:1.4rem;margin:0}
 .doc-cta a{flex-shrink:0}
 
-/* ====== BETA: selo, vagas e formulário ====== */
-.beta-tag{display:inline-flex;align-items:center;gap:.8rem;padding:.6rem 1.4rem;margin-bottom:2.2rem;border:1px solid var(--line);border-radius:99.9rem;background:var(--surface-alt);color:var(--green);font-size:1.25rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-.beta-tag i{width:.7rem;height:.7rem;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(45,224,172,.6);animation:pulso 2.4s var(--ease-out) infinite}
-@keyframes pulso{0%{box-shadow:0 0 0 0 rgba(45,224,172,.55)}70%,100%{box-shadow:0 0 0 .9rem rgba(45,224,172,0)}}
+/* ====== Nota sob o botão do CTA final ====== */
 .vagas{margin-top:1.4rem;color:var(--muted);font-size:1.4rem}
-
-.vaga{margin:auto;padding:0;border:0;background:transparent;color:var(--text);width:min(44rem,calc(100vw - 3.2rem));max-height:calc(100dvh - 3.2rem)}
-.vaga::backdrop{background:rgba(5,10,8,.7);backdrop-filter:blur(.8rem);-webkit-backdrop-filter:blur(.8rem)}
-.vaga[open]{animation:vaga-in .28s var(--ease-out)}
-@keyframes vaga-in{from{opacity:0;transform:translateY(1.4rem) scale(.98)}}
-.vaga-box{position:relative;display:flex;flex-direction:column;gap:1.4rem;padding:2.8rem 2.4rem 2.4rem;background:var(--surface-alt);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
-.vaga-box .beta-tag{align-self:flex-start;margin-bottom:0}
-.vaga-box h2{font-size:2.4rem;line-height:1.2;letter-spacing:-.02em}
-.vaga-sub{color:var(--muted);font-size:1.5rem;margin-top:-.6rem}
-.vaga-box label{display:flex;flex-direction:column;gap:.6rem;font-size:1.4rem;font-weight:500}
-.vaga-box input,.vaga-box select{font:inherit;font-size:1.6rem;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:1.2rem;padding:1.2rem 1.4rem;min-height:4.8rem}
-.vaga-box input:focus,.vaga-box select:focus{outline:.2rem solid var(--green);outline-offset:1px;border-color:transparent}
-.vaga-box .btn{justify-content:center;margin-top:.4rem}
-.vaga-box .btn:disabled{opacity:.7;cursor:progress}
-.vaga-x{position:absolute;top:1rem;right:1rem;width:4rem;height:4rem;border:0;border-radius:50%;background:transparent;color:var(--muted);font-size:2.6rem;line-height:1;cursor:pointer}
-.vaga-x:hover{background:var(--surface);color:var(--text)}
-.vaga-erro{color:var(--amber);font-size:1.4rem;min-height:0}
-.vaga-erro:empty{display:none}
-.vaga-nota{color:var(--muted);font-size:1.3rem;text-align:center}
-.vaga-armadilha{position:absolute;left:-999.9rem;width:1px;height:1px;opacity:0}
-@media (prefers-reduced-motion:reduce){.beta-tag i,.vaga[open]{animation:none}}
 
 /* ====== Faixa de segmentos — letreiro deslizante ====== */
 .hero-marquee{margin-top:2.4rem;width:100%;overflow:hidden;border-block:1px solid var(--line);padding:1.3rem 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}

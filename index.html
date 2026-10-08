@@ -8,7 +8,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#0f1613">
-<meta name="description" content="Fale o serviço, confira e envie. O Oravio monta o orçamento em PDF na hora, com a sua tabela de preços. Para oficinas, clínicas, salões, assistências técnicas e locadoras. Beta fechado, sem custo nesta fase.">
+<meta name="description" content="Fale o serviço, confira e envie. O Oravio monta o orçamento em PDF na hora, com a sua tabela de preços. Para oficinas, clínicas, salões, assistências técnicas e locadoras. Teste grátis por 7 dias, sem cartão.">
 <meta property="og:title" content="Oravio — Seu orçamento pronto antes do cliente ir embora">
 <meta property="og:description" content="Fale o serviço, confira e envie. O PDF sai na hora, com a sua tabela de preços.">
 <meta property="og:url" content="https://oravio.com.br">
@@ -52,14 +52,13 @@
 <section class="hero">
   <div class="glow"></div>
   <div class="wrap hero-inner reveal">
-    <span class="beta-tag"><i aria-hidden="true"></i>Beta fechado</span>
     <h1 class="hero-title">Seu orçamento pronto antes do cliente ir embora.</h1>
     <p class="hero-sub">Fale o serviço, confira e envie. O Oravio monta o PDF com a <strong>sua</strong> tabela de preços.</p>
     <div class="hero-cta">
-      <a href="#vaga" data-vaga class="btn btn-primary btn-lg">Quero minha vaga no beta <span class="arrow">→</span></a>
+      <a href="https://app.oravio.com.br/cadastro" class="btn btn-primary btn-lg">Criar conta grátis <span class="arrow">→</span></a>
       <div class="hero-note">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-        15 vagas · sem custo nesta fase
+        7 dias grátis · sem cartão
       </div>
     </div>
     <div class="hero-marquee" role="img" aria-label="Feito para locação, oficina, clínica, salão, assistência técnica e qualquer outro serviço com tabela de preços">
@@ -224,9 +223,9 @@
       <div class="cta-box reveal">
         <div class="glow"></div>
         <h2>O orçamento sai na hora.</h2>
-        <p>A primeira turma é pequena de propósito: cada empresa é acompanhada de perto no começo. Garanta sua vaga — a gente libera a conta pelo WhatsApp.</p>
-        <a href="#vaga" data-vaga class="btn btn-primary btn-lg">Quero minha vaga no beta <span class="arrow">→</span></a>
-        <p class="vagas">15 vagas · sem custo nesta fase</p>
+        <p>Crie sua conta e teste o Oravio Profissional por 7 dias, sem cartão. Em poucos minutos você monta seu primeiro orçamento.</p>
+        <a href="https://app.oravio.com.br/cadastro" class="btn btn-primary btn-lg">Criar conta grátis <span class="arrow">→</span></a>
+        <p class="vagas">7 dias grátis · sem cartão</p>
       </div>
     </div>
   </section>
@@ -244,6 +243,7 @@
         <div class="foot-col">
           <h4>Produto</h4>
           <a href="#passos">Como funciona</a>
+          <a href="https://app.oravio.com.br/cadastro">Criar conta</a>
           <a href="https://app.oravio.com.br">Entrar</a>
         </div>
         <div class="foot-col">
@@ -261,32 +261,6 @@
     </div>
   </div>
 </footer>
-
-<!-- ====== FORMULÁRIO DA VAGA ======
-     Grava primeiro (Supabase, tabela lista_espera: o visitante só adiciona),
-     DEPOIS abre o WhatsApp. Se o WhatsApp for fechado, o contato já ficou.
-     Se a gravação falhar, os dados seguem completos na mensagem. -->
-<dialog class="vaga" id="vaga" aria-labelledby="vaga-t">
-  <form class="vaga-box" id="vaga-form" novalidate>
-    <button type="button" class="vaga-x" data-fechar aria-label="Fechar">×</button>
-    <span class="beta-tag"><i aria-hidden="true"></i>15 vagas</span>
-    <h2 id="vaga-t">Garanta sua vaga no beta</h2>
-    <p class="vaga-sub">Sem custo nesta fase. Seu e-mail vira o login do app.</p>
-    <label>Seu nome<input name="nome" autocomplete="name" required minlength="2" maxlength="120"></label>
-    <label>E-mail<input name="email" type="email" autocomplete="email" inputmode="email" required maxlength="200"></label>
-    <label>WhatsApp<input name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="(86) 99999-9999" required minlength="8" maxlength="30"></label>
-    <label>Seu ramo
-      <select name="ramo" required>
-        <option value="">Escolha</option>
-        <option>Oficina</option><option>Locação</option><option>Clínica</option><option>Salão</option><option>Assistência técnica</option><option>Outro serviço</option>
-      </select>
-    </label>
-    <input name="site" class="vaga-armadilha" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <p class="vaga-erro" id="vaga-erro" role="alert"></p>
-    <button type="submit" class="btn btn-primary btn-lg">Garantir minha vaga <span class="arrow">→</span></button>
-    <p class="vaga-nota">Em seguida abrimos o WhatsApp pra confirmar.</p>
-  </form>
-</dialog>
 
 <script>
   var ham=document.getElementById('ham'), mob=document.getElementById('mob');
@@ -382,36 +356,6 @@
     medir();
   })();
 
-  (function(){
-    var URL='https://pdpjgshtjozxhdxekrha.supabase.co/rest/v1/lista_espera';
-    var KEY='sb_publishable_pnDt2ZlOuxaG-J6xA0mSQw_T7_57CR-';
-    var dlg=document.getElementById('vaga'), f=document.getElementById('vaga-form'), err=document.getElementById('vaga-erro');
-    document.querySelectorAll('[data-vaga]').forEach(function(a){a.addEventListener('click',function(e){
-      e.preventDefault();ham.classList.remove('open');mob.classList.remove('show');
-      if(dlg.showModal){dlg.showModal();}else{dlg.setAttribute('open','');}
-      f.nome.focus();
-    });});
-    if(location.hash==='#vaga'&&dlg.showModal){dlg.showModal();}
-    dlg.querySelector('[data-fechar]').addEventListener('click',function(){dlg.close();});
-    dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
-    f.addEventListener('submit',function(e){
-      e.preventDefault();err.textContent='';
-      if(f.site.value)return;
-      var d={nome:f.nome.value.trim(),email:f.email.value.trim().toLowerCase(),whatsapp:f.whatsapp.value.trim(),ramo:f.ramo.value,origem:'landing'};
-      if(d.nome.length<2){err.textContent='Escreva seu nome.';f.nome.focus();return;}
-      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)){err.textContent='Confira o e-mail — ele vai ser o seu login.';f.email.focus();return;}
-      if(d.whatsapp.replace(/\D/g,'').length<10){err.textContent='WhatsApp com DDD, por favor.';f.whatsapp.focus();return;}
-      if(!d.ramo){err.textContent='Escolha o seu ramo.';f.ramo.focus();return;}
-      var btn=f.querySelector('[type=submit]');btn.disabled=true;btn.firstChild.textContent='Guardando sua vaga… ';
-      var msg='Oi! Acabei de pedir minha vaga no beta do Oravio.\nNome: '+d.nome+'\nE-mail: '+d.email+'\nWhatsApp: '+d.whatsapp+'\nRamo: '+d.ramo;
-      var wa='https://wa.me/558688197951?text='+encodeURIComponent(msg);
-      var ir=function(){btn.disabled=false;btn.firstChild.textContent='Garantir minha vaga ';dlg.close();f.reset();window.location.href=wa;};
-      var ctl=window.AbortController?new AbortController():null;
-      setTimeout(function(){ctl&&ctl.abort();},6000);
-      fetch(URL,{method:'POST',headers:{'apikey':KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(d),signal:ctl?ctl.signal:undefined})
-        .then(ir,ir);
-    });
-  })();
 </script>
 </body>
 </html>
