@@ -132,9 +132,16 @@
 
      O FIO DA HISTÓRIA. É o MESMO orçamento nos três passos: a frase do passo 1
      é a que aparece no topo da tela do passo 2, e os itens dela são os do PDF
-     do passo 3. As legendas dizem isso, pra quem rola sem ler os textos. -->
+     do passo 3. As legendas dizem isso, pra quem rola sem ler os textos.
+
+     O GUIA. O mascote do app (a marca com rosto) é a ponta do fio: desce com
+     ele, senta em cada número e reage ao passo. O rosto parado já vem aqui no
+     HTML; quem o faz andar e reagir é o mascote.js, pedido depois de a página
+     carregar (fonte em scripts/landing/mascote/ no repositório do app). As
+     partes levam `data-parte`, que é como o motor do app as encontra. -->
 <div class="jornada" id="passos">
   <div class="trilho" aria-hidden="true"><i></i></div>
+  <div class="guia" aria-hidden="true"><svg viewBox="0 0 512 512" overflow="visible" focusable="false"><g data-parte="corpo"><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z" fill="#18b98a"/><ellipse data-parte="bochecha" cx="128" cy="326" rx="40" ry="20" fill="var(--bochecha)" opacity="0"/><ellipse data-parte="bochecha" cx="384" cy="326" rx="40" ry="20" fill="var(--bochecha)" opacity="0"/><rect data-parte="olho" x="120.7" y="137.2" width="102.6" height="153.6" rx="12" fill="#ffffff"/><rect data-parte="olho" x="281.8" y="54.5" width="102.6" height="236.2" rx="12" fill="#ffffff"/><path data-parte="boca" d="M56 299 C156 480 356 480 456 299 C356 404 156 404 56 299 Z" fill="#ffffff"/></g><g data-parte="efeitos"/></svg></div>
 
   <div class="steps-band">
     <div class="wrap steps">
@@ -346,19 +353,28 @@
      altura da tela: o fio se enche até ela, e o número que ela já passou
      acende — os dois usam a mesma conta, então o fio chega JUNTO com o número.
      No computador o fio sai de baixo do aparelho do herói; no celular, que não
-     tem aparelho centralizado em cima, ele começa no número 1. */
+     tem aparelho centralizado em cima, ele começa no número 1.
+
+     O GUIA usa estas MESMAS medidas, publicadas em `j.trilho` a cada quadro (com
+     o evento "trilho"): assim ele reage no instante em que o número acende. Aqui
+     só se calcula onde ele senta (`paradas`: em cima de cada número) e onde ele
+     estaciona antes de tudo; quem o faz andar é o mascote.js. Até ele chegar, e
+     sempre com "reduzir movimento", o mascote fica estacionado e parado. */
   (function(){
     var j=document.querySelector('.jornada'); if(!j)return;
-    var trilho=j.querySelector('.trilho'), cheio=trilho.firstElementChild;
+    var trilho=j.querySelector('.trilho'), cheio=trilho.firstElementChild, guia=j.querySelector('.guia');
     var nos=Array.prototype.slice.call(j.querySelectorAll('.no'));
     var largo=window.matchMedia('(min-width:901px)');
-    var topo=0, alt=0, centros=[], agendado=false;
+    var topo=0, alt=0, centros=[], paradas=[], ini=0, medida=0, agendado=false;
     function pintar(){
       agendado=false;
       var linha=window.innerHeight*.55-j.getBoundingClientRect().top;
       var p=alt?Math.min(1,Math.max(0,(linha-topo)/alt)):0;
       cheio.style.transform='scaleY('+p+')';
-      for(var i=0;i<nos.length;i++)nos[i].classList.toggle('on',centros[i]<=linha);
+      var ativo=0;
+      for(var i=0;i<nos.length;i++){var on=centros[i]<=linha;nos[i].classList.toggle('on',on);if(on)ativo=i+1;}
+      j.trilho={linha:linha,ativo:ativo,centros:centros,paradas:paradas,ini:ini,medida:medida};
+      j.dispatchEvent(new Event('trilho'));
     }
     function medir(){
       var jt=j.getBoundingClientRect().top;
@@ -366,6 +382,15 @@
       topo=largo.matches?0:centros[0];
       alt=Math.max(0,centros[centros.length-1]-topo);
       trilho.style.top=topo+'px';trilho.style.height=alt+'px';
+      if(guia){
+        /* Sentado: a base do rosto encosta no topo do número e afunda 8% nele. */
+        var tam=guia.offsetHeight;
+        paradas=nos.map(function(n,i){return centros[i]-n.offsetHeight/2-tam*.42;});
+        ini=largo.matches?topo+tam/2:paradas[0];
+        if(!('vivo' in guia.dataset))guia.style.transform='translate3d(0,'+(ini-tam/2).toFixed(1)+'px,0)';
+        guia.classList.add('pronta');
+      }
+      medida++;
       pintar();
     }
     window.addEventListener('scroll',function(){if(!agendado){agendado=true;requestAnimationFrame(pintar);}},{passive:true});
@@ -373,6 +398,14 @@
     if('ResizeObserver' in window)new ResizeObserver(medir).observe(j);
     medir();
   })();
+
+  /* O motor do guia chega por último: depois do `load`, quando o navegador folga. Quem
+     abre a página não paga por ele antes de ver o topo. */
+  window.addEventListener('load',function(){
+    if(reduce||!document.querySelector('.guia'))return;
+    function pedir(){var s=document.createElement('script');s.src='mascote.js';s.async=true;document.body.appendChild(s);}
+    if('requestIdleCallback' in window)requestIdleCallback(pedir,{timeout:2000});else setTimeout(pedir,300);
+  });
 
 </script>
 </body>

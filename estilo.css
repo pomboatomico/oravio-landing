@@ -68,6 +68,9 @@
     --fone-camera:#060908; --fone-lente:#1c2622;
     /* Contorno de 1px das imagens (better-ui): preto puro a 10% no claro, branco puro no escuro. */
     --contorno-img:oklch(0 0 0 / .1);
+    /* O mascote (o guia do trilho): bochecha corada (--color-bochecha do app, igual nos dois
+       temas, porque a marca não segue tema) e os brilhos e a faísca (--color-amber do app). */
+    --bochecha:#ff7a93; --brilho:#e8930f;
     /* A mesma cadeia do --font-sans do app; a Sora só entra nos títulos. */
     --font-sans:-apple-system,BlinkMacSystemFont,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     --font-titulo:'Sora',var(--font-sans);
@@ -95,6 +98,7 @@
       --fone-contorno:rgba(238,243,240,.22);
       --fone-sombra:0 3rem 5rem -2rem rgba(0,0,0,.6);
       --contorno-img:oklch(1 0 0 / .1);
+      --brilho:#f4b24a;
     }
   }
   /* Sora: SÓ nos títulos (é a fonte de que o logotipo foi desenhado e a que o Instagram
@@ -405,6 +409,16 @@
   .no{position:relative;z-index:1;width:var(--no,4.8rem);height:var(--no,4.8rem);border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--trilho);color:var(--muted);font-size:1.7rem;font-weight:700;font-variant-numeric:tabular-nums;transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}
   .no.on{background:var(--green);border-color:var(--green);color:var(--on-green);box-shadow:0 0 0 .6rem var(--anel)}
   .no-fim{--no:4.8rem;margin:0 auto -2.4rem;z-index:2}
+  /* O guia: o mascote do app, do tamanho do número (no computador), na faixa do fio. Quem diz onde ele
+     está é o script (transform), medido como o fio; até medir, ele não aparece (sem isso,
+     no celular ele nascia no topo da jornada, longe do número 1). Por cima dos números e
+     do ✓, porque ele senta neles; sem clique, porque passa por cima do texto no celular.
+     `will-change` põe o rosto numa camada própria: ele anda a cada quadro de rolagem e
+     o resto da página não precisa ser repintado junto. */
+  .jornada{--guia:4.8rem}
+  .guia{position:absolute;z-index:3;top:0;left:50%;width:var(--guia);height:var(--guia);margin-left:calc(var(--guia) / -2);pointer-events:none;visibility:hidden;will-change:transform}
+  .guia.pronta{visibility:visible}
+  .guia svg{display:block;width:100%;height:100%;overflow:visible}
 
   /* ====== Passo 1: a fala ======
      Um balão com a frase dita, e embaixo dele o campo real da tela inicial.
@@ -507,6 +521,10 @@
     .step>.no{position:absolute;left:0;top:-.6rem;grid-column:auto;grid-row:auto;font-size:1.4rem}
     .step-copy,.step-media,.step:nth-child(even) .step-copy,.step:nth-child(even) .step-media{grid-column:1;grid-row:auto}
     .trilho{left:4rem}
+    /* O guia é um pouco maior que o número (3,2rem): com 32px de rosto o sopro e os
+       brilhos tinham 1–2px e sumiam (filmado). Centrado no fio, ainda sobra 1rem até o texto. */
+    .jornada{--guia:4rem}
+    .guia{left:4rem}
     .no-fim{--no:3.2rem;margin:0 0 1.6rem}
     .no.on{box-shadow:0 0 0 .4rem var(--anel)}
   }
