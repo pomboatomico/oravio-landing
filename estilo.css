@@ -45,17 +45,18 @@
     --anel:rgba(24,185,138,.2);
     --grade:rgba(19,36,32,.05);
     --nav-fundo:rgba(255,255,255,.84);
-    --vidro:rgba(255,255,255,.78); --vidro-borda:rgba(19,36,32,.08);
-    --grafico-trilho:#b9ebd6; --app-bg:#e9edeb;
+    --app-bg:#e9edeb;
     --radius:1.6rem; --radius-lg:2.2rem; --maxw:115rem;
     --shadow:0 4rem 9rem -3rem rgba(19,36,32,.34);
     --shadow-sm:0 1.8rem 4rem -1.8rem rgba(19,36,32,.3);
     --shadow-card:0 2.4rem 6rem -2.8rem rgba(19,36,32,.3);
+    /* A sombra do aviso "João aceitou", dentro da tela do aparelho (o laço do topo). */
+    --sombra-aviso:0 .8rem 2.4rem -.8rem rgba(19,36,32,.28);
     --ease-out:cubic-bezier(.23,1,.32,1); --ease-in-out:cubic-bezier(.77,0,.175,1);
     /* O coral do "gravando" do app: vermelho só aparece quando o microfone está aberto.
-       --rec pinta preenchimento; o texto do tempo usa --rec-texto (no claro, o
-       --color-erro do app: o coral não passa como texto sobre branco). */
-    --rec:#e35b5b; --rec-texto:#c0392b; --on-rec:#2a0f0d;
+       Hoje pinta só o relógio da gravação no laço do topo, na cor exata que o app usa ali
+       (medida na captura): é a tela do app desenhada, não texto da página. */
+    --rec:#e35b5b;
     /* Texto que a página deixa mais fraco por opacidade (rótulos do rodapé, notas). No
        escuro funciona; no claro o apagado (#5f6e66) já está no limite de 4,5:1 e qualquer
        opacidade o reprova — por isso lá os dois valem 1. */
@@ -88,12 +89,12 @@
       --anel:rgba(45,224,172,.12);
       --grade:rgba(120,150,140,.06);
       --nav-fundo:rgba(11,16,14,.82);
-      --vidro:rgba(26,36,32,.72); --vidro-borda:rgba(238,243,240,.08);
-      --grafico-trilho:#244e3f; --app-bg:#0b100e;
+      --app-bg:#0b100e;
       --shadow:0 4rem 9rem -3rem rgba(0,0,0,.75);
       --shadow-sm:0 1.8rem 4rem -1.8rem rgba(0,0,0,.55);
       --shadow-card:0 2.4rem 6rem -2.8rem rgba(0,0,0,.7);
-      --rec:#ff7b73; --rec-texto:#ff7b73;
+      --sombra-aviso:0 .8rem 2.4rem -.8rem rgba(0,0,0,.6);
+      --rec:#ff7a7a;
       --esmaecer-forte:.75; --esmaecer:.8;
       --fone-contorno:rgba(238,243,240,.22);
       --fone-sombra:0 3rem 5rem -2rem rgba(0,0,0,.6);
@@ -205,6 +206,17 @@
   /* Peso 700 nos títulos: é o da Sora no Instagram da marca. O 800, herdado da Inter,
      fechava as letras da Sora (mais larga) e as palavras quase se encostavam. */
   h1.hero-title{font-size:clamp(3.6rem,5.6vw,6.4rem);font-weight:700;line-height:1.03;letter-spacing:-.03em;margin-bottom:2.2rem;text-wrap:balance}
+  /* A ABERTURA, só na primeira visita (a marca `abre` vem do <head>): o título entra palavra
+     por palavra (60 ms entre uma e outra, ~0,9 s no total) e o resto do topo vem logo atrás.
+     Nas outras visitas o topo entra inteiro, pelo .reveal. Se o script não partir o título,
+     ele aparece sozinho em 2,5 s (`abre-falha`): sem isso, ficaria escondido para sempre. */
+  .abre .hero-inner.reveal{opacity:1;transform:none}
+  .abre .hero-title:not(.partido){opacity:0;animation:abre-falha 0s 2.5s forwards}
+  .abre .hero-title .pal{display:inline-block;opacity:0;transform:translateY(.32em)}
+  .abre .hero-inner.in .hero-title .pal{opacity:1;transform:none;transition:opacity .45s var(--ease-out),transform .6s var(--ease-out);transition-delay:calc(var(--i) * 60ms)}
+  .abre .hero-inner>:not(.hero-title){opacity:0;transform:translateY(1.2rem)}
+  .abre .hero-inner.in>:not(.hero-title){opacity:1;transform:none;transition:opacity .6s var(--ease-out) .5s,transform .6s var(--ease-out) .5s}
+  @keyframes abre-falha{to{opacity:1}}
   .hero-sub{font-size:clamp(1.65rem,1.5vw,1.95rem);color:var(--muted);max-width:46ch;margin:0 auto 3.2rem;text-wrap:balance}
   .hero-cta{display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:wrap}
   .hero-note{display:flex;align-items:center;gap:.8rem;color:var(--muted);font-size:1.35rem}
@@ -236,123 +248,120 @@
      largura, o que mantém o furo no lugar em qualquer tamanho de aparelho. */
   .fone::after{content:"";position:absolute;left:50%;top:calc(var(--aro) * .873 - .55rem);margin-top:6.36%;width:1.1rem;height:1.1rem;margin-left:-.55rem;border-radius:50%;background:var(--fone-camera);box-shadow:inset 0 0 0 .2rem var(--fone-lente)}
 
-  /* ====== O palco do herói ======
-     O aparelho sozinho, cortado, parecia esquecido ali. Agora ele é o centro de
-     uma cena: três cartões de vidro em volta contam o dia de quem usa, NA ORDEM
-     em que acontece — a fala vira itens, o cliente aceita, o mês cresce.
-     Os cartões são desenho (aria-hidden): repetem o que os passos explicam,
-     só que em dois segundos.
+  /* ====== O palco do herói: o aparelho inteiro e o laço ======
+     Até 10/10/2026 o aparelho aparecia só até o meio, sumindo num degradê, com três
+     cartões de vidro em volta. O laço (etapa 3) acontece no PÉ da tela do app — o campo de
+     falar e o total moram lá embaixo —, então o aparelho aparece inteiro e os cartões
+     saíram: a fala e o aceite viraram cenas do laço; o faturamento saiu.
+     --tela-h é a altura da tela do app (a largura sem os dois aros de .9rem, na proporção
+     do print); as posições de fora do aparelho (balão) se medem por ela.
+     A folga de baixo (padding) é a da sombra do aparelho: o herói corta o que passa da borda. */
+  .palco{--fone:32rem;--tela-h:calc((var(--fone) - 1.8rem) * 1387 / 640);position:relative;z-index:1;width:100%;max-width:98rem;margin:clamp(4.4rem,5vw,6.4rem) auto 0;padding-bottom:6rem;pointer-events:none}
+  .palco-fone{position:relative;width:var(--fone);margin:0 auto}
+  .palco-fone .fone{width:100%}
 
-     Três camadas de movimento, cada uma numa propriedade própria, pra uma não
-     apagar a outra:
-       · `transform` — a entrada (sobe e assenta, uma vez);
-       · `translate` — a profundidade ao rolar (o script mexe, cada cartão num ritmo);
-       · `scale`     — o tamanho menor no celular (só CSS).
-     O aparelho some embaixo num degradê em vez de um corte seco: o corte reto
-     parecia imagem quebrada; o degradê diz "continua". */
-  .palco{--fone:32rem;position:relative;z-index:1;width:100%;max-width:98rem;margin:clamp(4.4rem,5vw,6.4rem) auto 0;height:calc(var(--fone) * 1.28);pointer-events:none}
-  .palco-fone{position:absolute;left:50%;top:0;width:var(--fone);margin-left:calc(var(--fone) / -2);height:100%;overflow:hidden;
-    -webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
-  /* No palco a sombra de fora sairia cortada pela borda do recorte: fica só o contorno. */
-  .palco-fone .fone{width:100%;box-shadow:inset 0 0 0 .1rem var(--fone-contorno)}
+  /* A TELA: cada print é uma camada, uma em cima da outra, no lugar em que fica no app.
+     --pt é um ponto da tela do app (393 de largura): as medidas da captura
+     (scripts/landing/captura.mjs, laco-medidas.json, no repositório do app) entram aqui do
+     jeito que saíram, e a camada cai no lugar em qualquer tamanho de aparelho. O contorno
+     fica num ::after por cima de tudo: em cada camada, ele dobraria onde elas se sobrepõem. */
+  .tela{--pt:calc(100cqw / 393);position:relative;container-type:inline-size;aspect-ratio:640/1387;border-radius:calc(var(--canto) - var(--aro));overflow:hidden;background:var(--app-bg)}
+  .tela::after{content:"";position:absolute;inset:0;z-index:9;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--contorno-img);pointer-events:none}
+  .tela img{display:block;width:100%;height:auto;border-radius:0;outline:0}
+  .camada{position:absolute;left:0;top:0;width:100%}
+  .laco-grav{top:calc(575.58 * var(--pt))}
+  /* O relógio da gravação sai do print (a captura o apaga) e conta aqui por cima. */
+  .laco-relogio{position:absolute;left:calc(57 * var(--pt));top:calc(714.08 * var(--pt));font:500 calc(14 * var(--pt))/calc(19 * var(--pt)) var(--font-sans);color:var(--rec);font-variant-numeric:tabular-nums}
+  /* Cada item é uma janela de 100 pontos sobre a Confira inteira, na altura da linha dele. */
+  .laco-item{position:absolute;left:0;width:100%;top:calc(var(--y) * var(--pt));height:calc(100 * var(--pt));overflow:hidden}
+  .laco-item picture{position:absolute;left:0;width:100%;top:calc(var(--y) * var(--pt) * -1)}
+  .laco-total{position:absolute;left:calc(37 * var(--pt));top:calc(726.8 * var(--pt));font:700 calc(22 * var(--pt))/calc(26.4 * var(--pt)) var(--font-sans);letter-spacing:-.01em;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
+  /* O dedo: um disco translúcido, como o "mostrar toques" do Android. */
+  .laco-toque{position:absolute;width:calc(46 * var(--pt));height:calc(46 * var(--pt));margin:calc(-23 * var(--pt)) 0 0 calc(-23 * var(--pt));border-radius:50%;background:color-mix(in oklab,var(--text) 20%,transparent);box-shadow:0 0 0 calc(1.5 * var(--pt)) color-mix(in oklab,var(--bg) 65%,transparent)}
+  .laco-toque-mic{left:calc(333 * var(--pt));top:calc(723.6 * var(--pt))}
+  .laco-toque-salvar{left:calc(326.4 * var(--pt));top:calc(731 * var(--pt))}
+  /* O aviso tem o desenho da "boa notícia" da Início do app (components/inicio-mesa.tsx) e desce
+     como notificação. Tudo em --pt: é parte da tela, cresce e encolhe com ela. */
+  .laco-aviso{position:absolute;left:calc(12 * var(--pt));right:calc(12 * var(--pt));top:calc(54 * var(--pt));display:flex;align-items:center;gap:calc(12 * var(--pt));padding:calc(12 * var(--pt)) calc(16 * var(--pt)) calc(12 * var(--pt)) calc(14 * var(--pt));background:var(--superficie);border:1px solid var(--line-suave);border-radius:calc(24 * var(--pt));box-shadow:var(--sombra-aviso);font-family:var(--font-sans);text-align:left}
+  .laco-aviso .selo{flex:none;width:calc(36 * var(--pt));height:calc(36 * var(--pt));border-radius:50%;background:var(--green);color:var(--on-green);display:flex;align-items:center;justify-content:center}
+  .laco-aviso .selo svg{width:58%;height:58%}
+  .laco-aviso .selo path{stroke-dasharray:24;stroke-dashoffset:24}
+  .laco-aviso-texto{flex:1;min-width:0;display:flex;flex-direction:column}
+  .laco-aviso-texto b{font-size:calc(16 * var(--pt));font-weight:600;line-height:1.2;color:var(--text)}
+  .laco-aviso-texto span{margin-top:calc(2 * var(--pt));font-size:calc(13 * var(--pt));font-weight:500;color:var(--muted)}
+  .laco-aviso-valor{font-size:calc(16 * var(--pt));font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .laco-aviso-valor small{font-size:calc(13 * var(--pt));font-weight:600;color:var(--muted)}
 
-  .cartao{position:absolute;z-index:2;background:var(--vidro);-webkit-backdrop-filter:blur(1.8rem) saturate(1.4);backdrop-filter:blur(1.8rem) saturate(1.4);border:1px solid var(--vidro-borda);border-radius:var(--radius);box-shadow:var(--shadow-card);padding:1.6rem 1.8rem;text-align:left}
-  .cartao-rot{display:block;color:var(--muted);font-size:1.15rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  /* Fora do aparelho: o balão da fala (ao lado, no computador; por cima do aparelho, acima
+     do campo, no celular), a folha do PDF e o botão de pausar. */
+  .laco-balao{position:absolute;z-index:2;width:min(27rem,calc((100% - var(--fone)) / 2 - 3.6rem));right:calc(50% + var(--fone) / 2 + 2.4rem);bottom:calc(6rem + .9rem + var(--tela-h) * 112 / 852);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg) var(--radius-lg) .6rem var(--radius-lg);padding:1.6rem 1.8rem;text-align:left;box-shadow:var(--shadow-card)}
+  .laco-balao .fala-quem{margin-bottom:.8rem}
+  .laco-balao p{font-size:1.55rem;line-height:1.45;color:var(--text)}
+  .laco-folha{position:absolute;z-index:3;top:8rem;left:calc(50% + var(--fone) / 2 - 2.4rem);width:min(26rem,calc((100% - var(--fone)) / 2 + .4rem));height:auto;border:1px solid var(--line);border-radius:.8rem;box-shadow:var(--shadow-card)}
+  .laco-botao{position:absolute;z-index:3;left:calc(50% + var(--fone) / 2 + 1.6rem);bottom:6rem;width:4.4rem;height:4.4rem;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;pointer-events:auto;transition:color .2s ease,border-color .2s ease}
+  .laco-botao[hidden]{display:none}
+  .laco-botao svg{display:none}
+  .laco-botao[data-estado=tocando] .i-pausa,.laco-botao[data-estado=pausado] .i-tocar,.laco-botao[data-estado=fim] .i-denovo{display:block}
+  .laco-botao:focus-visible{outline:2px solid var(--green-text);outline-offset:2px}
+  @media (hover:hover) and (pointer:fine){.laco-botao:hover{color:var(--text);border-color:var(--line-forte)}}
 
-  /* Posições: presas às bordas do aparelho (50% ± meia largura), então os
-     cartões encostam nele em qualquer largura de tela, sem recalcular. */
-  .cartao-voz{width:24.8rem;top:3.6rem;right:calc(50% + var(--fone) / 2 - 2.8rem)}
-  .cartao-aceite{width:25.2rem;top:15rem;left:calc(50% + var(--fone) / 2 - 3.2rem)}
-  .cartao-mes{width:29.2rem;top:17.8rem;right:calc(50% + var(--fone) / 2 + 1.2rem)}
+  /* OS MOMENTOS DO LAÇO: cada um é uma classe no palco, posta pelo script "O LAÇO" na ordem
+     do roteiro e tirada toda de uma vez no fim da volta. A transição de cada regra ativa é a
+     de ENTRADA; a da regra de base é a de SAÍDA (a volta para a Início é um esmaecer só, de
+     meio segundo). Entrada com --ease-out; o aviso e a folha saem pelo caminho em que vieram. */
+  .laco-anima>*,.laco-balao,.laco-folha{opacity:0}
+  .camada.laco-espera,.camada.laco-confira,.laco-total{transition:opacity .5s ease}
+  .palco.espera .laco-espera,.palco.confira .laco-confira{opacity:1;transition:opacity .3s ease}
+  .laco-grav,.laco-relogio{transition:opacity .2s ease}
+  .palco.gravando:not(.solta) .laco-grav,.palco.gravando:not(.solta) .laco-relogio{opacity:1;transition:opacity .15s ease}
+  .laco-toque{transform:scale(.8);transition:opacity .25s ease,transform .3s var(--ease-out)}
+  .palco.toque:not(.solta) .laco-toque-mic,.palco.salvar:not(.pdf) .laco-toque-salvar{opacity:1;transform:none;transition:opacity .12s ease,transform .2s var(--ease-out)}
+  .palco.solta .laco-toque-mic,.palco.pdf .laco-toque-salvar{transform:scale(1.15)}
+  .laco-item{transform:translateY(calc(8 * var(--pt)));transition:opacity .5s ease}
+  .palco.item1 .laco-item.i1,.palco.item2 .laco-item.i2,.palco.item3 .laco-item.i3{opacity:1;transform:none;transition:opacity .3s var(--ease-out),transform .45s var(--ease-out)}
+  .palco.total .laco-total{opacity:1;transition:opacity .2s ease}
+  .laco-balao{transform:translateX(1.2rem);transition:opacity .4s ease,transform .4s var(--ease-out)}
+  .palco.balao .laco-balao{opacity:1;transform:none;transition:opacity .4s var(--ease-out),transform .5s var(--ease-out)}
+  .palco.balao.confira:not(.ultima) .laco-balao{opacity:0}
+  .laco-folha{transform:translate(-12rem,2rem) scale(.6);transform-origin:left center;transition:opacity .35s ease,transform .5s var(--ease-out)}
+  .palco.pdf .laco-folha{opacity:1;transform:rotate(-3deg);transition:opacity .25s ease,transform .7s var(--ease-out)}
+  .laco-aviso{opacity:1;transform:translateY(calc(-100% - 66 * var(--pt)));transition:transform .35s var(--ease-out)}
+  .laco-aviso .selo{transform:scale(.6);transition:transform .2s ease}
+  .laco-aviso .selo path{transition:stroke-dashoffset .2s ease}
+  .palco.aceite .laco-aviso{transform:none;transition:transform .5s var(--ease-out)}
+  .palco.aceite .laco-aviso .selo{transform:none;transition:transform .45s var(--ease-out) .15s}
+  .palco.aceite .laco-aviso .selo path{stroke-dashoffset:0;transition:stroke-dashoffset .4s var(--ease-out) .3s}
 
-  /* 1 · A fala. Enquanto "grava", as barras oscilam; quando para, elas baixam
-     e aparece o que a fala virou. */
-  .voz-linha{display:flex;align-items:center;gap:1.2rem;margin-top:1rem}
-  .voz-mic{flex:none;width:3.4rem;height:3.4rem;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--rec);color:var(--on-rec)}
-  .voz-ondas{display:flex;align-items:center;gap:.3rem;height:2.6rem;flex:1}
-  /* Parada, a onda fica no desenho de uma fala gravada (alturas de --h); gravando, oscila. */
-  .voz-ondas i{display:block;width:.3rem;height:100%;border-radius:.2rem;background:var(--rec);transform:scaleY(var(--h,.4));transform-origin:center;transition:transform .45s var(--ease-out)}
-  .voz-ondas i:nth-child(odd){--h:.55}.voz-ondas i:nth-child(3n){--h:.8}.voz-ondas i:nth-child(4n+1){--h:.3}.voz-ondas i:nth-child(5n){--h:.95}.voz-ondas i:nth-child(7n+2){--h:.65}
-  .palco.pronto .voz-ondas i{opacity:.55}
-  .voz-tempo{color:var(--rec-texto);font-size:1.3rem;font-weight:600;font-variant-numeric:tabular-nums}
-  .palco.gravando .voz-ondas i{animation:onda .9s ease-in-out infinite alternate}
-  .voz-ondas i:nth-child(3n){animation-delay:-.3s}
-  .voz-ondas i:nth-child(3n+1){animation-delay:-.6s}
-  .voz-ondas i:nth-child(4n){animation-duration:.7s}
-  .voz-ondas i:nth-child(5n+2){animation-duration:1.1s}
-  @keyframes onda{from{transform:scaleY(.2)}to{transform:scaleY(1)}}
-  .voz-virou{display:flex;align-items:center;gap:.8rem;white-space:nowrap;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--vidro-borda);font-size:1.4rem;font-weight:600;opacity:0;transform:translateY(.4rem);transition:opacity .35s var(--ease-out),transform .35s var(--ease-out)}
-  .voz-virou svg{color:var(--green-text);flex:none}
-  .voz-virou span{color:var(--muted);font-weight:500}
-  .palco.pronto .voz-virou{opacity:1;transform:none}
-
-  /* 2 · O aceite: o selo entra e o ✓ se desenha. */
-  .cartao-aceite{display:flex;align-items:center;gap:1.4rem}
-  .selo{flex:none;width:4rem;height:4rem;border-radius:50%;background:var(--green);color:var(--on-green);display:flex;align-items:center;justify-content:center;transform:scale(.6);opacity:0;transition:transform .5s var(--ease-out),opacity .25s ease}
-  .selo path{stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .4s var(--ease-out) .25s}
-  .aceite-quem{font-size:1.55rem;font-weight:700;line-height:1.25}
-  .aceite-quanto{color:var(--muted);font-size:1.35rem;margin-top:.2rem}
-  .aceite-quanto b{color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
-
-  /* 3 · O mês: as barras crescem do chão, uma depois da outra. Mesmo desenho do
-     gráfico da Início — o escuro é o que foi enviado, o verde o que fechou. */
-  .mes-topo{display:flex;align-items:center;justify-content:space-between;gap:.8rem}
-  .recorde{display:inline-flex;align-items:center;gap:.5rem;color:var(--green-text);font-size:1.2rem;font-weight:600;background:var(--green-fill);padding:.4rem .9rem;border-radius:10rem}
-  .mes-valor{font-size:2.4rem;font-weight:800;letter-spacing:-.02em;margin-top:.6rem;font-variant-numeric:tabular-nums}
-  .mes-barras{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;align-items:end;height:8.4rem;margin-top:1.4rem}
-  .mes-barras span{position:relative;display:block;height:var(--e);border-radius:.5rem .5rem .2rem .2rem;background:var(--grafico-trilho);transform:scaleY(0);transform-origin:bottom;transition:transform .7s var(--ease-out)}
-  .mes-barras span::after{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--a);border-radius:inherit;background:var(--green)}
-  .mes-meses{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;margin-top:.8rem;color:var(--muted);font-size:1.15rem;text-align:center}
-  .mes-meses b{color:var(--text);font-weight:600}
-
-  /* Entrada: cada cartão sobe e assenta na sua vez. A ordem É a história. */
-  .palco .cartao{opacity:0;transform:translateY(1.4rem) scale(.97);transition:opacity .5s var(--ease-out),transform .6s var(--ease-out)}
-  .palco-fone{opacity:0;transform:translateY(2.4rem);transition:opacity .7s var(--ease-out),transform .8s var(--ease-out)}
-  .palco.in .palco-fone{opacity:1;transform:none}
-  .palco.in .cartao-voz{opacity:1;transform:none;transition-delay:.35s}
-  .palco.aceitou .cartao-aceite{opacity:1;transform:none}
-  .palco.aceitou .selo{opacity:1;transform:none;transition-delay:.15s}
-  .palco.aceitou .selo path{stroke-dashoffset:0}
-  .palco.cresceu .cartao-mes{opacity:1;transform:none}
-  .palco.cresceu .mes-barras span{transform:none}
-  .mes-barras span:nth-child(2){transition-delay:.06s}
-  .mes-barras span:nth-child(3){transition-delay:.12s}
-  .mes-barras span:nth-child(4){transition-delay:.18s}
-  .mes-barras span:nth-child(5){transition-delay:.24s}
-  .mes-barras span:nth-child(6){transition-delay:.3s}
-
-  /* Celular: não cabe cartão ao lado do aparelho, então eles encostam POR CIMA
-     das bordas dele, menores. O do mês fica de fora — três cartões sobre um
-     aparelho de 240px viravam bagunça. */
+  /* Celular e tablet em pé: não há lado livre do aparelho. O balão fica por cima do aparelho,
+     logo acima do campo (sem cobrir o microfone), e sai quando a Confira entra, inclusive no
+     quadro parado do fim e do "reduzir movimento": ali ele cobriria os itens. A folha sobe pelo
+     meio do aparelho e sai antes de o aviso descer, que senão ficaria embaixo dela. */
+  @media (max-width:900px){
+    .palco.balao.confira .laco-balao{opacity:0}
+    .laco-balao{left:0;right:0;margin:0 auto;width:min(30rem,calc(100% - 3.2rem));bottom:calc(6rem + .9rem + var(--tela-h) * 186 / 852);border-radius:var(--radius-lg) var(--radius-lg) .6rem var(--radius-lg);transform:translateY(.8rem)}
+    .laco-folha{left:0;right:0;margin:0 auto;top:calc(var(--tela-h) * .16);width:min(24rem,62vw);transform:translateY(3rem) scale(.94);transform-origin:center}
+    .palco.pdf .laco-folha{transform:rotate(-2deg)}
+    .palco.pdf.aceite .laco-folha{opacity:0;transform:translateY(2rem) rotate(-2deg)}
+    .laco-botao{left:calc(50% + var(--fone) / 2 + 1rem)}
+  }
   @media (max-width:760px){
     .palco{--fone:min(25rem,64vw)}
-    .cartao-voz{right:auto;left:0;top:56%;scale:.72;transform-origin:left top}
-    .cartao-aceite{left:auto;right:0;top:34%;scale:.72;transform-origin:right top}
-    .cartao-mes{display:none}
   }
-  @media (max-width:760px) and (min-width:560px){
-    .cartao-voz{left:calc(50% - var(--fone) / 2 - 15rem)}
-    .cartao-aceite{right:calc(50% - var(--fone) / 2 - 15rem)}
-  }
-  /* Tablet em pé (761–959px). O palco já é o do computador, mas não sobra
-     largura dos lados do aparelho: o cartão do mês saía cortado pela borda da
-     tela. Aparelho um pouco menor, cartões um pouco menores, e os três encostam
-     por cima da borda do aparelho, crescendo de fora pra dentro. */
-  @media (min-width:761px) and (max-width:959px){
+  @media (min-width:761px) and (max-width:900px){
     .palco{--fone:28rem}
-    .cartao{scale:.86}
-    .cartao-voz,.cartao-mes{right:calc(50% + var(--fone) / 2 - 4rem);transform-origin:right top}
-    .cartao-aceite{left:calc(50% + var(--fone) / 2 - 4rem);transform-origin:left top}
   }
-  /* Notebook e monitor de 1080p: tela deitada e baixa. Com o respiro de tela
-     alta, o palco começava depois da dobra e a primeira tela era só texto.
-     Aqui o respiro encolhe pra o topo do palco aparecer — é ele que diz
-     "tem mais embaixo". */
+  /* Computador: o mascote do trilho fica sentado em cima do aparelho, assistindo (o script
+     "O TRILHO"); o respiro acima do aparelho é o lugar dele, sem encostar no texto. */
+  @media (min-width:901px){
+    .palco{margin-top:6.4rem}
+  }
+  /* Notebook e monitor de 1080p: tela deitada e baixa. Com o respiro de tela alta, o
+     aparelho começava depois da dobra e a primeira tela era só texto. */
   @media (min-width:901px) and (max-height:1000px){
     .hero{padding-top:5.6rem}
     .hero-sub{margin-bottom:2.6rem}
     .hero-for{margin-top:2rem}
-    .palco{margin-top:3.6rem}
+    .palco{margin-top:5.6rem}
   }
 
   /* Bandas */
@@ -418,6 +427,9 @@
   .jornada{--guia:4.8rem}
   .guia{position:absolute;z-index:3;top:0;left:50%;width:var(--guia);height:var(--guia);margin-left:calc(var(--guia) / -2);pointer-events:none;visibility:hidden;will-change:transform}
   .guia.pronta{visibility:visible}
+  /* Descendo do aparelho do topo até o fio (computador), ele passa ATRÁS do aparelho e sai
+     embaixo: na frente, cruzaria a tela do app inteira (mascote.js põe e tira a classe). */
+  .guia.atras{z-index:0}
   .guia svg{display:block;width:100%;height:100%;overflow:visible}
 
   /* ====== Passo 1: a fala ======
@@ -542,10 +554,10 @@
     .btn-lg{padding:1.6rem 2rem;font-size:1.5rem}
   }
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.fala-frase{transform:none}
-    /* Sem movimento, a cena já nasce pronta: nada sobe nem cresce, só aparece. */
-    .palco .cartao,.palco-fone,.selo,.mes-barras span,.voz-virou{opacity:1;transform:none;transition:opacity .2s ease}
-    .selo path{stroke-dashoffset:0;transition:none}
-    .palco.gravando .voz-ondas i{animation:none}}
+    /* Sem movimento, o laço não roda: a Confira (itens, total e balão) aparece parada, por
+       um esmaecer só, quando as camadas chegam. Nada sobe nem desliza. */
+    .laco-item,.laco-balao{transform:none}
+    .palco .laco-anima>*,.palco .laco-balao{transition:opacity .2s ease}}
 
 /* ====== Páginas internas (ajuda, privacidade, termos) ====== */
 .page-top{padding:6.6rem 0 4rem;text-align:center;border-bottom:1px solid var(--line-suave)}

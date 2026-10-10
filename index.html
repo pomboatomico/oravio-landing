@@ -26,6 +26,10 @@
 <link rel="canonical" href="https://oravio.com.br/">
 <link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="estilo.css">
+  <!-- A ABERTURA (o título entra palavra por palavra) é só da primeira visita e nunca com
+       "reduzir movimento". A marca vai aqui, antes de o corpo aparecer: decidida depois,
+       o título piscaria inteiro antes de se partir. -->
+  <script>try{if(!localStorage.getItem('oravio-abertura')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('abre')}catch(e){}</script>
 </head>
 <body>
 
@@ -67,53 +71,69 @@
     <p class="hero-for">…e qualquer serviço com tabela de preços.</p>
   </div>
 
-  <!-- O PALCO. O aparelho no centro e, em volta, o dia de quem usa, na ordem em
-       que acontece: a fala vira itens, o cliente aceita pelo link, o mês cresce.
-       Os cartões repetem em dois segundos o que os passos explicam com calma —
-       por isso são aria-hidden: o leitor de tela ouve a versão dos passos.
-       Os números são os mesmos do resto da página: o orçamento do João Pereira
-       (R$ 5.458,80), cliente fictício.
-       As telas são prints do app de verdade, rodando com dados inventados, uma
-       por tema: o <picture> escolhe a do tema do aparelho. -->
+  <!-- O PALCO: o aparelho inteiro, e nele o LAÇO — um trailer de ~12 s dos três passos,
+       montado com prints do app de verdade (dados inventados, cliente fictício João
+       Pereira, o mesmo orçamento de R$ 5.458,80 do resto da página). Cada print é uma
+       CAMADA no lugar exato em que ela fica na tela do app (as medidas saem da captura,
+       em pontos da tela de 393, ver --pt no estilo.css):
+         Início parada → o dedo segura o microfone e o campo grava (o balão com a frase
+         aparece ao lado) → a espera "Transcrevendo o áudio..." → a Confira: os itens
+         entram um a um e o total conta → o PDF sai do aparelho → "João aceitou".
+       Só a primeira camada (a Início) vem com endereço no HTML; as outras ganham o
+       endereço depois do `load`, e o laço espera todas estarem prontas. Sem JS, fica a
+       Início. Com "reduzir movimento", fica o quadro da Confira, parado (com o balão ao lado, no computador).
+       O laço é desenho (aria-hidden): quem usa leitor de tela ouve os passos, logo
+       abaixo, e a primeira tela, pelo texto da imagem. Quem o faz andar é o script "O LAÇO". -->
   <div class="palco" id="palco">
     <div class="palco-fone">
       <div class="fone">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="tela-inicio-escuro.webp">
-          <img src="tela-inicio-claro.webp" width="640" height="1387" decoding="async" fetchpriority="high" alt="Tela inicial do Oravio num celular: quem cobrar hoje, o resumo do dia e os últimos orçamentos">
-        </picture>
+        <div class="tela">
+          <picture class="camada laco-inicio">
+            <source media="(prefers-color-scheme: dark)" srcset="laco-inicio-escuro.webp">
+            <img src="laco-inicio-claro.webp" width="640" height="1387" decoding="async" fetchpriority="high" alt="Tela inicial do Oravio num celular: os últimos orçamentos, o faturamento do mês e, embaixo, o campo Descreva o orçamento com o botão do microfone">
+          </picture>
+          <div class="laco-anima" aria-hidden="true">
+            <picture class="camada laco-grav">
+              <source media="(prefers-color-scheme: dark)" data-srcset="laco-gravando-escuro.webp">
+              <img data-src="laco-gravando-claro.webp" width="640" height="321" decoding="async" alt="">
+            </picture>
+            <span class="laco-relogio">00:00</span>
+            <picture class="camada laco-espera">
+              <source media="(prefers-color-scheme: dark)" data-srcset="laco-espera-escuro.webp">
+              <img data-src="laco-espera-claro.webp" width="640" height="1387" decoding="async" alt="">
+            </picture>
+            <picture class="camada laco-confira">
+              <source media="(prefers-color-scheme: dark)" data-srcset="laco-confira-escuro.webp">
+              <img data-src="laco-confira-claro.webp" width="640" height="1387" decoding="async" alt="">
+            </picture>
+            <!-- Os três itens: recortes da MESMA Confira inteira do passo 2 (um download só). -->
+            <div class="laco-item i1" style="--y:366.5"><picture><source media="(prefers-color-scheme: dark)" data-srcset="tela-conferir-escuro.webp"><img data-src="tela-conferir-claro.webp" width="640" height="1387" decoding="async" alt=""></picture></div>
+            <div class="laco-item i2" style="--y:466.5"><picture><source media="(prefers-color-scheme: dark)" data-srcset="tela-conferir-escuro.webp"><img data-src="tela-conferir-claro.webp" width="640" height="1387" decoding="async" alt=""></picture></div>
+            <div class="laco-item i3" style="--y:566.5"><picture><source media="(prefers-color-scheme: dark)" data-srcset="tela-conferir-escuro.webp"><img data-src="tela-conferir-claro.webp" width="640" height="1387" decoding="async" alt=""></picture></div>
+            <span class="laco-total">R$ 5.458,80</span>
+            <span class="laco-toque laco-toque-mic"></span>
+            <span class="laco-toque laco-toque-salvar"></span>
+            <!-- O aviso tem o desenho da "boa notícia" da Início do app (components/inicio-mesa.tsx). -->
+            <div class="laco-aviso">
+              <span class="selo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+              <span class="laco-aviso-texto"><b>João aceitou</b><span>Pelo link · agora</span></span>
+              <span class="laco-aviso-valor"><small>R$ </small>5.458,80</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="cartao cartao-voz" aria-hidden="true">
-      <span class="cartao-rot">Você, no balcão</span>
-      <div class="voz-linha">
-        <span class="voz-mic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
-        <span class="voz-ondas"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-        <span class="voz-tempo" id="voz-tempo">00:00</span>
-      </div>
-      <div class="voz-virou"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Virou 3 itens <span>· R$ 5.458,80</span></div>
-    </div>
-
-    <div class="cartao cartao-aceite" aria-hidden="true">
-      <span class="selo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-      <div>
-        <p class="aceite-quem">João aceitou</p>
-        <p class="aceite-quanto"><b>R$ 5.458,80</b> · pelo link</p>
-      </div>
-    </div>
-
-    <div class="cartao cartao-mes" aria-hidden="true">
-      <div class="mes-topo">
-        <span class="cartao-rot">Faturamento · set</span>
-        <span class="recorde"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6-4.9-4.6 6.6-.8z"/></svg>Recorde</span>
-      </div>
-      <p class="mes-valor">R$ 36.451,90</p>
-      <div class="mes-barras">
-        <span style="--e:30%;--a:11%"></span><span style="--e:30%;--a:11%"></span><span style="--e:40%;--a:6%"></span><span style="--e:67%;--a:40%"></span><span style="--e:63%;--a:44%"></span><span style="--e:100%;--a:61%"></span>
-      </div>
-      <div class="mes-meses"><span>abr</span><span>mai</span><span>jun</span><span>jul</span><span>ago</span><b>set</b></div>
-    </div>
+    <blockquote class="laco-balao" aria-hidden="true">
+      <span class="fala-quem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Você, no balcão</span>
+      <p>“Orçamento pro João Pereira. Um Galaxy S24 128 giga branco, um fone bluetooth TWS e uma película de vidro 3D.”</p>
+    </blockquote>
+    <img class="laco-folha" data-src="folha-pdf.webp" width="640" height="906" decoding="async" alt="" aria-hidden="true">
+    <!-- Pausar (WCAG 2.2.2: movimento que dura mais de 5 s precisa de um jeito de parar). -->
+    <button class="laco-botao" type="button" aria-label="Pausar a animação do celular" hidden>
+      <svg class="i-pausa" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4.5" width="4" height="15" rx="1.2"/><rect x="14" y="4.5" width="4" height="15" rx="1.2"/></svg>
+      <svg class="i-tocar" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2Z"/></svg>
+      <svg class="i-denovo" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+    </button>
   </div>
 </section>
 
@@ -292,43 +312,126 @@
   ham.addEventListener('click',function(){ham.classList.toggle('open');mob.classList.toggle('show');});
   mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){ham.classList.remove('open');mob.classList.remove('show');});});
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  /* A CENA DO PALCO. Uma vez só, quando o palco aparece, na ordem da história: o aparelho
-     sobe; a fala "grava" por 2s (o relógio conta junto) e vira "3 itens"; o
-     cliente aceita; o mês cresce. Cada etapa é uma classe no palco — o CSS
-     decide o como, o script só o quando. Com movimento reduzido, tudo nasce
-     pronto e o relógio já para no fim. */
-  var palco=document.getElementById('palco'), tempo=document.getElementById('voz-tempo');
-  var cenaFeita=false;
-  function cena(){
-    if(!palco||cenaFeita)return;cenaFeita=true;
-    if(reduce){palco.classList.add('in','pronto','aceitou','cresceu');tempo.textContent='00:03';return;}
-    palco.classList.add('in');
-    setTimeout(function(){palco.classList.add('gravando');
-      var s=0,rel=setInterval(function(){s++;tempo.textContent='00:0'+s;if(s>=3)clearInterval(rel);},620);
-    },500);
-    setTimeout(function(){palco.classList.remove('gravando');palco.classList.add('pronto');},2500);
-    setTimeout(function(){palco.classList.add('aceitou');},3000);
-    setTimeout(function(){palco.classList.add('cresceu');},3450);
-  }
-
-  /* PROFUNDIDADE. Ao rolar, cada cartão sobe num ritmo diferente do aparelho —
-     o da frente mais rápido; o aparelho fica parado (descer o levaria pro corte do herói). Só `translate` (a entrada usa `transform`), só
-     enquanto o herói está na tela, e nada com movimento reduzido. */
+  /* A ABERTURA. Na primeira visita (a marca `abre`, posta no <head>), o título se parte em
+     palavras e o CSS as faz entrar uma a uma quando o herói aparece. O texto inteiro fica
+     como nome do título para o leitor de tela, que não precisa ouvir palavra por palavra. */
   (function(){
-    if(!palco||reduce)return;
-    var camadas=[['.cartao-voz',-.10],['.cartao-aceite',-.18],['.cartao-mes',-.06]].map(function(c){return [palco.querySelector(c[0]),c[1]];});
-    var agendado=false;
-    function mover(){agendado=false;var y=window.scrollY;if(y>window.innerHeight*1.2)return;
-      camadas.forEach(function(c){if(c[0])c[0].style.translate='0 '+(y*c[1]).toFixed(1)+'px';});}
-    window.addEventListener('scroll',function(){if(!agendado){agendado=true;requestAnimationFrame(mover);}},{passive:true});
+    var h=document.querySelector('.hero-title');
+    if(!h||!document.documentElement.classList.contains('abre'))return;
+    var texto=h.textContent.trim();
+    h.setAttribute('aria-label',texto);
+    h.textContent='';
+    texto.split(/\s+/).forEach(function(p,i){
+      if(i)h.appendChild(document.createTextNode(' '));
+      var s=document.createElement('span');s.className='pal';s.setAttribute('aria-hidden','true');s.style.setProperty('--i',i);s.textContent=p;h.appendChild(s);
+    });
+    h.classList.add('partido');
+    try{localStorage.setItem('oravio-abertura','1');}catch(e){}
+  })();
+
+  /* O LAÇO DO TOPO. Um relógio próprio (`t`, em ms) que só anda com o laço à vista: para
+     fora da tela, com a aba escondida e no botão de pausa, e retoma de onde parou. Cada
+     momento do ROTEIRO vira uma classe no palco: o CSS decide o como, o script só o quando
+     (o mesmo acordo do resto da página). O que o script escreve na tela são só o relógio da
+     gravação e o total contando.
+     Começa quando 60% do aparelho aparece (ou 60% da altura da tela, se o aparelho for maior
+     que ela): é embaixo da tela do app que a fala e o total acontecem, e começar antes disso
+     era tocar para ninguém. Para de vez depois de três voltas, no quadro da Confira (itens,
+     total e, no computador, o balão), que é também o quadro de quem pede "reduzir movimento".
+     A cada momento ele avisa o guia com o evento "laco" no palco: no computador o mascote
+     assiste sentado em cima do aparelho (mascote.js). */
+  var palco=document.getElementById('palco');
+  (function(){
+    if(!palco)return;
+    var fone=palco.querySelector('.palco-fone'), relogio=palco.querySelector('.laco-relogio'),
+        total=palco.querySelector('.laco-total'), botao=palco.querySelector('.laco-botao');
+    var VOLTAS=3, VOLTA=12000, PARA_EM=6300, VALOR=5458.8, GRAVA=950, CONTA=[5350,700];
+    var ROTEIRO=[[0,'inicio'],[800,'toque'],[GRAVA,'gravando'],[2000,'balao'],[3600,'solta'],[3750,'espera'],[4250,'confira'],
+      [4550,'item1'],[4770,'item2'],[4990,'item3'],[CONTA[0],'total'],[6100,'contou'],[6400,'salvar'],[7000,'pdf'],[9400,'aceite'],[11200,'volta']];
+    var CLASSES=ROTEIRO.map(function(r){return r[1];}).filter(function(c){return c!=='inicio'&&c!=='volta';});
+    var reais=new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+    var t=0, volta=0, passo=0, quadro=0, antes=0, pronto=false, visto=false, pausado=false, acabou=false, ativo=false;
+
+    function avisar(cena){palco.dispatchEvent(new CustomEvent('laco',{detail:{cena:cena}}));}
+    function quadroFinal(){
+      palco.classList.add('ultima','balao','confira','item1','item2','item3','total','contou');
+      total.textContent='R$ '+reais.format(VALOR);
+    }
+    function momento(cena){
+      if(cena==='volta')CLASSES.forEach(function(c){palco.classList.remove(c);});
+      else if(cena!=='inicio')palco.classList.add(cena);
+      if(cena==='total')total.textContent='R$ 0,00';
+      if(cena==='gravando')relogio.textContent='00:00';
+      avisar(cena);
+    }
+    function marcarBotao(){
+      var estado=acabou?'fim':pausado?'pausado':'tocando';
+      botao.dataset.estado=estado;
+      botao.setAttribute('aria-label',estado==='fim'?'Ver a animação do celular de novo':estado==='pausado'?'Continuar a animação do celular':'Pausar a animação do celular');
+    }
+    function acabar(){
+      acabou=true;ativo=false;cancelAnimationFrame(quadro);quadro=0;
+      quadroFinal();marcarBotao();avisar('fim');
+    }
+    function anda(agora){
+      quadro=0;
+      if(!ativo)return;
+      t+=Math.min(64,agora-antes);antes=agora;
+      while(passo<ROTEIRO.length&&ROTEIRO[passo][0]<=t){momento(ROTEIRO[passo][1]);passo++;}
+      if(t>=GRAVA&&t<3600)relogio.textContent='00:0'+Math.floor((t-GRAVA)/1000);
+      if(t>=CONTA[0]&&t<CONTA[0]+CONTA[1]+64){
+        var p=Math.min(1,(t-CONTA[0])/CONTA[1]);
+        total.textContent='R$ '+reais.format(VALOR*(1-Math.pow(1-p,3)));
+      }
+      if(volta===VOLTAS-1&&t>=PARA_EM)return acabar();
+      if(t>=VOLTA){volta++;t=0;passo=0;if(volta===VOLTAS-1)palco.classList.add('ultima');}
+      quadro=requestAnimationFrame(anda);
+    }
+    function decidir(){
+      var deve=pronto&&visto&&!pausado&&!acabou&&!document.hidden;
+      if(deve===ativo)return;
+      ativo=deve;
+      if(deve){antes=performance.now();quadro=requestAnimationFrame(anda);avisar('segue');}
+      else{cancelAnimationFrame(quadro);quadro=0;if(!acabou)avisar('pausa');}
+    }
+    function preparar(){
+      palco.querySelectorAll('source[data-srcset]').forEach(function(s){s.srcset=s.dataset.srcset;s.removeAttribute('data-srcset');});
+      var imgs=Array.prototype.slice.call(palco.querySelectorAll('img[data-src]'));
+      imgs.forEach(function(i){i.src=i.dataset.src;i.removeAttribute('data-src');});
+      return Promise.all(imgs.map(function(i){return i.decode?i.decode().catch(function(){}):Promise.resolve();}));
+    }
+
+    window.addEventListener('load',function(){
+      function ir(){
+        preparar().then(function(){
+          // Sem movimento: o quadro da Confira, parado, sem botão (não há o que pausar).
+          if(reduce){palco.classList.add('pronto');quadroFinal();return;}
+          pronto=true;palco.classList.add('pronto');botao.hidden=false;marcarBotao();decidir();
+        });
+      }
+      if('requestIdleCallback' in window)requestIdleCallback(ir,{timeout:1500});else setTimeout(ir,200);
+    });
+    if(reduce)return;
+    botao.addEventListener('click',function(){
+      if(acabou){
+        CLASSES.concat('ultima').forEach(function(c){palco.classList.remove(c);});
+        acabou=false;pausado=false;t=0;volta=0;passo=0;
+      }else pausado=!pausado;
+      marcarBotao();decidir();
+    });
+    document.addEventListener('visibilitychange',decidir);
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(en){
+        var e=en[0], cabe=Math.min(e.boundingClientRect.height,window.innerHeight)||1, dentro=e.intersectionRect.height/cabe;
+        if(dentro>=.6)visto=true;else if(dentro<.2)visto=false;
+        decidir();
+      },{threshold:[0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1]}).observe(fone);
+    }else visto=true;
   })();
 
   window.addEventListener('load',function(){
-    if(reduce){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in');});cena();return;}
+    if(reduce){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in');});return;}
     document.querySelectorAll('.hero .reveal').forEach(function(e,i){setTimeout(function(){e.classList.add('in');},120+i*110);});
-    /* O palco pode estar abaixo da dobra (celular, notebook baixo): a cena só
-       começa quando um terço dele aparece — senão ela terminava sem plateia. */
-    if('IntersectionObserver' in window&&palco){new IntersectionObserver(function(en,o){if(en[0].isIntersecting){o.disconnect();cena();}},{threshold:.33}).observe(palco);}else{cena();}
 
     var targets=Array.prototype.slice.call(document.querySelectorAll('.reveal')).filter(function(e){return !e.closest('.hero');});
     if(!('IntersectionObserver' in window)){targets.forEach(function(e){e.classList.add('in');});return;}
@@ -359,13 +462,18 @@
      o evento "trilho"): assim ele reage no instante em que o número acende. Aqui
      só se calcula onde ele senta (`paradas`: em cima de cada número) e onde ele
      estaciona antes de tudo; quem o faz andar é o mascote.js. Até ele chegar, e
-     sempre com "reduzir movimento", o mascote fica estacionado e parado. */
+     sempre com "reduzir movimento", o mascote fica estacionado e parado.
+     No computador ele estaciona SENTADO EM CIMA DO APARELHO do topo, assistindo ao laço;
+     `fone` é onde o aparelho termina, para o guia saber quando passa atrás dele (ao descer
+     para o fio, ele some atrás do aparelho e sai embaixo, onde o fio nasce). No celular o
+     aparelho não fica na linha do fio, e ele começa sentado no número 1. */
   (function(){
     var j=document.querySelector('.jornada'); if(!j)return;
     var trilho=j.querySelector('.trilho'), cheio=trilho.firstElementChild, guia=j.querySelector('.guia');
     var nos=Array.prototype.slice.call(j.querySelectorAll('.no'));
     var largo=window.matchMedia('(min-width:901px)');
-    var topo=0, alt=0, centros=[], paradas=[], ini=0, medida=0, agendado=false;
+    var aparelho=document.querySelector('.palco-fone .fone');
+    var topo=0, alt=0, centros=[], paradas=[], ini=0, fone=NaN, medida=0, agendado=false;
     function pintar(){
       agendado=false;
       var linha=window.innerHeight*.55-j.getBoundingClientRect().top;
@@ -373,7 +481,7 @@
       cheio.style.transform='scaleY('+p+')';
       var ativo=0;
       for(var i=0;i<nos.length;i++){var on=centros[i]<=linha;nos[i].classList.toggle('on',on);if(on)ativo=i+1;}
-      j.trilho={linha:linha,ativo:ativo,centros:centros,paradas:paradas,ini:ini,medida:medida};
+      j.trilho={linha:linha,ativo:ativo,centros:centros,paradas:paradas,ini:ini,fone:fone,medida:medida};
       j.dispatchEvent(new Event('trilho'));
     }
     function medir(){
@@ -383,10 +491,12 @@
       alt=Math.max(0,centros[centros.length-1]-topo);
       trilho.style.top=topo+'px';trilho.style.height=alt+'px';
       if(guia){
-        /* Sentado: a base do rosto encosta no topo do número e afunda 8% nele. */
+        /* Sentado: a base do rosto encosta no topo do número (ou do aparelho) e afunda 8% nele. */
         var tam=guia.offsetHeight;
         paradas=nos.map(function(n,i){return centros[i]-n.offsetHeight/2-tam*.42;});
-        ini=largo.matches?topo+tam/2:paradas[0];
+        var ra=largo.matches&&aparelho?aparelho.getBoundingClientRect():null;
+        fone=ra?ra.bottom-jt:NaN;
+        ini=ra?ra.top-jt-tam*.42:paradas[0];
         if(!('vivo' in guia.dataset))guia.style.transform='translate3d(0,'+(ini-tam/2).toFixed(1)+'px,0)';
         guia.classList.add('pronta');
       }
