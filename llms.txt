@@ -6,7 +6,7 @@
 - País e idioma: Brasil, português; valores em reais (R$) e pagamento por PIX.
 - Onde funciona: no navegador do celular e do computador; pode ser instalado na tela inicial como aplicativo.
 - Sem internet: o app abre, mostra os dados e salva orçamentos; eles são enviados sozinhos quando a conexão volta. Transformar voz ou foto em orçamento precisa de internet.
-- Teste grátis por 7 dias, sem cartão de crédito.
+- Teste grátis por 7 dias do plano Profissional (1 pessoa), sem cartão de crédito. As vagas do Equipe abrem ao assinar.
 - Planos (mensais, no cartão, sem fidelidade): Grátis (R$ 0, 10 orçamentos com IA por mês), Essencial (R$ 29,90/mês, 60), Profissional (R$ 49,90/mês, 300) e Equipe (R$ 119,90/mês, 800 divididos entre até 3 pessoas).
 
 ## Como funciona
