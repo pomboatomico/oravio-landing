@@ -598,3 +598,33 @@
 .hero-marquee .seg::after{content:"";display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--green);margin:0 2.8rem}
 @keyframes seg-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.hero-marquee .track{animation:none}}
+
+/* ====== Página de planos (planos.html) ======
+   A vitrine fora do app: o app da Play Store não pode mostrar preço nem levar a pagar,
+   então quem chega por e-mail, WhatsApp ou busca vê os planos aqui. Quatro colunas
+   enquanto cabem; duas quando o nome do benefício começa a quebrar em três linhas;
+   uma no celular. O destaque é borda verde e selo, sem sombra nova nem cor nova. */
+.planos-band{padding-top:6.4rem}
+.planos-grade{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;align-items:stretch}
+.plano{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:2.8rem 2.4rem}
+.plano-destaque{border-color:var(--green);box-shadow:0 0 0 .3rem var(--anel)}
+.plano-selo{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);background:var(--green);color:var(--on-green);font-size:1.25rem;font-weight:700;padding:.5rem 1.2rem;border-radius:10rem;white-space:nowrap}
+.plano-nome{font-size:2rem;font-weight:700;letter-spacing:-.01em}
+.plano-para{color:var(--muted);font-size:1.45rem;margin-top:.4rem}
+.plano-preco{font-family:var(--font-titulo);font-size:3.6rem;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-top:2.2rem;font-variant-numeric:tabular-nums}
+.plano-preco .moeda{font-size:1.8rem;font-weight:600;vertical-align:.25em;margin-right:.2rem}
+.plano-preco .mes{font-family:var(--font-sans);font-size:1.5rem;font-weight:500;color:var(--muted);letter-spacing:0;margin-left:.3rem}
+.plano-dia{color:var(--green-text);font-size:1.35rem;font-weight:600;margin-top:.6rem;min-height:2.1rem}
+.plano-lista{list-style:none;display:flex;flex-direction:column;gap:1.1rem;margin:2.4rem 0 2.8rem;flex:1}
+.plano-lista li{position:relative;padding-left:2.6rem;font-size:1.5rem;line-height:1.45}
+.plano-lista li::before{content:"";position:absolute;left:0;top:.35rem;width:1.6rem;height:1.6rem;background:var(--green-text);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat}
+.plano-btn{width:100%}
+.planos-todos{margin-top:4rem;text-align:center}
+.planos-todos h2{font-size:1.25rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green-text);font-family:var(--font-sans)}
+.planos-todos ul{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:1.6rem}
+.planos-todos li{background:var(--surface);border:1px solid var(--line);border-radius:10rem;padding:.8rem 1.6rem;font-size:1.45rem;font-weight:500}
+.planos-garantia{color:var(--muted);text-align:center;font-size:1.45rem;max-width:56ch;margin:2.8rem auto 0;text-wrap:balance}
+.planos-ja{max-width:76rem;margin-left:auto;margin-right:auto}
+.faq .ans a{color:var(--green-text);text-decoration:underline;text-underline-offset:.2em}
+@media (max-width:1060px){.planos-grade{grid-template-columns:repeat(2,1fr);gap:2.8rem 2rem}}
+@media (max-width:600px){.planos-grade{grid-template-columns:1fr}.plano-dia{min-height:0}}

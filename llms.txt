@@ -7,6 +7,7 @@
 - Onde funciona: no navegador do celular e do computador; pode ser instalado na tela inicial como aplicativo.
 - Sem internet: o app abre, mostra os dados e salva orçamentos; eles são enviados sozinhos quando a conexão volta. Transformar voz ou foto em orçamento precisa de internet.
 - Teste grátis por 7 dias, sem cartão de crédito.
+- Planos (mensais, no cartão, sem fidelidade): Grátis (R$ 0, 10 orçamentos com IA por mês), Essencial (R$ 29,90/mês, 60), Profissional (R$ 49,90/mês, 300) e Equipe (R$ 119,90/mês, 800 divididos entre até 3 pessoas).
 
 ## Como funciona
 
@@ -17,6 +18,7 @@
 ## Páginas
 
 - [Página inicial](https://oravio.com.br/): o que é o Oravio e como funciona
+- [Planos e preços](https://oravio.com.br/planos.html): os quatro planos, limites e perguntas sobre cobrança
 - [Ajuda](https://oravio.com.br/ajuda.html): dúvidas de uso
 - [Criar conta](https://app.oravio.com.br/cadastro): teste grátis de 7 dias
 - [Entrar](https://app.oravio.com.br/login): acesso para quem já tem conta
