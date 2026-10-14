@@ -1,0 +1,19 @@
+# oravio.com.br: site público do Oravio. Tudo aqui pode ser lido e indexado.
+User-agent: *
+Allow: /
+
+# Assistentes e buscadores de IA: leitura liberada, inclusive de /llms.txt.
+# (Cada robô obedece só ao grupo mais específico que o cita, por isso o Allow se repete.)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://oravio.com.br/sitemap.xml

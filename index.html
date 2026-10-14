@@ -24,6 +24,42 @@
 <meta property="og:image:alt" content="Oravio: seu orçamento pronto antes do cliente ir embora. Ao lado, a tela inicial do app no celular">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://oravio.com.br/">
+<!-- Dados estruturados: ajudam o Google a entender "Oravio" como marca (não só como
+     palavra na página) e são a base do Painel de Conhecimento. Sem sameAs por ora —
+     entra quando o Instagram oficial for confirmado. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://oravio.com.br/#organizacao",
+      "name": "Oravio",
+      "url": "https://oravio.com.br/",
+      "logo": "https://oravio.com.br/apple-touch-icon.png"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://oravio.com.br/#site",
+      "url": "https://oravio.com.br/",
+      "name": "Oravio",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://oravio.com.br/#organizacao" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://oravio.com.br/#app",
+      "name": "Oravio",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Android, iOS, Web",
+      "url": "https://app.oravio.com.br/",
+      "inLanguage": "pt-BR",
+      "description": "Aplicativo de orçamento por voz, texto ou foto para prestadores de serviço e autônomos. Monta o orçamento em PDF com a tabela de preços, PIX com QR Code e link para o cliente aceitar.",
+      "publisher": { "@id": "https://oravio.com.br/#organizacao" }
+    }
+  ]
+}
+</script>
 <link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="estilo.css">
   <!-- A ABERTURA (o título entra palavra por palavra) é só da primeira visita e nunca com

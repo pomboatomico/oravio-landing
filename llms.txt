@@ -1,0 +1,27 @@
+# Oravio
+
+> Oravio é um aplicativo brasileiro de orçamentos para prestadores de serviço e autônomos. A pessoa fala o serviço, digita uma frase curta ou fotografa uma anotação, e o Oravio monta na hora um orçamento profissional em PDF, com os preços da tabela dela, pronto para enviar pelo WhatsApp.
+
+- Para quem: oficinas, clínicas, salões, assistências técnicas, locadoras e autônomos que fazem orçamento no balcão ou na rua, muitas vezes com uma mão só.
+- País e idioma: Brasil, português; valores em reais (R$) e pagamento por PIX.
+- Onde funciona: no navegador do celular e do computador; pode ser instalado na tela inicial como aplicativo.
+- Sem internet: o app abre, mostra os dados e salva orçamentos; eles são enviados sozinhos quando a conexão volta. Transformar voz ou foto em orçamento precisa de internet.
+- Teste grátis por 7 dias, sem cartão de crédito.
+
+## Como funciona
+
+1. Fale, digite ou fotografe: "troca de tela do Galaxy S24 e película 3D para o João".
+2. Confira: o Oravio encontra os itens na sua tabela de preços e mostra quantidade e total; você ajusta o que quiser.
+3. Envie: o PDF sai com a sua marca, o QR Code do PIX e um link onde o cliente vê e aceita o orçamento.
+
+## Páginas
+
+- [Página inicial](https://oravio.com.br/): o que é o Oravio e como funciona
+- [Ajuda](https://oravio.com.br/ajuda.html): dúvidas de uso
+- [Criar conta](https://app.oravio.com.br/cadastro): teste grátis de 7 dias
+- [Entrar](https://app.oravio.com.br/login): acesso para quem já tem conta
+
+## Optional
+
+- [Política de privacidade](https://oravio.com.br/privacidade.html)
+- [Termos de uso](https://oravio.com.br/termos.html)
