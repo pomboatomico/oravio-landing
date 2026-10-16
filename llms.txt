@@ -11,7 +11,7 @@
 
 ## Como funciona
 
-1. Fale, digite ou fotografe: "troca de tela do Galaxy S24 e película 3D para o João".
+1. Fale, digite ou fotografe: "troca de óleo, pastilha de freio e amortecedores da frente para a Carla".
 2. Confira: o Oravio encontra os itens na sua tabela de preços e mostra quantidade e total; você ajusta o que quiser.
 3. Envie: o PDF sai com a sua marca, o QR Code do PIX e um link onde o cliente vê e aceita o orçamento.
 

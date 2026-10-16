@@ -109,13 +109,13 @@
   </div>
 
   <!-- O PALCO: o aparelho inteiro, e nele o LAÇO — um trailer de ~12 s dos três passos,
-       montado com prints do app de verdade (dados inventados, cliente fictício João
-       Pereira, o mesmo orçamento de R$ 5.458,80 do resto da página). Cada print é uma
+       montado com prints do app de verdade (dados inventados, oficina fictícia e a cliente
+       Carla Mendes, o mesmo orçamento de R$ 1.919,90 do resto da página). Cada print é uma
        CAMADA no lugar exato em que ela fica na tela do app (as medidas saem da captura,
        em pontos da tela de 393, ver --pt no estilo.css):
          Início parada → o dedo segura o microfone e o campo grava (o balão com a frase
          aparece ao lado) → a espera "Transcrevendo o áudio..." → a Confira: os itens
-         entram um a um e o total conta → o PDF sai do aparelho → "João aceitou".
+         entram um a um e o total conta → o PDF sai do aparelho → "Carla aceitou".
        Só a primeira camada (a Início) vem com endereço no HTML; as outras ganham o
        endereço depois do `load`, e o laço espera todas estarem prontas. Sem JS, fica a
        Início. Com "reduzir movimento", fica o quadro da Confira, parado (com o balão ao lado, no computador).
@@ -147,14 +147,14 @@
             <div class="laco-item i1" style="--y:366.5"><picture><source media="(prefers-color-scheme: dark)" data-srcset="tela-conferir-escuro.webp"><img data-src="tela-conferir-claro.webp" width="640" height="1387" decoding="async" alt=""></picture></div>
             <div class="laco-item i2" style="--y:466.5"><picture><source media="(prefers-color-scheme: dark)" data-srcset="tela-conferir-escuro.webp"><img data-src="tela-conferir-claro.webp" width="640" height="1387" decoding="async" alt=""></picture></div>
             <div class="laco-item i3" style="--y:566.5"><picture><source media="(prefers-color-scheme: dark)" data-srcset="tela-conferir-escuro.webp"><img data-src="tela-conferir-claro.webp" width="640" height="1387" decoding="async" alt=""></picture></div>
-            <span class="laco-total">R$ 5.458,80</span>
+            <span class="laco-total">R$ 1.919,90</span>
             <span class="laco-toque laco-toque-mic"></span>
             <span class="laco-toque laco-toque-salvar"></span>
             <!-- O aviso tem o desenho da "boa notícia" da Início do app (components/inicio-mesa.tsx). -->
             <div class="laco-aviso">
               <span class="selo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-              <span class="laco-aviso-texto"><b>João aceitou</b><span>Pelo link · agora</span></span>
-              <span class="laco-aviso-valor"><small>R$ </small>5.458,80</span>
+              <span class="laco-aviso-texto"><b>Carla aceitou</b><span>Pelo link · agora</span></span>
+              <span class="laco-aviso-valor"><small>R$ </small>1.919,90</span>
             </div>
           </div>
         </div>
@@ -162,7 +162,7 @@
     </div>
     <blockquote class="laco-balao" aria-hidden="true">
       <span class="fala-quem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Você, no balcão</span>
-      <p>“Orçamento pro João Pereira. Um Galaxy S24 128 giga branco, um fone bluetooth TWS e uma película de vidro 3D.”</p>
+      <p>“Orçamento pra Carla Mendes, Onix 2019. Troca de óleo com filtro, pastilha de freio da frente e amortecedores da frente.”</p>
     </blockquote>
     <img class="laco-folha" data-src="folha-pdf.webp" width="640" height="906" decoding="async" alt="" aria-hidden="true">
     <!-- Pausar (WCAG 2.2.2: movimento que dura mais de 5 s precisa de um jeito de parar). -->
@@ -211,7 +211,7 @@
           <h2>Descreva do jeito que você já fala.</h2>
           <p class="step-lead">Segura o microfone e fala o serviço — ou digita, se preferir. Sem formulário no meio do atendimento.</p>
           <div class="checklist">
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Apelido, marca pela metade, “blutufi”: ele entende — e aprende como a sua loja chama cada item.</span></div>
+            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Apelido, nome pela metade, “pastilha da frente”: ele entende — e aprende como você chama cada item.</span></div>
             <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sem sinal na casa do cliente? Monte à mão e salve no aparelho — sobe sozinho quando a internet volta.</span></div>
           </div>
         </div>
@@ -225,7 +225,7 @@
           <div class="fala">
             <blockquote class="fala-frase">
               <span class="fala-quem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Você, no balcão</span>
-              <p>“Um Galaxy S24, 128 GB branco, um fone Bluetooth TWS e uma película de vidro 3D.”</p>
+              <p>“Orçamento pra Carla Mendes, Onix 2019. Troca de óleo com filtro, pastilha de freio da frente e amortecedores da frente.”</p>
             </blockquote>
             <figure class="campo">
               <div class="campo-telas">
@@ -263,7 +263,7 @@
             <div class="fone">
               <picture>
                 <source media="(prefers-color-scheme: dark)" srcset="tela-conferir-escuro.webp">
-                <img src="tela-conferir-claro.webp" width="640" height="1387" loading="lazy" decoding="async" alt="Tela de conferência do Oravio: a frase falada no topo, o cliente João Pereira, três itens com o preço da tabela e quantidade ajustável, e o total de R$ 5.458,80 ao lado do botão Salvar">
+                <img src="tela-conferir-claro.webp" width="640" height="1387" loading="lazy" decoding="async" alt="Tela de conferência do Oravio: a frase falada no topo, a cliente Carla Mendes, três itens com o preço da tabela e quantidade ajustável, e o total de R$ 1.919,90 ao lado do botão Salvar">
               </picture>
             </div>
             <figcaption>A mesma frase, já virada em três itens.</figcaption>
@@ -289,7 +289,7 @@
                e cortá-lo esconderia justo o que é novo. É o mesmo orçamento dos
                passos 1 e 2. -->
           <figure class="paper">
-            <img src="folha-pdf.webp" width="640" height="906" loading="lazy" decoding="async" alt="PDF do orçamento: logo e dados da Bits Celulares no topo; cliente João Pereira; Galaxy S24 128GB Branco, fone Bluetooth TWS e película de vidro 3D; no pé da folha, o canhoto para pagar R$ 5.458,80 com chave PIX, QR Code e o link para aceitar">
+            <img src="folha-pdf.webp" width="640" height="906" loading="lazy" decoding="async" alt="PDF do orçamento: logo e dados da oficina Ribeiro Auto Center no topo; cliente Carla Mendes; troca de óleo com filtro, pastilha de freio dianteira e amortecedores dianteiros; no pé da folha, o canhoto para pagar R$ 1.919,90 com chave PIX, QR Code e o link para aceitar">
             <figcaption>O mesmo orçamento, em PDF — é isto que chega pro seu cliente.</figcaption>
           </figure>
         </div>
@@ -383,7 +383,7 @@
     if(!palco)return;
     var fone=palco.querySelector('.palco-fone'), relogio=palco.querySelector('.laco-relogio'),
         total=palco.querySelector('.laco-total'), botao=palco.querySelector('.laco-botao');
-    var VOLTAS=3, VOLTA=12000, PARA_EM=6300, VALOR=5458.8, GRAVA=950, CONTA=[5350,700];
+    var VOLTAS=3, VOLTA=12000, PARA_EM=6300, VALOR=1919.9, GRAVA=950, CONTA=[5350,700];
     var ROTEIRO=[[0,'inicio'],[800,'toque'],[GRAVA,'gravando'],[2000,'balao'],[3600,'solta'],[3750,'espera'],[4250,'confira'],
       [4550,'item1'],[4770,'item2'],[4990,'item3'],[CONTA[0],'total'],[6100,'contou'],[6400,'salvar'],[7000,'pdf'],[9400,'aceite'],[11200,'volta']];
     var CLASSES=ROTEIRO.map(function(r){return r[1];}).filter(function(c){return c!=='inicio'&&c!=='volta';});
