@@ -17,8 +17,7 @@
 
 ## Páginas
 
-- [Página inicial](https://oravio.com.br/): o que é o Oravio, o PDF que chega ao cliente e as dúvidas de quem está chegando
-- [Como funciona](https://oravio.com.br/como-funciona.html): os três passos (fale, confira, envie) em detalhe
+- [Página inicial](https://oravio.com.br/): o que é o Oravio e como funciona
 - [Planos e preços](https://oravio.com.br/planos.html): os quatro planos, limites e perguntas sobre cobrança
 - [Ajuda](https://oravio.com.br/ajuda.html): dúvidas de uso
 - [Criar conta](https://app.oravio.com.br/cadastro): teste grátis de 7 dias
