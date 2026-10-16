@@ -1,14 +1,17 @@
 /* ============================================================
-     ORAVIO — landing v4 (três passos)
+     ORAVIO — landing v5 (o resultado na inicial, os passos em Como funciona)
      Tokens do app (src/app/globals.css) · Sora nos títulos, fonte do sistema no texto
      Emoção-alvo: ALÍVIO
        #18b98a = verde da MARCA (símbolo + "io")
        verde de AÇÃO: #18b98a no claro, #2de0ac no escuro
      Sem gradiente colorido, sem neon, sem sombra colorida.
 
-     O índice é: herói → passo 1 Fale → passo 2 Confira → passo 3 Envie → CTA.
-     Cada afirmação do produto mora em UM passo só; foi assim que a repetição
-     da v3 (sete "sem custo", quatro "não inventa preço") deixou de existir.
+     A inicial (index.html), desde 16/10/2026, em cinco cenas: herói com o laço no
+     aparelho → o PDF → confiança (a tabela, os selos, a bússola, os ramos, as dúvidas)
+     → convite. Os três passos (Fale, Confira, Envie), com o trilho e o mascote, moram
+     em como-funciona.html. Cada afirmação do produto continua morando em UM lugar só;
+     foi assim que a repetição da v3 (sete "sem custo", quatro "não inventa preço")
+     deixou de existir.
 
      .band / .band-head / .kicker / .features / .feat / .faq continuam aqui
      porque ajuda.html usa — não são sobra do índice.
@@ -350,11 +353,6 @@
   @media (min-width:761px) and (max-width:900px){
     .palco{--fone:28rem}
   }
-  /* Computador: o mascote do trilho fica sentado em cima do aparelho, assistindo (o script
-     "O TRILHO"); o respiro acima do aparelho é o lugar dele, sem encostar no texto. */
-  @media (min-width:901px){
-    .palco{margin-top:6.4rem}
-  }
   /* Notebook e monitor de 1080p: tela deitada e baixa. Com o respiro de tela alta, o
      aparelho começava depois da dobra e a primeira tela era só texto. */
   @media (min-width:901px) and (max-height:1000px){
@@ -372,7 +370,7 @@
   h2{font-size:clamp(2.8rem,3.3vw,4.2rem);font-weight:700;letter-spacing:-.025em;line-height:1.07}
   .band-head p{color:var(--muted);font-size:1.7rem;margin-top:1.6rem}
 
-  /* ====== Os três passos ======
+  /* ====== Os três passos (como-funciona.html) ======
      O respiro entre um passo e outro é o que faz a página parecer curta mesmo
      tendo três blocos: cada passo ocupa a tela sozinho, em vez de dividir
      espaço com vizinhos. Densidade baixa é a mensagem — o produto é simples. */
@@ -461,6 +459,65 @@
   .paper{position:relative;z-index:1;width:100%;max-width:44rem;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card)}
   .paper figcaption{padding:1.3rem 1.6rem;font-size:1.25rem;color:var(--muted);text-align:center;background:var(--surface-alt);border-top:1px solid var(--line)}
 
+  /* ====== As cenas da inicial (3 e 4) ======
+     Duas colunas, imagem e texto, que viram uma no celular. O respiro é o mesmo dos passos de
+     Como funciona: cada cena ocupa a tela sozinha. Tudo sai dos tokens e da régua daqui; o
+     único papel novo é o pino numerado, que é o número aceso do trilho em tamanho pequeno. */
+  .cena{position:relative;padding:clamp(7.2rem,9vw,10.4rem) 0;overflow-x:clip}
+  .cena-grade{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(4rem,6vw,8rem);align-items:center}
+  .cena-texto{max-width:52rem}
+  .cena-texto h2{margin-bottom:1.6rem;text-wrap:balance}
+  .cena-lead{color:var(--muted);font-size:1.7rem;max-width:46ch;margin-bottom:2.8rem;text-wrap:pretty}
+  .cena-lead strong{color:var(--text);font-weight:600}
+  .cena-leg{display:flex;align-items:center;gap:.8rem;margin-top:2.8rem;color:var(--muted);font-size:1.4rem}
+  .cena-leg::before{content:"";flex:none;width:1.8rem;height:.2rem;border-radius:.2rem;background:var(--green)}
+  .pino{flex:none;width:2.8rem;height:2.8rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:var(--on-green);font-size:1.3rem;font-weight:700;font-variant-numeric:tabular-nums}
+
+  /* Cena 3: o PDF numa faixa de fundo próprio (o papel branco lê melhor fora do branco da
+     página). Os pinos ficam meio para fora da folha, na margem dela, e não cobrem nada; o
+     anel da cor da faixa os descola do papel. --y é a altura medida no PDF (ver o HTML). */
+  .cena-pdf{background:var(--surface-alt)}
+  .pdf-mesa{position:relative;justify-self:center;width:100%;max-width:44rem}
+  .pdf-mesa .glow{width:48rem;height:48rem;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.16}
+  .pdf-mesa .paper{max-width:none}
+  .pdf-mesa .pino{position:absolute;z-index:2;left:-1.4rem;top:var(--y);margin-top:-1.4rem;box-shadow:0 0 0 .4rem var(--surface-alt)}
+  .pdf-mesa .pino-dir{left:auto;right:-1.4rem}
+  .pontos{list-style:none;display:flex;flex-direction:column;gap:2rem}
+  .pontos li{display:grid;grid-template-columns:2.8rem minmax(0,1fr);gap:1.4rem;align-items:start}
+  .pontos b{display:block;font-size:1.6rem;font-weight:600;line-height:1.4}
+  .pontos li div span{display:block;margin-top:.2rem;color:var(--muted);font-size:1.5rem;line-height:1.5}
+
+  /* Cena 4: os selos têm o desenho das etiquetas da página de planos (.planos-todos li): não
+     são botões, então não têm o verde nem a sombra de botão. */
+  .selos{list-style:none;display:flex;flex-wrap:wrap;gap:1rem}
+  .selos li{display:inline-flex;align-items:center;gap:.8rem;padding:.8rem 1.6rem .8rem 1.2rem;background:var(--surface);border:1px solid var(--line);border-radius:10rem;font-size:1.45rem;font-weight:500;line-height:1.3}
+  .selos svg{flex:none;color:var(--green-text)}
+  /* O cartão "Sua tabela": é o catálogo do app em miniatura, com os itens usados marcados. */
+  .tabela{justify-self:center;width:100%;max-width:44rem;background:var(--superficie);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)}
+  .tabela-cab{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;padding:1.6rem 2rem 1.2rem;border-bottom:1px solid var(--line)}
+  .tabela-cab b{font-size:1.5rem}
+  .tabela-cab span{color:var(--muted);font-size:1.3rem;white-space:nowrap}
+  .tabela-lin{display:flex;align-items:center;gap:1.2rem;padding:1.1rem 2rem;border-bottom:1px solid var(--line-suave);color:var(--muted);font-size:1.45rem}
+  .tabela-lin .n{flex:1;min-width:0}
+  .tabela-lin .v{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tabela-lin .ok{flex:none;width:2rem;height:2rem;border-radius:50%;border:1px solid var(--line-forte);display:flex;align-items:center;justify-content:center;color:var(--on-green)}
+  .tabela-lin.usado{background:var(--green-fill);color:var(--text);font-weight:600}
+  .tabela-lin.usado .ok{background:var(--green);border-color:var(--green)}
+  .tabela-pe{padding:1.4rem 2rem 1.6rem;color:var(--muted);font-size:1.35rem;line-height:1.5}
+  .tabela-pe b{color:var(--text)}
+  /* A bússola da marca: a única frase grande fora de um título, por isso em Sora. */
+  .bussola{display:flex;flex-direction:column;align-items:center;gap:3.2rem;margin-top:clamp(8rem,10vw,12.8rem);text-align:center}
+  .bussola>p{font-family:var(--font-titulo);font-size:clamp(2.4rem,2.8vw,3.4rem);font-weight:600;line-height:1.2;letter-spacing:-.02em;max-width:24ch;text-wrap:balance}
+  .bussola>p span{color:var(--green-text)}
+  .ramos{width:100%;display:flex;flex-direction:column;gap:1.2rem}
+  .ramos-rot{color:var(--muted);font-size:1.25rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+  /* As dúvidas usam o .faq da Ajuda e dos Planos, para a mesma pergunta abrir do mesmo jeito. */
+  .duvidas{display:grid;grid-template-columns:minmax(0,32rem) minmax(0,1fr);gap:clamp(3.2rem,5vw,6.4rem);align-items:start;margin-top:clamp(6.4rem,8vw,9.6rem);padding-top:clamp(5.6rem,6vw,7.2rem);border-top:1px solid var(--line)}
+  .duvidas h2{font-size:clamp(2.6rem,2.6vw,3.2rem)}
+  .duvidas-lado p{margin-top:1.2rem;color:var(--muted);font-size:1.6rem}
+  .duvidas-lado a{color:var(--green-text);font-weight:600;text-decoration:underline;text-underline-offset:.2em}
+  .duvidas .faq{max-width:none;margin:0}
+
 
 
   /* Recursos (usado hoje só por ajuda.html) */
@@ -494,6 +551,10 @@
   /* A regra acima é mais específica que `.vagas` e zerava o espaço acima da
      linha das vagas (ela grudava no botão) e punha 32px sobrando embaixo. */
   .cta-box .vagas{margin:1.4rem auto 0;font-size:1.4rem}
+  /* A saída para quem ainda quer os detalhes (inicial): um link só, abaixo do convite. */
+  .cta-box .cta-outro{margin:2.4rem auto 0;padding-top:1.2rem;border-top:1px solid var(--line-suave);max-width:36rem;font-size:1.5rem}
+  .cta-outro a{display:inline-flex;align-items:center;gap:.6rem;min-height:4.4rem;color:var(--green-text);font-weight:600}
+  .cta-outro a:hover .arrow{transform:translateX(.3rem)}
 
   /* Footer */
   footer{border-top:1px solid var(--line);padding:5.6rem 0 4rem;background:var(--surface-alt)}
@@ -539,6 +600,11 @@
     .guia{left:4rem}
     .no-fim{--no:3.2rem;margin:0 0 1.6rem}
     .no.on{box-shadow:0 0 0 .4rem var(--anel)}
+    /* As cenas viram uma coluna, o texto antes da imagem (o título diz o que olhar). */
+    .cena-grade{grid-template-columns:minmax(0,1fr);gap:4.8rem}
+    .cena-pdf .pdf-mesa{order:2;max-width:36rem}
+    .tabela{max-width:48rem}
+    .duvidas{grid-template-columns:minmax(0,1fr);gap:2.4rem}
   }
   @media (max-width:560px){
     .cta-box{padding:4.4rem 2.2rem}
@@ -590,14 +656,22 @@
 /* ====== Nota sob o botão do CTA final ====== */
 .vagas{margin-top:1.4rem;color:var(--muted);font-size:1.4rem}
 
-/* ====== Faixa de segmentos — letreiro deslizante ====== */
-.hero-marquee{margin-top:2.4rem;width:100%;overflow:hidden;border-block:1px solid var(--line);padding:1.3rem 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
-.hero-marquee .track{display:flex;width:max-content;animation:seg-marquee 40s linear infinite;will-change:transform}
-.hero-marquee:hover .track{animation-play-state:paused}
-.hero-marquee .seg{display:inline-flex;align-items:center;white-space:nowrap;font-size:1.5rem;font-weight:600;color:var(--text)}
-.hero-marquee .seg::after{content:"";display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--green);margin:0 2.8rem}
+/* ====== Faixa de ramos — letreiro deslizante (cena 4 da inicial; até 16/10/2026 ficava no herói) ====== */
+.faixa-ramos{width:100%;overflow:hidden;border-block:1px solid var(--line);padding:1.3rem 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.faixa-ramos .track{display:flex;width:max-content;animation:seg-marquee 40s linear infinite;will-change:transform}
+.faixa-ramos:hover .track{animation-play-state:paused}
+.faixa-ramos .seg{display:inline-flex;align-items:center;white-space:nowrap;font-size:1.5rem;font-weight:600;color:var(--text)}
+.faixa-ramos .seg::after{content:"";display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--green);margin:0 2.8rem}
 @keyframes seg-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.hero-marquee .track{animation:none}}
+/* Sem movimento, a faixa parada mostrava só uma palavra e meia cortadas nas pontas: ela vira
+   linhas centradas, sem a cópia que fecha o laço (a segunda metade) e sem o esmaecer das bordas. */
+@media (prefers-reduced-motion:reduce){
+  .faixa-ramos{-webkit-mask-image:none;mask-image:none}
+  .faixa-ramos .track{animation:none;width:auto;flex-wrap:wrap;justify-content:center;row-gap:.8rem}
+  .faixa-ramos .seg:nth-child(n+17){display:none}
+  .faixa-ramos .seg:nth-child(16)::after{display:none}
+  .faixa-ramos .seg::after{margin:0 1.4rem}
+}
 
 /* ====== Página de planos (planos.html) ======
    A vitrine fora do app: o app da Play Store não pode mostrar preço nem levar a pagar,

@@ -79,7 +79,7 @@
     </div>
   </div>
   <div class="mobile-menu" id="mob">
-    <a href="#passos">Como funciona</a>
+    <a href="como-funciona.html">Como funciona</a>
     <a href="planos.html">Planos</a>
     <a href="ajuda.html">Ajuda</a>
     <a href="privacidade.html">Privacidade</a>
@@ -87,14 +87,20 @@
   </div>
 </header>
 
-<!-- ====== HERÓI — a promessa e o botão. Nada mais.
-     Os três passos aparecem já aqui, na frase de apoio: é o mesmo esqueleto
-     que a página inteira usa logo abaixo. ====== -->
+<!-- ====== CENA 1 · O HERÓI — a promessa e o botão. Nada mais.
+     Desde 16/10/2026 a página inicial vende o RESULTADO (o orçamento na mão do cliente
+     antes de ele ir embora) e o passo a passo mora em como-funciona.html. Quem só quer
+     decidir não precisa percorrer o manual. A frase pequena de cima é a voz da marca; o
+     título é o que quem não conhece o Oravio entende em 5 segundos.
+     A linha de baixo qualifica quem chegou: sem ela, dono de clínica lê "cliente" e
+     "orçamento" e não descobre que serve pra ele. A lista longa de ramos desceu para a
+     cena 4 (a faixa que desliza), para o topo ficar leve. ====== -->
 <section class="hero">
   <div class="glow"></div>
   <div class="wrap hero-inner reveal">
+    <p class="eyebrow"><span class="d"></span>Seu trabalho merece fluir.</p>
     <h1 class="hero-title">Seu orçamento pronto antes do cliente ir embora.</h1>
-    <p class="hero-sub">Fale o serviço, confira e envie. O Oravio monta o PDF com a <strong>sua</strong> tabela de preços.</p>
+    <p class="hero-sub">Você fala o pedido e o Oravio monta o orçamento com os <strong>seus</strong> preços e a <strong>sua</strong> marca. O cliente recebe enquanto ainda está na sua frente.</p>
     <div class="hero-cta">
       <a href="https://app.oravio.com.br/cadastro" class="btn btn-primary btn-lg">Criar conta grátis <span class="arrow">→</span></a>
       <div class="hero-note">
@@ -102,13 +108,13 @@
         7 dias grátis · sem cartão
       </div>
     </div>
-    <div class="hero-marquee" role="img" aria-label="Feito para locação, oficina, clínica, salão, assistência técnica e qualquer outro serviço com tabela de preços">
-      <div class="track" aria-hidden="true"><span class="seg">Locação</span><span class="seg">Oficina</span><span class="seg">Clínica</span><span class="seg">Salão</span><span class="seg">Assistência técnica</span><span class="seg">Pet shop</span><span class="seg">Serralheria</span><span class="seg">Marcenaria</span><span class="seg">Gráfica</span><span class="seg">Dedetização</span><span class="seg">Refrigeração</span><span class="seg">Chaveiro</span><span class="seg">Estética</span><span class="seg">Odontologia</span><span class="seg">Vidraçaria</span><span class="seg">Elétrica</span><span class="seg">Locação</span><span class="seg">Oficina</span><span class="seg">Clínica</span><span class="seg">Salão</span><span class="seg">Assistência técnica</span><span class="seg">Pet shop</span><span class="seg">Serralheria</span><span class="seg">Marcenaria</span><span class="seg">Gráfica</span><span class="seg">Dedetização</span><span class="seg">Refrigeração</span><span class="seg">Chaveiro</span><span class="seg">Estética</span><span class="seg">Odontologia</span><span class="seg">Vidraçaria</span><span class="seg">Elétrica</span></div>
-    </div>
-    <p class="hero-for">…e qualquer serviço com tabela de preços.</p>
+    <p class="hero-for">Para oficina, clínica, salão, assistência técnica, locação e qualquer serviço com tabela de preços.</p>
   </div>
 
-  <!-- O PALCO: o aparelho inteiro, e nele o LAÇO — um trailer de ~12 s dos três passos,
+  <!-- CENA 2 · O MOMENTO ORAVIO. Fica no herói, logo abaixo do botão, e não numa seção
+       própria ao lado de um texto: assim o aparelho entra na primeira tela também no
+       notebook, e o laço é o mesmo que o vídeo do Status e do Reels filma.
+       O PALCO: o aparelho inteiro, e nele o LAÇO — um trailer de ~12 s dos três passos,
        montado com prints do app de verdade (dados inventados, cliente fictício João
        Pereira, o mesmo orçamento de R$ 5.458,80 do resto da página). Cada print é uma
        CAMADA no lugar exato em que ela fica na tela do app (as medidas saem da captura,
@@ -119,8 +125,8 @@
        Só a primeira camada (a Início) vem com endereço no HTML; as outras ganham o
        endereço depois do `load`, e o laço espera todas estarem prontas. Sem JS, fica a
        Início. Com "reduzir movimento", fica o quadro da Confira, parado (com o balão ao lado, no computador).
-       O laço é desenho (aria-hidden): quem usa leitor de tela ouve os passos, logo
-       abaixo, e a primeira tela, pelo texto da imagem. Quem o faz andar é o script "O LAÇO". -->
+       O laço é desenho (aria-hidden): quem usa leitor de tela ouve a primeira tela, pelo
+       texto da imagem, e a história com calma na cena do PDF e em como-funciona.html. Quem o faz andar é o script "O LAÇO". -->
   <div class="palco" id="palco">
     <div class="palco-fone">
       <div class="fone">
@@ -174,144 +180,117 @@
   </div>
 </section>
 
-<!-- ====== OS TRÊS PASSOS + CTA — "a jornada" ======
-     Cada afirmação do produto tem UMA casa: o passo onde ela acontece.
-     Jeito de falar e offline moram no Fale, a tabela de preços e a sugestão
-     moram no Confira, PDF, PIX, link e aceite moram no Envie. É isso
-     que impede a página de repetir o mesmo argumento em quatro lugares.
-
-     O TRILHO. Um fio só liga o aparelho do herói ao passo 1, ao 2, ao 3 e ao
-     botão final, e vai se preenchendo conforme a rolagem; cada número acende
-     quando o fio chega nele. Sem ele, os três passos eram três ilhas soltas no
-     escuro — a página não dizia que uma coisa leva à outra, nem onde você está.
-     Os números do trilho são só desenho (aria-hidden): quem usa leitor de tela
-     ouve "Passo 1 de 3" no rótulo de cada passo.
-
-     O FIO DA HISTÓRIA. É o MESMO orçamento nos três passos: a frase do passo 1
-     é a que aparece no topo da tela do passo 2, e os itens dela são os do PDF
-     do passo 3. As legendas dizem isso, pra quem rola sem ler os textos.
-
-     O GUIA. O mascote do app (a marca com rosto) é a ponta do fio: desce com
-     ele, senta em cada número e reage ao passo. O rosto parado já vem aqui no
-     HTML; quem o faz andar e reagir é o mascote.js, pedido depois de a página
-     carregar (fonte em scripts/landing/mascote/ no repositório do app). As
-     partes levam `data-parte`, que é como o motor do app as encontra. -->
-<div class="jornada" id="passos">
-  <div class="trilho" aria-hidden="true"><i></i></div>
-  <div class="guia" aria-hidden="true"><svg viewBox="0 0 512 512" overflow="visible" focusable="false"><g data-parte="corpo"><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z" fill="#18b98a"/><ellipse data-parte="bochecha" cx="128" cy="326" rx="40" ry="20" fill="var(--bochecha)" opacity="0"/><ellipse data-parte="bochecha" cx="384" cy="326" rx="40" ry="20" fill="var(--bochecha)" opacity="0"/><rect data-parte="olho" x="120.7" y="137.2" width="102.6" height="153.6" rx="12" fill="#ffffff"/><rect data-parte="olho" x="281.8" y="54.5" width="102.6" height="236.2" rx="12" fill="#ffffff"/><path data-parte="boca" d="M56 299 C156 480 356 480 456 299 C356 404 156 404 56 299 Z" fill="#ffffff"/></g><g data-parte="efeitos"/></svg></div>
-
-  <div class="steps-band">
-    <div class="wrap steps">
-
-      <!-- 1 — FALE -->
-      <section class="step">
-        <span class="no" aria-hidden="true">1</span>
-        <div class="step-copy reveal">
-          <p class="step-n"><span class="sr">Passo 1 de 3: </span>Fale</p>
-          <h2>Descreva do jeito que você já fala.</h2>
-          <p class="step-lead">Segura o microfone e fala o serviço — ou digita, se preferir. Sem formulário no meio do atendimento.</p>
-          <div class="checklist">
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Apelido, marca pela metade, “blutufi”: ele entende — e aprende como a sua loja chama cada item.</span></div>
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sem sinal na casa do cliente? Monte à mão e salve no aparelho — sobe sozinho quando a internet volta.</span></div>
-          </div>
-        </div>
-        <div class="step-media reveal">
-          <div class="glow"></div>
-          <!-- Dois recortes do MESMO campo da tela inicial, empilhados: parado e
-               gravando. Ao entrar na tela, o "gravando" aparece por cima (é o
-               toque no microfone) e, logo depois, a frase dita surge acima dele.
-               A frase é um balão de fala, não uma tela do app: o Oravio não
-               transcreve ao vivo, e o desenho não pode sugerir que sim. -->
-          <div class="fala">
-            <blockquote class="fala-frase">
-              <span class="fala-quem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Você, no balcão</span>
-              <p>“Um Galaxy S24, 128 GB branco, um fone Bluetooth TWS e uma película de vidro 3D.”</p>
-            </blockquote>
-            <figure class="campo">
-              <div class="campo-telas">
-                <picture>
-                  <source media="(prefers-color-scheme: dark)" srcset="campo-repouso-escuro.webp">
-                  <img src="campo-repouso-claro.webp" width="780" height="194" loading="lazy" decoding="async" alt="O campo Descreva o orçamento, com o botão de microfone ao lado">
-                </picture>
-                <picture>
-                  <source media="(prefers-color-scheme: dark)" srcset="campo-gravando-escuro.webp">
-                  <img class="campo-grav" src="campo-gravando-claro.webp" width="780" height="194" loading="lazy" decoding="async" alt="" aria-hidden="true">
-                </picture>
-              </div>
-              <figcaption>Detalhe da tela inicial — é daqui que o orçamento começa.</figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <!-- 2 — CONFIRA -->
-      <section class="step">
-        <span class="no" aria-hidden="true">2</span>
-        <div class="step-copy reveal">
-          <p class="step-n"><span class="sr">Passo 2 de 3: </span>Confira</p>
-          <h2>Veja o que ele entendeu, antes de salvar.</h2>
-          <p class="step-lead">Cada item aparece com o preço que veio da sua tabela. Nada é salvo sem o seu ok.</p>
-          <div class="checklist">
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>A IA não inventa valor — ela casa o que você falou com o seu catálogo.</span></div>
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Ficou entre dois itens parecidos? Ele sugere o mais provável e deixa os outros a um toque.</span></div>
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Quantidade errada ou desconto? Corrige ali mesmo, sem refazer tudo.</span></div>
-          </div>
-        </div>
-        <div class="step-media reveal">
-          <div class="glow"></div>
-          <figure class="aparelho">
-            <div class="fone">
-              <picture>
-                <source media="(prefers-color-scheme: dark)" srcset="tela-conferir-escuro.webp">
-                <img src="tela-conferir-claro.webp" width="640" height="1387" loading="lazy" decoding="async" alt="Tela de conferência do Oravio: a frase falada no topo, o cliente João Pereira, três itens com o preço da tabela e quantidade ajustável, e o total de R$ 5.458,80 ao lado do botão Salvar">
-              </picture>
-            </div>
-            <figcaption>A mesma frase, já virada em três itens.</figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <!-- 3 — ENVIE -->
-      <section class="step">
-        <span class="no" aria-hidden="true">3</span>
-        <div class="step-copy reveal">
-          <p class="step-n"><span class="sr">Passo 3 de 3: </span>Envie</p>
-          <h2>Chega como documento, não como textão.</h2>
-          <p class="step-lead">PDF com a logo e os dados do seu negócio — ou um link que o cliente abre no navegador, sem instalar nada. Com a sua chave PIX, o QR Code já vai junto.</p>
-          <div class="checklist">
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Ele aceita pelo próprio link, sem precisar te responder — e você vê no app quando ele abriu e quando aceitou.</span></div>
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Mudou de ideia? Você derruba o link e ele para de abrir.</span></div>
-          </div>
-        </div>
-        <div class="step-media reveal">
-          <div class="glow"></div>
-          <!-- O PDF de verdade, a folha inteira: o canhoto do PIX mora no pé dela,
-               e cortá-lo esconderia justo o que é novo. É o mesmo orçamento dos
-               passos 1 e 2. -->
-          <figure class="paper">
-            <img src="folha-pdf.webp" width="640" height="906" loading="lazy" decoding="async" alt="PDF do orçamento: logo e dados da Bits Celulares no topo; cliente João Pereira; Galaxy S24 128GB Branco, fone Bluetooth TWS e película de vidro 3D; no pé da folha, o canhoto para pagar R$ 5.458,80 com chave PIX, QR Code e o link para aceitar">
-            <figcaption>O mesmo orçamento, em PDF — é isto que chega pro seu cliente.</figcaption>
-          </figure>
-        </div>
-      </section>
-
+<!-- ====== CENA 3 · PROFISSIONALISMO — o PDF, parado e inteiro.
+     O laço do topo mostra a folha saindo do aparelho; aqui ela fica parada, para ser lida. É a
+     única imagem de passo que ficou na página inicial: é ela que prova o "cara de empresa".
+     Os pinos 1, 2 e 3 apontam na folha o que a lista ao lado diz. São desenho (aria-hidden):
+     quem conta é a lista. As alturas (--y) são medidas no PDF de verdade (folha-pdf.webp,
+     640×906): a logo, o número do orçamento e o canhoto do PIX. Trocou a folha? Confira os três. ====== -->
+<section class="cena cena-pdf">
+  <div class="wrap cena-grade">
+    <div class="pdf-mesa reveal">
+      <div class="glow"></div>
+      <div class="paper"><img src="folha-pdf.webp" width="640" height="906" loading="lazy" decoding="async" alt="PDF do orçamento: logo e dados da Bits Celulares no topo; cliente João Pereira; Galaxy S24 128GB Branco, fone Bluetooth TWS e película de vidro 3D; no pé da folha, o canhoto para pagar R$ 5.458,80 com chave PIX, QR Code e o link para aceitar"></div>
+      <span class="pino" style="--y:10%" aria-hidden="true">1</span>
+      <span class="pino pino-dir" style="--y:20%" aria-hidden="true">2</span>
+      <span class="pino pino-dir" style="--y:82%" aria-hidden="true">3</span>
+    </div>
+    <div class="cena-texto reveal">
+      <h2>Chega com cara de empresa.</h2>
+      <p class="cena-lead">PDF com a sua logo ou um link que o cliente abre no navegador, sem instalar nada. Com a sua chave PIX, o QR Code já vai junto.</p>
+      <ol class="pontos">
+        <li><span class="pino" aria-hidden="true">1</span><div><b>A sua marca no topo</b><span>Logo, endereço e telefone do seu negócio, em todo orçamento.</span></div></li>
+        <li><span class="pino" aria-hidden="true">2</span><div><b>Número e data, como documento</b><span>Cada orçamento sai numerado, com data e validade.</span></div></li>
+        <li><span class="pino" aria-hidden="true">3</span><div><b>Pronto para pagar</b><span>O QR Code do PIX já leva o valor: o cliente aponta a câmera do banco e paga.</span></div></li>
+      </ol>
+      <p class="cena-leg">É isto que chega pro seu cliente.</p>
     </div>
   </div>
+</section>
 
-  <!-- ====== CTA FINAL — o fim do trilho ====== -->
-  <section class="cta-final">
-    <div class="wrap">
-      <span class="no no-fim" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-      <div class="cta-box reveal">
-        <div class="glow"></div>
-        <h2>O orçamento sai na hora.</h2>
-        <p>Crie sua conta e teste o Oravio Profissional por 7 dias, sem cartão. Em poucos minutos você monta seu primeiro orçamento.</p>
-        <a href="https://app.oravio.com.br/cadastro" class="btn btn-primary btn-lg">Criar conta grátis <span class="arrow">→</span></a>
-        <p class="vagas">7 dias grátis · sem cartão</p>
+<!-- ====== CENA 4 · CONFIANÇA — o preço é seu, e o que mais dá segurança.
+     A primeira dúvida de quem ouve "IA" é o preço inventado. Por isso o cartão "Sua tabela"
+     mostra os três itens do João marcados no catálogo da loja (os preços são os de
+     scripts/landing/dados.mjs, no repositório do app: os mesmos dos prints e do PDF).
+     Os selos dizem o que dá CONTROLE a quem usa e não aparecem em outro lugar desta página
+     (o "sem instalar nada" mora na cena do PDF). Depois, a frase que guia a marca, a faixa
+     de ramos e as quatro dúvidas de quem está chegando. ====== -->
+<section class="cena cena-confianca">
+  <div class="wrap">
+    <div class="cena-grade">
+      <div class="cena-texto reveal">
+        <h2>Com o seu preço, sempre.</h2>
+        <p class="cena-lead">O Oravio usa a tabela que você cadastrou. <strong>A IA não escolhe o preço. Quem escolhe é você.</strong></p>
+        <ul class="selos">
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Você confere antes de salvar</li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Corrige item e quantidade na hora</li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sem sinal, salva no aparelho</li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Você vê quando ele abre e aceita</li>
+        </ul>
+      </div>
+      <div class="tabela reveal" role="img" aria-label="A tabela de preços da Bits Celulares, com os três itens do orçamento do João marcados: Galaxy S24 128GB Branco por R$ 5.299,00, fone de ouvido Bluetooth TWS por R$ 129,90 e película de vidro 3D por R$ 29,90">
+        <div class="tabela-cab"><b>Sua tabela · Bits Celulares</b><span>13 itens</span></div>
+        <div class="tabela-lin usado"><span class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="n">Galaxy S24 128GB Branco</span><span class="v">R$ 5.299,00</span></div>
+        <div class="tabela-lin"><span class="ok"></span><span class="n">Galaxy A55 256GB</span><span class="v">R$ 2.699,00</span></div>
+        <div class="tabela-lin usado"><span class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="n">Fone de ouvido Bluetooth TWS</span><span class="v">R$ 129,90</span></div>
+        <div class="tabela-lin"><span class="ok"></span><span class="n">Capinha anti-impacto</span><span class="v">R$ 49,90</span></div>
+        <div class="tabela-lin usado"><span class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="n">Película de vidro 3D</span><span class="v">R$ 29,90</span></div>
+        <div class="tabela-lin"><span class="ok"></span><span class="n">Carregador turbo 25W</span><span class="v">R$ 89,90</span></div>
+        <p class="tabela-pe">O orçamento do João saiu com <b>estes três preços</b>. Nenhum valor foi inventado.</p>
       </div>
     </div>
-  </section>
-</div>
+
+    <div class="bussola reveal">
+      <p>A tecnologia acompanha o seu trabalho. <span>Não o contrário.</span></p>
+      <div class="ramos">
+        <p class="ramos-rot">Feito para quem trabalha com tabela de preços</p>
+        <div class="faixa-ramos" role="img" aria-label="Feito para locação, oficina, clínica, salão, assistência técnica, pet shop, serralheria, marcenaria, gráfica, dedetização, refrigeração, chaveiro, estética, odontologia, vidraçaria, elétrica e qualquer outro serviço com tabela de preços">
+          <div class="track" aria-hidden="true"><span class="seg">Locação</span><span class="seg">Oficina</span><span class="seg">Clínica</span><span class="seg">Salão</span><span class="seg">Assistência técnica</span><span class="seg">Pet shop</span><span class="seg">Serralheria</span><span class="seg">Marcenaria</span><span class="seg">Gráfica</span><span class="seg">Dedetização</span><span class="seg">Refrigeração</span><span class="seg">Chaveiro</span><span class="seg">Estética</span><span class="seg">Odontologia</span><span class="seg">Vidraçaria</span><span class="seg">Elétrica</span><span class="seg">Locação</span><span class="seg">Oficina</span><span class="seg">Clínica</span><span class="seg">Salão</span><span class="seg">Assistência técnica</span><span class="seg">Pet shop</span><span class="seg">Serralheria</span><span class="seg">Marcenaria</span><span class="seg">Gráfica</span><span class="seg">Dedetização</span><span class="seg">Refrigeração</span><span class="seg">Chaveiro</span><span class="seg">Estética</span><span class="seg">Odontologia</span><span class="seg">Vidraçaria</span><span class="seg">Elétrica</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="duvidas">
+      <div class="duvidas-lado reveal">
+        <h2>Dúvidas de quem está chegando</h2>
+        <p>O resto você descobre nos 7 dias de teste ou na <a href="ajuda.html">central de ajuda</a>.</p>
+      </div>
+      <div class="faq reveal">
+        <details>
+          <summary>Preciso de cartão para testar?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Não. Toda conta começa com 7 dias do plano Profissional, sem cartão e sem fidelidade.</div>
+        </details>
+        <details>
+          <summary>Quanto custa depois dos 7 dias?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Você escolhe: Essencial por R$ 29,90/mês, Profissional por R$ 49,90/mês ou Equipe por R$ 119,90/mês. Se preferir, continua no Grátis, e nada é apagado. <a href="planos.html">Ver os planos</a></div>
+        </details>
+        <details>
+          <summary>Serve para o meu ramo?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Se você faz orçamento com uma tabela de serviços e preços, serve. Oficina, clínica, salão, assistência técnica, locação: o Oravio monta o orçamento com a sua tabela, seja ela qual for.</div>
+        </details>
+        <details>
+          <summary>Meus dados ficam seguros?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Sim. Cada empresa só enxerga os próprios clientes, preços e orçamentos. Os dados viajam e ficam guardados com criptografia, e não vendemos nem compartilhamos seus dados para fins comerciais. <a href="privacidade.html">Ler a política de privacidade</a></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CENA 5 · CONVITE — o mesmo convite do topo, sem pressão artificial e sem
+     promessa de faturamento. O link de baixo é a saída para quem ainda quer os detalhes. ====== -->
+<section class="cta-final">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <div class="glow"></div>
+      <h2>O orçamento sai na hora.</h2>
+      <p>Crie sua conta e teste o Oravio Profissional por 7 dias, sem cartão. Em poucos minutos você monta seu primeiro orçamento.</p>
+      <a href="https://app.oravio.com.br/cadastro" class="btn btn-primary btn-lg">Criar conta grátis <span class="arrow">→</span></a>
+      <p class="vagas">7 dias grátis · sem cartão · sem fidelidade</p>
+      <p class="cta-outro"><a href="como-funciona.html">Ver como funciona <span class="arrow">→</span></a></p>
+    </div>
+  </div>
+</section>
 
 <!-- ====== FOOTER ====== -->
 <footer>
@@ -324,7 +303,7 @@
       <div class="foot-cols">
         <div class="foot-col">
           <h4>Produto</h4>
-          <a href="#passos">Como funciona</a>
+          <a href="como-funciona.html">Como funciona</a>
           <a href="planos.html">Planos</a>
           <a href="https://app.oravio.com.br/cadastro">Criar conta</a>
           <a href="https://app.oravio.com.br">Entrar</a>
@@ -376,8 +355,10 @@
      que ela): é embaixo da tela do app que a fala e o total acontecem, e começar antes disso
      era tocar para ninguém. Para de vez depois de três voltas, no quadro da Confira (itens,
      total e, no computador, o balão), que é também o quadro de quem pede "reduzir movimento".
-     A cada momento ele avisa o guia com o evento "laco" no palco: no computador o mascote
-     assiste sentado em cima do aparelho (mascote.js). */
+     A cada momento ele avisa com o evento "laco" no palco. Quem ouvia era o mascote, sentado
+     em cima do aparelho no computador; desde 16/10/2026 ele mora só em como-funciona.html e o
+     evento ficou sem ouvinte. Não foi tirado para o script continuar igual ao que o vídeo do
+     laço lê (laco.py, docs/landing.md no app). */
   var palco=document.getElementById('palco');
   (function(){
     if(!palco)return;
@@ -486,73 +467,6 @@
       });
     },{threshold:.15,rootMargin:'0px 0px -60px 0px'});
     targets.forEach(function(e){io.observe(e);});
-  });
-
-  /* O TRILHO. Mede, não calcula: a posição de cada número é lida da tela, e
-     refeita sempre que a jornada muda de tamanho (imagem que termina de baixar,
-     fonte que chega, giro do celular). A "linha de chegada" fica a 55% da
-     altura da tela: o fio se enche até ela, e o número que ela já passou
-     acende — os dois usam a mesma conta, então o fio chega JUNTO com o número.
-     No computador o fio sai de baixo do aparelho do herói; no celular, que não
-     tem aparelho centralizado em cima, ele começa no número 1.
-
-     O GUIA usa estas MESMAS medidas, publicadas em `j.trilho` a cada quadro (com
-     o evento "trilho"): assim ele reage no instante em que o número acende. Aqui
-     só se calcula onde ele senta (`paradas`: em cima de cada número) e onde ele
-     estaciona antes de tudo; quem o faz andar é o mascote.js. Até ele chegar, e
-     sempre com "reduzir movimento", o mascote fica estacionado e parado.
-     No computador ele estaciona SENTADO EM CIMA DO APARELHO do topo, assistindo ao laço;
-     `fone` é onde o aparelho termina, para o guia saber quando passa atrás dele (ao descer
-     para o fio, ele some atrás do aparelho e sai embaixo, onde o fio nasce). No celular o
-     aparelho não fica na linha do fio, e ele começa sentado no número 1. */
-  (function(){
-    var j=document.querySelector('.jornada'); if(!j)return;
-    var trilho=j.querySelector('.trilho'), cheio=trilho.firstElementChild, guia=j.querySelector('.guia');
-    var nos=Array.prototype.slice.call(j.querySelectorAll('.no'));
-    var largo=window.matchMedia('(min-width:901px)');
-    var aparelho=document.querySelector('.palco-fone .fone');
-    var topo=0, alt=0, centros=[], paradas=[], ini=0, fone=NaN, medida=0, agendado=false;
-    function pintar(){
-      agendado=false;
-      var linha=window.innerHeight*.55-j.getBoundingClientRect().top;
-      var p=alt?Math.min(1,Math.max(0,(linha-topo)/alt)):0;
-      cheio.style.transform='scaleY('+p+')';
-      var ativo=0;
-      for(var i=0;i<nos.length;i++){var on=centros[i]<=linha;nos[i].classList.toggle('on',on);if(on)ativo=i+1;}
-      j.trilho={linha:linha,ativo:ativo,centros:centros,paradas:paradas,ini:ini,fone:fone,medida:medida};
-      j.dispatchEvent(new Event('trilho'));
-    }
-    function medir(){
-      var jt=j.getBoundingClientRect().top;
-      centros=nos.map(function(n){var r=n.getBoundingClientRect();return r.top+r.height/2-jt;});
-      topo=largo.matches?0:centros[0];
-      alt=Math.max(0,centros[centros.length-1]-topo);
-      trilho.style.top=topo+'px';trilho.style.height=alt+'px';
-      if(guia){
-        /* Sentado: a base do rosto encosta no topo do número (ou do aparelho) e afunda 8% nele. */
-        var tam=guia.offsetHeight;
-        paradas=nos.map(function(n,i){return centros[i]-n.offsetHeight/2-tam*.42;});
-        var ra=largo.matches&&aparelho?aparelho.getBoundingClientRect():null;
-        fone=ra?ra.bottom-jt:NaN;
-        ini=ra?ra.top-jt-tam*.42:paradas[0];
-        if(!('vivo' in guia.dataset))guia.style.transform='translate3d(0,'+(ini-tam/2).toFixed(1)+'px,0)';
-        guia.classList.add('pronta');
-      }
-      medida++;
-      pintar();
-    }
-    window.addEventListener('scroll',function(){if(!agendado){agendado=true;requestAnimationFrame(pintar);}},{passive:true});
-    window.addEventListener('resize',medir);
-    if('ResizeObserver' in window)new ResizeObserver(medir).observe(j);
-    medir();
-  })();
-
-  /* O motor do guia chega por último: depois do `load`, quando o navegador folga. Quem
-     abre a página não paga por ele antes de ver o topo. */
-  window.addEventListener('load',function(){
-    if(reduce||!document.querySelector('.guia'))return;
-    function pedir(){var s=document.createElement('script');s.src='mascote.js';s.async=true;document.body.appendChild(s);}
-    if('requestIdleCallback' in window)requestIdleCallback(pedir,{timeout:2000});else setTimeout(pedir,300);
   });
 
 </script>
