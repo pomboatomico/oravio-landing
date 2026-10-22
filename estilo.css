@@ -145,7 +145,7 @@
   svg[width="81.6"]{width:8.16rem;height:2rem}
   svg[width="85.7"]{width:8.57rem;height:2.1rem}
 
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;font-family:inherit;font-weight:600;font-size:1.5rem;line-height:1;padding:1.4rem 2.2rem;border-radius:1.2rem;border:1px solid transparent;cursor:pointer;transition:transform .14s ease,border-color .2s ease,box-shadow .2s ease}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;font-family:inherit;font-weight:600;font-size:1.5rem;line-height:1;padding:1.4rem 2.2rem;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:transform .14s ease,border-color .2s ease,box-shadow .2s ease}
   .btn-primary{background:var(--green);color:var(--on-green);font-weight:700}
   .btn-primary:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
   .btn-primary:active{transform:translateY(0)}
@@ -160,7 +160,7 @@
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:7.2rem;position:relative}
   .nav-cta{display:flex;align-items:center;gap:1.2rem}
   .nav-cta .btn{padding:1.1rem 1.8rem;white-space:nowrap}
-  .hamburger{display:block;background:none;border:1px solid var(--line-forte);border-radius:1rem;padding:.9rem;cursor:pointer}
+  .hamburger{display:block;background:none;border:1px solid var(--line-forte);border-radius:999px;padding:.9rem;cursor:pointer}
   .hamburger span{display:block;width:2rem;height:.2rem;background:var(--text);margin:.4rem 0;border-radius:.2rem;transition:.25s}
   .hamburger.open span:nth-child(1){transform:translateY(.6rem) rotate(45deg)}
   .hamburger.open span:nth-child(2){opacity:0}
