@@ -8,7 +8,7 @@
 - Sem internet: o app abre, mostra os dados e salva orçamentos; eles são enviados sozinhos quando a conexão volta. Transformar voz ou foto em orçamento precisa de internet.
 - Instagram oficial: https://www.instagram.com/oravio.app
 - Teste grátis por 7 dias do plano Profissional (1 pessoa), sem cartão de crédito. As vagas do Equipe abrem ao assinar.
-- Planos (mensais, no cartão, sem fidelidade): Grátis (R$ 0, 10 orçamentos com IA por mês; o PDF e o link levam um selo discreto "Feito com Oravio"), Essencial (R$ 29,90/mês, 60), Profissional (R$ 49,90/mês, 300) e Equipe (R$ 119,90/mês, 800 divididos entre até 3 pessoas).
+- Planos (mensais, no cartão, sem fidelidade): Grátis (R$ 0, 5 orçamentos por mês, com ou sem IA; o PDF leva um selo discreto "Feito no Oravio"), Essencial (R$ 29,90/mês), Profissional (R$ 49,90/mês) e Equipe (R$ 119,90/mês, até 3 pessoas), os pagos com orçamentos ilimitados e 60, 300 e 800 orçamentos com IA por mês. Só nos pagos: PDF sem o selo, aviso no celular quando o cliente abre e sugestões de itens que costumam ir junto.
 
 ## Como funciona
 
