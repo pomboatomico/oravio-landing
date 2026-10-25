@@ -51,7 +51,7 @@
       "name": "O que conta como \"orçamento com IA\"?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cada mensagem de voz ou de texto que o Oravio lê para montar o orçamento conta 1. Cada foto ou print conta à parte, nas leituras de print. Montar à mão, corrigir um item, duplicar um orçamento, gerar o PDF e mandar o link não contam."
+        "text": "Cada mensagem de voz ou de texto que o Oravio lê para montar o orçamento conta 1. Cada foto ou print conta à parte, nas leituras de print. Montar à mão, corrigir um item, duplicar um orçamento, gerar o PDF e mandar o link não contam. No Grátis, o limite é outro: 5 orçamentos por mês, feitos com IA ou à mão."
       }
     },
     {
@@ -133,10 +133,9 @@
         <p class="plano-preco"><span class="moeda">R$</span> 0</p>
         <p class="plano-dia">Para sempre</p>
         <ul class="plano-lista">
-          <li>10 orçamentos com IA por mês</li>
-          <li>3 leituras de print por mês</li>
+          <li>5 orçamentos por mês, com ou sem IA</li>
           <li>Catálogo com até 30 itens</li>
-          <li>PDF com o selo “Feito com Oravio”</li>
+          <li>PDF com o selo “Feito no Oravio”</li>
         </ul>
         <a href="https://app.oravio.com.br/cadastro" class="btn btn-ghost plano-btn">Criar conta grátis</a>
       </article>
@@ -147,6 +146,7 @@
         <p class="plano-preco"><span class="moeda">R$</span> 29,90<span class="mes">/mês</span></p>
         <p class="plano-dia">Menos de R$ 1 por dia</p>
         <ul class="plano-lista">
+          <li>Orçamentos ilimitados</li>
           <li>60 orçamentos com IA por mês</li>
           <li>10 leituras de print por mês</li>
           <li>Catálogo com até 300 itens</li>
@@ -161,6 +161,7 @@
         <p class="plano-preco"><span class="moeda">R$</span> 49,90<span class="mes">/mês</span></p>
         <p class="plano-dia">Menos de R$ 1,70 por dia</p>
         <ul class="plano-lista">
+          <li>Orçamentos ilimitados</li>
           <li>300 orçamentos com IA por mês</li>
           <li>60 leituras de print por mês</li>
           <li>Catálogo sem limite</li>
@@ -174,6 +175,7 @@
         <p class="plano-preco"><span class="moeda">R$</span> 119,90<span class="mes">/mês</span></p>
         <p class="plano-dia">3 pessoas por R$ 39,97 cada</p>
         <ul class="plano-lista">
+          <li>Orçamentos ilimitados</li>
           <li>800 orçamentos com IA por mês, divididos entre todos</li>
           <li>150 leituras de print por mês, divididas entre todos</li>
           <li>Catálogo sem limite</li>
@@ -188,11 +190,21 @@
       </article>
     </div>
 
+    <!-- Os dois blocos repetem SO_NOS_PAGOS e EM_TODOS da vitrine do app (oravio:
+         src/components/secao-plano.tsx; o porquê em docs/planos/018-gratis-vitrine.md).
+         "Orçamentos à mão sem limite" e "PDF com a sua marca" saíram do "Em todos": no Grátis
+         o feito à mão conta nos 5 do mês e o PDF leva o selo do Oravio. -->
+    <div class="planos-todos">
+      <h2>Nos planos pagos</h2>
+      <ul>
+        <li>PDF sem o selo do Oravio</li>
+        <li>Aviso no celular quando o cliente abre</li>
+        <li>Sugestões de itens que costumam ir junto</li>
+      </ul>
+    </div>
     <div class="planos-todos">
       <h2>Em todos os planos</h2>
       <ul>
-        <li>Orçamentos à mão sem limite</li>
-        <li>PDF com a sua marca</li>
         <li>PIX no orçamento</li>
         <li>Link para o cliente aceitar</li>
       </ul>
@@ -223,7 +235,7 @@
       </details>
       <details>
         <summary>O que conta como "orçamento com IA"?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <div class="ans">Cada mensagem de voz ou de texto que o Oravio lê para montar o orçamento conta 1. Cada foto ou print conta à parte, nas leituras de print. Montar à mão, corrigir um item, duplicar um orçamento, gerar o PDF e mandar o link não contam.</div>
+        <div class="ans">Cada mensagem de voz ou de texto que o Oravio lê para montar o orçamento conta 1. Cada foto ou print conta à parte, nas leituras de print. Montar à mão, corrigir um item, duplicar um orçamento, gerar o PDF e mandar o link não contam. No Grátis, o limite é outro: 5 orçamentos por mês, feitos com IA ou à mão.</div>
       </details>
       <details>
         <summary>Como eu pago?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
