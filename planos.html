@@ -92,7 +92,7 @@
       <a href="ajuda.html">Ajuda</a>
     </nav>
     <div class="nav-cta">
-      <a href="https://app.oravio.com.br/cadastro" class="btn btn-ghost nav-criar">Criar conta</a>
+      <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-ghost nav-criar">Criar conta</a>
       <a href="https://app.oravio.com.br" class="btn btn-primary">Entrar</a>
       <button class="hamburger" id="ham" aria-label="Abrir menu"><span></span><span></span><span></span></button>
     </div>
@@ -104,7 +104,7 @@
     <a href="ajuda.html">Ajuda</a>
     <a href="https://app.oravio.com.br/privacidade">Privacidade</a>
     <a href="https://app.oravio.com.br/termos">Termos</a>
-    <a href="https://app.oravio.com.br/cadastro" class="btn btn-primary">Criar conta</a>
+    <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primary">Criar conta</a>
   </div>
 </header>
 <section class="page-top">
@@ -137,7 +137,7 @@
           <li>Catálogo com até 30 itens</li>
           <li>PDF com o selo “Feito no Oravio”</li>
         </ul>
-        <a href="https://app.oravio.com.br/cadastro" class="btn btn-ghost plano-btn">Criar conta grátis</a>
+        <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-ghost plano-btn">Criar conta grátis</a>
       </article>
 
       <article class="plano">
@@ -155,7 +155,7 @@
              regra 1). Sem esta nota, quem toca aqui espera testar o Essencial, e no fim do teste cai
              no Grátis, não no Essencial. Mesmo lugar da nota do Equipe, acima do botão. -->
         <p class="plano-nota">O teste é do Profissional, por 7 dias. Depois, você assina o Essencial.</p>
-        <a href="https://app.oravio.com.br/cadastro" class="btn btn-ghost plano-btn">Começar grátis</a>
+        <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-ghost plano-btn">Começar grátis</a>
       </article>
 
       <article class="plano plano-destaque">
@@ -172,7 +172,7 @@
           <li>Lista de clientes para chamar de volta</li>
           <li>Renovar o prazo do orçamento vencido</li>
         </ul>
-        <a href="https://app.oravio.com.br/cadastro" class="btn btn-primary plano-btn">Começar grátis</a>
+        <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primary plano-btn">Começar grátis</a>
       </article>
 
       <article class="plano">
@@ -194,7 +194,7 @@
              descobre ao convidar o primeiro colega. As outras vagas abrem ao assinar o Equipe.
              Fica ACIMA do botão para os quatro botões seguirem alinhados no computador. -->
         <p class="plano-nota">O teste grátis é para 1 pessoa. As outras 2 entram quando você assina.</p>
-        <a href="https://app.oravio.com.br/cadastro" class="btn btn-ghost plano-btn">Começar grátis</a>
+        <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-ghost plano-btn">Começar grátis</a>
       </article>
     </div>
 
@@ -266,7 +266,7 @@
     <div class="help-contact">
       <h3>Não sabe qual plano escolher?</h3>
       <p>Comece pelo teste. Se ficar em dúvida, chama a gente no WhatsApp.</p>
-      <a href="https://wa.me/558688197951?text=Oi%21%20Tenho%20uma%20d%C3%BAvida%20sobre%20os%20planos%20do%20Oravio." class="btn btn-primary btn-lg">Falar no WhatsApp</a>
+      <a data-track="whatsapp" href="https://wa.me/558688197951?text=Oi%21%20Tenho%20uma%20d%C3%BAvida%20sobre%20os%20planos%20do%20Oravio." class="btn btn-primary btn-lg">Falar no WhatsApp</a>
     </div>
   </div>
 </section>
@@ -289,7 +289,8 @@
           <a href="ajuda.html">Ajuda</a>
           <a href="https://app.oravio.com.br/privacidade">Privacidade</a>
           <a href="https://app.oravio.com.br/termos">Termos</a>
-          <a href="https://wa.me/558688197951?text=Oi%21%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20Oravio.">WhatsApp</a>
+          <a href="#" data-cookies-abrir hidden>Cookies</a>
+          <a data-track="whatsapp" href="https://wa.me/558688197951?text=Oi%21%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20Oravio.">WhatsApp</a>
         </div>
       </div>
     </div>
@@ -307,5 +308,6 @@
   mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){ham.classList.remove('open');mob.classList.remove('show');});});
 </script>
 <script src="suporte.js" defer></script>
+<script src="rastreio.js" defer></script>
 </body>
 </html>

@@ -517,6 +517,7 @@
   .foot-cols{display:flex;gap:6.4rem;flex-wrap:wrap}
   .foot-col h4{font-size:1.2rem;color:var(--muted);font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:1.6rem;opacity:var(--esmaecer-forte)}
   .foot-col a{display:block;color:var(--muted);font-size:1.45rem;padding:.5rem 0;transition:color .2s}
+  .foot-col a[hidden]{display:none}
   .foot-col a:hover{color:var(--text)}
   .foot-bottom{display:flex;justify-content:space-between;gap:1.6rem;flex-wrap:wrap;padding-top:2.6rem;border-top:1px solid var(--line-suave);color:var(--muted);font-size:1.35rem;opacity:var(--esmaecer)}
 
@@ -639,3 +640,14 @@
 .faq .ans a{color:var(--green-text);text-decoration:underline;text-underline-offset:.2em}
 @media (max-width:1060px){.planos-grade{grid-template-columns:repeat(2,1fr);gap:2.8rem 2rem}}
 @media (max-width:600px){.planos-grade{grid-template-columns:1fr}.plano-dia{min-height:0}}
+
+/* AVISO DE COOKIES (rastreio.js). Fixo no pé, fora do caminho do conteúdo. Recusar e Aceitar
+   têm o mesmo tamanho: recusar tem de ser tão fácil quanto aceitar (orientação da ANPD). */
+.cookies{position:fixed;z-index:60;left:1.6rem;right:1.6rem;bottom:max(1.6rem,env(safe-area-inset-bottom));max-width:52rem;display:flex;flex-direction:column;gap:1.4rem;padding:1.8rem;background:var(--superficie);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-card);animation:cookies-entra .32s var(--ease-out) both}
+.cookies-texto{margin:0;font-size:1.4rem;line-height:1.5;color:var(--muted)}
+.cookies-texto a{color:var(--green-text);text-decoration:underline;text-underline-offset:.2rem}
+.cookies-acoes{display:flex;gap:1rem}
+.cookies-acoes .btn{flex:1;padding:1.2rem 1.6rem;font-size:1.4rem}
+@keyframes cookies-entra{from{opacity:0;transform:translateY(1.2rem)}to{opacity:1;transform:none}}
+@media (min-width:761px){.cookies{left:2.4rem;right:auto;bottom:2.4rem}}
+@media (prefers-reduced-motion:reduce){.cookies{animation:none}}
