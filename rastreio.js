@@ -25,11 +25,12 @@
     return m ? m[1] : null;
   }
 
-  function gravarConsentimento(valor) {
+  function gravarConsentimento(valor, validade) {
     // Domain só no domínio de verdade: em localhost o navegador recusaria o cookie.
     var dominio = /(^|\.)oravio\.com\.br$/.test(location.hostname) ? '; Domain=.oravio.com.br' : '';
     var seguro = location.protocol === 'https:' ? '; Secure' : '';
-    document.cookie = COOKIE + '=' + valor + '; Path=/; Max-Age=' + SEIS_MESES + '; SameSite=Lax' + dominio + seguro;
+    var idade = validade === undefined ? SEIS_MESES : validade;
+    document.cookie = COOKIE + '=' + valor + '; Path=/; Max-Age=' + idade + '; SameSite=Lax' + dominio + seguro;
   }
 
   var carregado = false;
@@ -45,6 +46,8 @@
       t = b.createElement(e); t.async = true; t.src = v;
       s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
     })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    // autoConfig desligado: sem ele o Pixel dispara eventos de clique e de página por conta própria, além dos nossos.
+    window.fbq('set', 'autoConfig', false, PIXEL_ID);
     window.fbq('init', PIXEL_ID);
     window.fbq('track', 'PageView');
   }
@@ -80,6 +83,18 @@
     });
     document.body.appendChild(aviso);
   }
+
+  // "Cookies" no rodapé: quem mudou de ideia apaga a escolha e a página recarrega sem Pixel, já
+  // com o aviso de volta (a LGPD pede que desfazer seja tão fácil quanto aceitar). Escondido no HTML
+  // e mostrado só aqui, porque sem ID de Pixel não há o que escolher.
+  document.querySelectorAll('[data-cookies-abrir]').forEach(function (a) {
+    a.hidden = false;
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      gravarConsentimento('', 0);
+      location.reload();
+    });
+  });
 
   var consentimento = lerConsentimento();
   if (consentimento === 'granted') carregarPixel();

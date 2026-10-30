@@ -517,6 +517,7 @@
   .foot-cols{display:flex;gap:6.4rem;flex-wrap:wrap}
   .foot-col h4{font-size:1.2rem;color:var(--muted);font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:1.6rem;opacity:var(--esmaecer-forte)}
   .foot-col a{display:block;color:var(--muted);font-size:1.45rem;padding:.5rem 0;transition:color .2s}
+  .foot-col a[hidden]{display:none}
   .foot-col a:hover{color:var(--text)}
   .foot-bottom{display:flex;justify-content:space-between;gap:1.6rem;flex-wrap:wrap;padding-top:2.6rem;border-top:1px solid var(--line-suave);color:var(--muted);font-size:1.35rem;opacity:var(--esmaecer)}
 
