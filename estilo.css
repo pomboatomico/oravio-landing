@@ -282,20 +282,20 @@
   .tela::after{content:"";position:absolute;inset:0;z-index:9;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--contorno-img);pointer-events:none}
   .tela img{display:block;width:100%;height:auto;border-radius:0;outline:0}
   .camada{position:absolute;left:0;top:0;width:100%}
-  .laco-grav{top:calc(576.39 * var(--pt))}
+  .laco-grav{top:calc(575.58 * var(--pt))}
   /* O relógio da gravação sai do print (a captura o apaga) e conta aqui por cima. */
-  .laco-relogio{position:absolute;left:calc(57 * var(--pt));top:calc(714.89 * var(--pt));font:500 calc(14 * var(--pt))/calc(19 * var(--pt)) var(--font-sans);color:var(--rec);font-variant-numeric:tabular-nums}
+  .laco-relogio{position:absolute;left:calc(57 * var(--pt));top:calc(714.08 * var(--pt));font:500 calc(14 * var(--pt))/calc(19 * var(--pt)) var(--font-sans);color:var(--rec);font-variant-numeric:tabular-nums}
   /* Cada item é uma janela de 100 pontos sobre a Confira inteira, na altura da linha dele. */
   .laco-item{position:absolute;left:0;width:100%;top:calc(var(--y) * var(--pt));height:calc(100 * var(--pt));overflow:hidden}
   .laco-item picture{position:absolute;left:0;width:100%;top:calc(var(--y) * var(--pt) * -1)}
-  .laco-total{position:absolute;left:calc(37 * var(--pt));top:calc(727.55 * var(--pt));font:700 calc(22 * var(--pt))/calc(26.4 * var(--pt)) var(--font-sans);letter-spacing:-.01em;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .laco-total{position:absolute;left:calc(37 * var(--pt));top:calc(726.8 * var(--pt));font:700 calc(22 * var(--pt))/calc(26.4 * var(--pt)) var(--font-sans);letter-spacing:-.01em;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
   /* O dedo: um disco translúcido, como o "mostrar toques" do Android. */
   .laco-toque{position:absolute;width:calc(46 * var(--pt));height:calc(46 * var(--pt));margin:calc(-23 * var(--pt)) 0 0 calc(-23 * var(--pt));border-radius:50%;background:color-mix(in oklab,var(--text) 20%,transparent);box-shadow:0 0 0 calc(1.5 * var(--pt)) color-mix(in oklab,var(--bg) 65%,transparent)}
-  .laco-toque-mic{left:calc(333 * var(--pt));top:calc(724.39 * var(--pt))}
+  .laco-toque-mic{left:calc(333 * var(--pt));top:calc(723.6 * var(--pt))}
   .laco-toque-salvar{left:calc(326.4 * var(--pt));top:calc(731 * var(--pt))}
   /* O aviso tem o desenho da "boa notícia" da Início do app (components/inicio-mesa.tsx) e desce
      como notificação. Tudo em --pt: é parte da tela, cresce e encolhe com ela. */
-  .laco-aviso{position:absolute;left:calc(12 * var(--pt));right:calc(12 * var(--pt));top:calc(82 * var(--pt));display:flex;align-items:center;gap:calc(12 * var(--pt));padding:calc(12 * var(--pt)) calc(16 * var(--pt)) calc(12 * var(--pt)) calc(14 * var(--pt));background:var(--superficie);border:1px solid var(--line-suave);border-radius:calc(24 * var(--pt));box-shadow:var(--sombra-aviso);font-family:var(--font-sans);text-align:left}
+  .laco-aviso{position:absolute;left:calc(12 * var(--pt));right:calc(12 * var(--pt));top:calc(54 * var(--pt));display:flex;align-items:center;gap:calc(12 * var(--pt));padding:calc(12 * var(--pt)) calc(16 * var(--pt)) calc(12 * var(--pt)) calc(14 * var(--pt));background:var(--superficie);border:1px solid var(--line-suave);border-radius:calc(24 * var(--pt));box-shadow:var(--sombra-aviso);font-family:var(--font-sans);text-align:left}
   .laco-aviso .selo{flex:none;width:calc(36 * var(--pt));height:calc(36 * var(--pt));border-radius:50%;background:var(--green);color:var(--on-green);display:flex;align-items:center;justify-content:center}
   .laco-aviso .selo svg{width:58%;height:58%}
   .laco-aviso .selo path{stroke-dasharray:24;stroke-dashoffset:24}
