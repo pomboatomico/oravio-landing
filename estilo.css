@@ -295,7 +295,7 @@
   .laco-toque-salvar{left:calc(326.4 * var(--pt));top:calc(731 * var(--pt))}
   /* O aviso tem o desenho da "boa notícia" da Início do app (components/inicio-mesa.tsx) e desce
      como notificação. Tudo em --pt: é parte da tela, cresce e encolhe com ela. */
-  .laco-aviso{position:absolute;left:calc(12 * var(--pt));right:calc(12 * var(--pt));top:calc(54 * var(--pt));display:flex;align-items:center;gap:calc(12 * var(--pt));padding:calc(12 * var(--pt)) calc(16 * var(--pt)) calc(12 * var(--pt)) calc(14 * var(--pt));background:var(--superficie);border:1px solid var(--line-suave);border-radius:calc(24 * var(--pt));box-shadow:var(--sombra-aviso);font-family:var(--font-sans);text-align:left}
+  .laco-aviso{position:absolute;left:calc(12 * var(--pt));right:calc(12 * var(--pt));top:calc(82 * var(--pt));display:flex;align-items:center;gap:calc(12 * var(--pt));padding:calc(12 * var(--pt)) calc(16 * var(--pt)) calc(12 * var(--pt)) calc(14 * var(--pt));background:var(--superficie);border:1px solid var(--line-suave);border-radius:calc(24 * var(--pt));box-shadow:var(--sombra-aviso);font-family:var(--font-sans);text-align:left}
   .laco-aviso .selo{flex:none;width:calc(36 * var(--pt));height:calc(36 * var(--pt));border-radius:50%;background:var(--green);color:var(--on-green);display:flex;align-items:center;justify-content:center}
   .laco-aviso .selo svg{width:58%;height:58%}
   .laco-aviso .selo path{stroke-dasharray:24;stroke-dashoffset:24}
