@@ -282,35 +282,17 @@
   .tela::after{content:"";position:absolute;inset:0;z-index:9;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--contorno-img);pointer-events:none}
   .tela img{display:block;width:100%;height:auto;border-radius:0;outline:0}
   .camada{position:absolute;left:0;top:0;width:100%}
-  .laco-grav{top:calc(575.58 * var(--pt))}
   /* O relógio da gravação sai do print (a captura o apaga) e conta aqui por cima. */
-  .laco-relogio{position:absolute;left:calc(57 * var(--pt));top:calc(714.08 * var(--pt));font:500 calc(14 * var(--pt))/calc(19 * var(--pt)) var(--font-sans);color:var(--rec);font-variant-numeric:tabular-nums}
   /* Cada item é uma janela de 100 pontos sobre a Confira inteira, na altura da linha dele. */
-  .laco-item{position:absolute;left:0;width:100%;top:calc(var(--y) * var(--pt));height:calc(100 * var(--pt));overflow:hidden}
-  .laco-item picture{position:absolute;left:0;width:100%;top:calc(var(--y) * var(--pt) * -1)}
-  .laco-total{position:absolute;left:calc(37 * var(--pt));top:calc(726.8 * var(--pt));font:700 calc(22 * var(--pt))/calc(26.4 * var(--pt)) var(--font-sans);letter-spacing:-.01em;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
   /* O dedo: um disco translúcido, como o "mostrar toques" do Android. */
-  .laco-toque{position:absolute;width:calc(46 * var(--pt));height:calc(46 * var(--pt));margin:calc(-23 * var(--pt)) 0 0 calc(-23 * var(--pt));border-radius:50%;background:color-mix(in oklab,var(--text) 20%,transparent);box-shadow:0 0 0 calc(1.5 * var(--pt)) color-mix(in oklab,var(--bg) 65%,transparent)}
-  .laco-toque-mic{left:calc(333 * var(--pt));top:calc(723.6 * var(--pt))}
-  .laco-toque-salvar{left:calc(326.4 * var(--pt));top:calc(731 * var(--pt))}
   /* O aviso tem o desenho da "boa notícia" da Início do app (components/inicio-mesa.tsx) e desce
      como notificação. Tudo em --pt: é parte da tela, cresce e encolhe com ela. */
-  .laco-aviso{position:absolute;left:calc(12 * var(--pt));right:calc(12 * var(--pt));top:calc(54 * var(--pt));display:flex;align-items:center;gap:calc(12 * var(--pt));padding:calc(12 * var(--pt)) calc(16 * var(--pt)) calc(12 * var(--pt)) calc(14 * var(--pt));background:var(--superficie);border:1px solid var(--line-suave);border-radius:calc(24 * var(--pt));box-shadow:var(--sombra-aviso);font-family:var(--font-sans);text-align:left}
-  .laco-aviso .selo{flex:none;width:calc(36 * var(--pt));height:calc(36 * var(--pt));border-radius:50%;background:var(--green);color:var(--on-green);display:flex;align-items:center;justify-content:center}
-  .laco-aviso .selo svg{width:58%;height:58%}
-  .laco-aviso .selo path{stroke-dasharray:24;stroke-dashoffset:24}
-  .laco-aviso-texto{flex:1;min-width:0;display:flex;flex-direction:column}
-  .laco-aviso-texto b{font-size:calc(16 * var(--pt));font-weight:600;line-height:1.2;color:var(--text)}
-  .laco-aviso-texto span{margin-top:calc(2 * var(--pt));font-size:calc(13 * var(--pt));font-weight:500;color:var(--muted)}
-  .laco-aviso-valor{font-size:calc(16 * var(--pt));font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .laco-aviso-valor small{font-size:calc(13 * var(--pt));font-weight:600;color:var(--muted)}
 
   /* Fora do aparelho: o balão da fala (ao lado, no computador; por cima do aparelho, acima
      do campo, no celular), a folha do PDF e o botão de pausar. */
   .laco-balao{position:absolute;z-index:2;width:min(27rem,calc((100% - var(--fone)) / 2 - 3.6rem));right:calc(50% + var(--fone) / 2 + 2.4rem);bottom:calc(6rem + .9rem + var(--tela-h) * 112 / 852);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg) var(--radius-lg) .6rem var(--radius-lg);padding:1.6rem 1.8rem;text-align:left;box-shadow:var(--shadow-card)}
   .laco-balao .fala-quem{margin-bottom:.8rem}
   .laco-balao p{font-size:1.55rem;line-height:1.45;color:var(--text)}
-  .laco-folha{position:absolute;z-index:3;top:8rem;left:calc(50% + var(--fone) / 2 - 2.4rem);width:min(26rem,calc((100% - var(--fone)) / 2 + .4rem));height:auto;border:1px solid var(--line);border-radius:.8rem;box-shadow:var(--shadow-card)}
   .laco-botao{position:absolute;z-index:3;left:calc(50% + var(--fone) / 2 + 1.6rem);bottom:6rem;width:4.4rem;height:4.4rem;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;pointer-events:auto;transition:color .2s ease,border-color .2s ease}
   .laco-botao[hidden]{display:none}
   .laco-botao svg{display:none}
@@ -322,28 +304,10 @@
      do roteiro e tirada toda de uma vez no fim da volta. A transição de cada regra ativa é a
      de ENTRADA; a da regra de base é a de SAÍDA (a volta para a Início é um esmaecer só, de
      meio segundo). Entrada com --ease-out; o aviso e a folha saem pelo caminho em que vieram. */
-  .laco-anima>*,.laco-balao,.laco-folha{opacity:0}
-  .camada.laco-espera,.camada.laco-confira,.laco-total{transition:opacity .5s ease}
-  .palco.espera .laco-espera,.palco.confira .laco-confira{opacity:1;transition:opacity .3s ease}
-  .laco-grav,.laco-relogio{transition:opacity .2s ease}
-  .palco.gravando:not(.solta) .laco-grav,.palco.gravando:not(.solta) .laco-relogio{opacity:1;transition:opacity .15s ease}
-  .laco-toque{transform:scale(.8);transition:opacity .25s ease,transform .3s var(--ease-out)}
-  .palco.toque:not(.solta) .laco-toque-mic,.palco.salvar:not(.pdf) .laco-toque-salvar{opacity:1;transform:none;transition:opacity .12s ease,transform .2s var(--ease-out)}
-  .palco.solta .laco-toque-mic,.palco.pdf .laco-toque-salvar{transform:scale(1.15)}
-  .laco-item{transform:translateY(calc(8 * var(--pt)));transition:opacity .5s ease}
-  .palco.item1 .laco-item.i1,.palco.item2 .laco-item.i2,.palco.item3 .laco-item.i3{opacity:1;transform:none;transition:opacity .3s var(--ease-out),transform .45s var(--ease-out)}
-  .palco.total .laco-total{opacity:1;transition:opacity .2s ease}
+  .laco-balao{opacity:0}
   .laco-balao{transform:translateX(1.2rem);transition:opacity .4s ease,transform .4s var(--ease-out)}
   .palco.balao .laco-balao{opacity:1;transform:none;transition:opacity .4s var(--ease-out),transform .5s var(--ease-out)}
   .palco.balao.confira:not(.ultima) .laco-balao{opacity:0}
-  .laco-folha{transform:translate(-12rem,2rem) scale(.6);transform-origin:left center;transition:opacity .35s ease,transform .5s var(--ease-out)}
-  .palco.pdf .laco-folha{opacity:1;transform:rotate(-3deg);transition:opacity .25s ease,transform .7s var(--ease-out)}
-  .laco-aviso{opacity:1;transform:translateY(calc(-100% - 66 * var(--pt)));transition:transform .35s var(--ease-out)}
-  .laco-aviso .selo{transform:scale(.6);transition:transform .2s ease}
-  .laco-aviso .selo path{transition:stroke-dashoffset .2s ease}
-  .palco.aceite .laco-aviso{transform:none;transition:transform .5s var(--ease-out)}
-  .palco.aceite .laco-aviso .selo{transform:none;transition:transform .45s var(--ease-out) .15s}
-  .palco.aceite .laco-aviso .selo path{stroke-dashoffset:0;transition:stroke-dashoffset .4s var(--ease-out) .3s}
 
   /* Celular e tablet em pé: não há lado livre do aparelho. O balão fica por cima do aparelho,
      logo acima do campo (sem cobrir o microfone), e sai quando a Confira entra, inclusive no
@@ -352,9 +316,6 @@
   @media (max-width:900px){
     .palco.balao.confira .laco-balao{opacity:0}
     .laco-balao{left:0;right:0;margin:0 auto;width:min(30rem,calc(100% - 3.2rem));bottom:calc(6rem + .9rem + var(--tela-h) * 186 / 852);border-radius:var(--radius-lg) var(--radius-lg) .6rem var(--radius-lg);transform:translateY(.8rem)}
-    .laco-folha{left:0;right:0;margin:0 auto;top:calc(var(--tela-h) * .16);width:min(24rem,62vw);transform:translateY(3rem) scale(.94);transform-origin:center}
-    .palco.pdf .laco-folha{transform:rotate(-2deg)}
-    .palco.pdf.aceite .laco-folha{opacity:0;transform:translateY(2rem) rotate(-2deg)}
     .laco-botao{left:calc(50% + var(--fone) / 2 + 1rem)}
   }
   @media (max-width:760px){
@@ -578,8 +539,8 @@
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.fala-frase{transform:none}.step-media.in .fala-frase,.step-media.in .fone3d img,.cta-box.in .familia picture{transition:none}
     /* Sem movimento, o laço não roda: a Confira (itens, total e balão) aparece parada, por
        um esmaecer só, quando as camadas chegam. Nada sobe nem desliza. */
-    .laco-item,.laco-balao{transform:none}
-    .palco .laco-anima>*,.palco .laco-balao{transition:opacity .2s ease}}
+    .laco-balao{transform:none}
+    .palco .laco-balao{transition:opacity .2s ease}}
 
 /* ====== Páginas internas (ajuda, privacidade, termos) ====== */
 .page-top{padding:6.6rem 0 4rem;text-align:center;border-bottom:1px solid var(--line-suave)}
