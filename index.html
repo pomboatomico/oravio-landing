@@ -183,28 +183,26 @@
         </div>
         <div class="step-media reveal">
           <div class="glow"></div>
-          <!-- Dois recortes do MESMO campo da tela inicial, empilhados: parado e
-               gravando. Ao entrar na tela, o "gravando" aparece por cima (é o
-               toque no microfone) e, logo depois, a frase dita surge acima dele.
-               A frase é um balão de fala, não uma tela do app: o Oravio não
-               transcreve ao vivo, e o desenho não pode sugerir que sim. -->
+          <!-- O MESMO aparelho 3D da abertura, parado, com a tela inicial: duas camadas do
+               mesmo enquadramento, em repouso e gravando. Ao entrar na tela, o "gravando"
+               aparece por cima (é o toque no microfone) e, logo depois, a frase dita surge
+               acima. A frase é um balão de fala, não uma tela do app: o Oravio não transcreve
+               ao vivo, e o desenho não pode sugerir que sim. -->
           <div class="fala">
             <blockquote class="fala-frase">
               <span class="fala-quem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Você, no balcão</span>
               <p>“Orçamento pra Carla Mendes, Onix 2019. Troca de óleo com filtro, pastilha de freio da frente e amortecedores da frente.”</p>
             </blockquote>
-            <figure class="campo">
-              <div class="campo-telas">
-                <picture>
-                  <source media="(prefers-color-scheme: dark)" srcset="campo-repouso-escuro.webp">
-                  <img src="campo-repouso-claro.webp" width="780" height="194" loading="lazy" decoding="async" alt="O campo Descreva o orçamento, com o botão de microfone ao lado">
-                </picture>
-                <picture>
-                  <source media="(prefers-color-scheme: dark)" srcset="campo-gravando-escuro.webp">
-                  <img class="campo-grav" src="campo-gravando-claro.webp" width="780" height="194" loading="lazy" decoding="async" alt="" aria-hidden="true">
-                </picture>
-              </div>
-              <figcaption>Detalhe da tela inicial — é daqui que o orçamento começa.</figcaption>
+            <figure class="fone3d fone-fale">
+            <picture>
+              <source media="(prefers-color-scheme: dark)" srcset="fale-repouso-escuro.webp">
+              <img src="fale-repouso-claro.webp" width="705" height="1320" loading="lazy" decoding="async" alt="Aparelho com a tela inicial do Oravio: os últimos orçamentos, o faturamento do mês e o botão de microfone no pé da tela">
+            </picture>
+            <picture>
+              <source media="(prefers-color-scheme: dark)" srcset="fale-gravando-escuro.webp">
+              <img class="cam" src="fale-gravando-claro.webp" width="705" height="1320" loading="lazy" decoding="async" alt="" aria-hidden="true">
+            </picture>
+              <figcaption>A tela inicial: é daqui que o orçamento começa.</figcaption>
             </figure>
           </div>
         </div>
@@ -225,13 +223,18 @@
         </div>
         <div class="step-media reveal">
           <div class="glow"></div>
-          <figure class="aparelho">
-            <div class="fone">
-              <picture>
-                <source media="(prefers-color-scheme: dark)" srcset="tela-conferir-escuro.webp">
-                <img src="tela-conferir-claro.webp" width="640" height="1387" loading="lazy" decoding="async" alt="Tela de conferência do Oravio: a frase falada no topo, a cliente Carla Mendes, três itens com o preço da tabela e quantidade ajustável, e o total de R$ 1.919,90 ao lado do botão Salvar">
-              </picture>
-            </div>
+          <!-- Duas camadas do mesmo aparelho: a Confira ainda vazia e, por cima, com os itens e o
+               total. Ao entrar na tela, os itens são revelados de cima para baixo, como a lista
+               sendo montada. -->
+          <figure class="fone3d fone-confira">
+            <picture>
+              <source media="(prefers-color-scheme: dark)" srcset="confira-vazia-escuro.webp">
+              <img src="confira-vazia-claro.webp" width="705" height="1320" loading="lazy" decoding="async" alt="Aparelho com a tela de conferência do Oravio: a frase falada no topo, a cliente Carla Mendes, três itens com o preço da tabela e quantidade ajustável, e o total de R$ 1.919,90 ao lado do botão Salvar">
+            </picture>
+            <picture>
+              <source media="(prefers-color-scheme: dark)" srcset="confira-itens-escuro.webp">
+              <img class="cam" src="confira-itens-claro.webp" width="705" height="1320" loading="lazy" decoding="async" alt="" aria-hidden="true">
+            </picture>
             <figcaption>A mesma frase, já virada em três itens.</figcaption>
           </figure>
         </div>
@@ -251,11 +254,19 @@
         </div>
         <div class="step-media reveal">
           <div class="glow"></div>
-          <!-- O PDF de verdade, a folha inteira: o canhoto do PIX mora no pé dela,
-               e cortá-lo esconderia justo o que é novo. É o mesmo orçamento dos
-               passos 1 e 2. -->
-          <figure class="paper">
-            <img src="folha-pdf.webp" width="640" height="906" loading="lazy" decoding="async" alt="PDF do orçamento: logo e dados da oficina Ribeiro Auto Center no topo; cliente Carla Mendes; troca de óleo com filtro, pastilha de freio dianteira e amortecedores dianteiros; no pé da folha, o canhoto para pagar R$ 1.919,90 com chave PIX, QR Code e o link para aceitar">
+          <!-- O aparelho mostra o aceite ("Carla aceitou") e a folha do PDF, inteira, sai ao lado dele:
+               o canhoto do PIX mora no pé dela, e cortá-lo esconderia justo o que é novo. É o mesmo
+               orçamento dos passos 1 e 2. A folha é uma camada à parte do mesmo enquadramento, e é
+               ela que desliza para fora. -->
+          <figure class="fone3d fone-envie">
+            <picture>
+              <source media="(prefers-color-scheme: dark)" srcset="envie-fone-escuro.webp">
+              <img src="envie-fone-claro.webp" width="1320" height="1320" loading="lazy" decoding="async" alt="Aparelho com o aviso “Carla aceitou, pelo link” no topo da tela do Oravio e, ao lado, o PDF do orçamento: logo e dados da oficina Ribeiro Auto Center no topo; cliente Carla Mendes; troca de óleo com filtro, pastilha de freio dianteira e amortecedores dianteiros; no pé da folha, o canhoto para pagar R$ 1.919,90 com chave PIX, QR Code e o link para aceitar">
+            </picture>
+            <picture>
+              <source media="(prefers-color-scheme: dark)" srcset="envie-folha-escuro.webp">
+              <img class="folha" src="envie-folha-claro.webp" width="1320" height="1320" loading="lazy" decoding="async" alt="" aria-hidden="true">
+            </picture>
             <figcaption>O mesmo orçamento, em PDF — é isto que chega pro seu cliente.</figcaption>
           </figure>
         </div>
@@ -383,7 +394,7 @@
       if(deve===ativo)return;
       ativo=deve;
       if(deve){
-        var p=video.play();if(p&&p.catch)p.catch(function(){ativo=false;});
+        var p=video.play();if(p&&p.catch)p.catch(function(e){ativo=false;if(e&&e.name==='NotAllowedError'){pausado=true;marcarBotao();}});
         quadro=requestAnimationFrame(anda);avisar('segue');
       }else{video.pause();cancelAnimationFrame(quadro);quadro=0;if(!acabou)avisar('pausa');}
     }

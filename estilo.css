@@ -445,34 +445,36 @@
   .guia.atras{z-index:0}
   .guia svg{display:block;width:100%;height:100%;overflow:visible}
 
-  /* ====== Passo 1: a fala ======
-     Um balão com a frase dita, e embaixo dele o campo real da tela inicial.
-     O campo tem duas camadas do MESMO enquadramento — parado e gravando. Ao
-     entrar na tela, o "gravando" aparece por cima (o toque no microfone) e só
-     depois a frase sobe: primeiro você aperta, depois fala. É uma vez só, na
-     primeira passagem; nada fica repetindo em loop. */
-  .fala{position:relative;z-index:1;width:100%;max-width:42rem;display:flex;flex-direction:column;gap:1.6rem}
+  /* ====== Os três aparelhos (passos 1 a 3) ======
+     O MESMO aparelho 3D da abertura (scripts/landing/heroi3d/video.mjs, modo "passo"), parado, em
+     camadas transparentes do MESMO enquadramento: elas empilham no mesmo lugar, e o movimento é só
+     opacidade, recorte e deslocamento (nada mexe no layout). Cada passo anima uma vez, na primeira
+     passagem; nada fica repetindo em loop. A sombra no chão é daqui, não da imagem.
+     Passo 1: um balão com a frase dita e, embaixo, o aparelho em repouso; ao entrar na tela, o
+     "gravando" aparece por cima (o toque no microfone) e só depois a frase sobe: primeiro você
+     aperta, depois fala. Passo 2: os itens são revelados de cima para baixo sobre a Confira
+     vazia. Passo 3: a folha do PDF desliza para fora do aparelho. */
+  .fala{position:relative;z-index:1;width:100%;max-width:42rem;display:flex;flex-direction:column;align-items:center;gap:1.6rem}
   .fala-frase{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg) var(--radius-lg) var(--radius-lg) .6rem;padding:1.8rem 2rem;opacity:0;transform:translateY(.8rem)}
   .fala-quem{display:flex;align-items:center;gap:.8rem;color:var(--green-text);font-size:1.2rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
   .fala-frase p{font-size:1.7rem;line-height:1.45;color:var(--text)}
-  .campo{background:var(--app-bg);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)}
-  .campo-telas{position:relative}
-  .campo-telas picture{display:block}
-  .campo-telas img{width:100%;aspect-ratio:780/194;object-fit:cover}
-  .campo-telas .campo-grav{position:absolute;inset:0;height:100%;opacity:0}
-  .campo figcaption{padding:1.3rem 1.6rem;font-size:1.25rem;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
-  .step-media.in .campo-grav{opacity:1;transition:opacity .4s var(--ease-out) .7s}
   .step-media.in .fala-frase{opacity:1;transform:none;transition:opacity .5s var(--ease-out) 1.2s,transform .5s var(--ease-out) 1.2s}
 
-  /* Aparelho com legenda (passo 2). A legenda é o elo com o passo anterior. */
-  .aparelho{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
-  .aparelho figcaption{margin-top:1.8rem;font-size:1.25rem;color:var(--muted);text-align:center}
-
-  /* Folha do PDF (passo 3). O branco do papel sobre o fundo escuro já é
-     contraste suficiente: a borda fica fina e a legenda vai num rodapé escuro,
-     igual ao campo do passo 1, pra os dois lerem como a mesma família. */
-  .paper{position:relative;z-index:1;width:100%;max-width:44rem;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card)}
-  .paper figcaption{padding:1.3rem 1.6rem;font-size:1.25rem;color:var(--muted);text-align:center;background:var(--surface-alt);border-top:1px solid var(--line)}
+  .fone3d{--sombra:rgba(19,36,32,.22);--sx:18%;--sw:56%;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:min(34rem,86vw)}
+  .fone3d picture{display:block;width:100%}
+  .fone3d picture:first-of-type{position:relative}
+  .fone3d picture:first-of-type::before{content:"";position:absolute;z-index:-1;left:var(--sx);width:var(--sw);bottom:3%;height:3.4%;border-radius:50%;background:radial-gradient(closest-side,var(--sombra),transparent);filter:blur(.9rem)}
+  .fone3d picture+picture{position:absolute;left:0;top:0}
+  .fone3d img{display:block;width:100%;height:auto}
+  .fone3d figcaption{margin-top:1.4rem;font-size:1.25rem;color:var(--muted);text-align:center}
+  .fone-envie{--sx:50%;--sw:38%;width:min(52rem,100%)}
+  @media (prefers-color-scheme:dark){.fone3d{--sombra:rgba(0,0,0,.6)}}
+  .fone-fale .cam{opacity:0}
+  .step-media.in .fone-fale .cam{opacity:1;transition:opacity .4s var(--ease-out) .7s}
+  .fone-confira .cam{clip-path:inset(0 0 100% 0)}
+  .step-media.in .fone-confira .cam{clip-path:inset(0);transition:clip-path 1.1s var(--ease-out) .6s}
+  .fone-envie .folha{opacity:0;transform:translate(35%,-4%) scale(.45)}
+  .step-media.in .fone-envie .folha{opacity:1;transform:none;transition:opacity .35s var(--ease-out) .5s,transform .9s var(--ease-out) .5s}
 
 
 
@@ -564,7 +566,7 @@
   @media (max-width:340px){
     .btn-lg{padding:1.6rem 2rem;font-size:1.5rem}
   }
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.fala-frase{transform:none}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.fala-frase{transform:none}.step-media.in .fala-frase,.step-media.in .fone3d img{transition:none}
     /* Sem movimento, o laço não roda: a Confira (itens, total e balão) aparece parada, por
        um esmaecer só, quando as camadas chegam. Nada sobe nem desliza. */
     .laco-item,.laco-balao{transform:none}
