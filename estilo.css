@@ -515,7 +515,7 @@
   .familia{max-width:96rem;margin:2.4rem auto -2rem}
   .familia picture{display:block;margin:-8% 0 -9%;opacity:0;transform:translateY(2.4rem) scale(.97)}
   .familia img{display:block;width:100%;height:auto}
-  .familia figcaption{font-size:1.4rem;color:var(--muted)}
+  .familia figcaption{color:var(--green-text);font-size:1.25rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
   .cta-box.in .familia picture{opacity:1;transform:none;transition:opacity .8s var(--ease-out) .35s,transform 1s var(--ease-out) .35s}
 
   /* Footer */
