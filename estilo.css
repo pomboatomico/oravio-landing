@@ -509,6 +509,14 @@
   /* A regra acima é mais específica que `.vagas` e zerava o espaço acima da
      linha das vagas (ela grudava no botão) e punha 32px sobrando embaixo. */
   .cta-box .vagas{margin:1.4rem auto 0;font-size:1.4rem}
+  /* Os três aparelhos (scripts/landing/heroi3d/familia.mjs): a imagem tem folga transparente em
+     cima e embaixo (a sombra no chão), que as margens negativas recolhem. Entram uma vez, subindo,
+     quando a caixa aparece; nada em loop, porque ali a pessoa está decidindo. */
+  .familia{max-width:96rem;margin:2.4rem auto -2rem}
+  .familia picture{display:block;margin:-8% 0 -9%;opacity:0;transform:translateY(2.4rem) scale(.97)}
+  .familia img{display:block;width:100%;height:auto}
+  .familia figcaption{font-size:1.4rem;color:var(--muted)}
+  .cta-box.in .familia picture{opacity:1;transform:none;transition:opacity .8s var(--ease-out) .35s,transform 1s var(--ease-out) .35s}
 
   /* Footer */
   footer{border-top:1px solid var(--line);padding:5.6rem 0 4rem;background:var(--surface-alt)}
@@ -554,7 +562,7 @@
     .no.on{box-shadow:0 0 0 .4rem var(--anel)}
   }
   @media (max-width:560px){
-    .cta-box{padding:4.4rem 2.2rem}
+    .cta-box{padding:4.4rem 2.2rem}.familia{margin-inline:-2.2rem}
     /* O botão do topo encolhe um pouco no celular, pra caber ao lado da marca
        e do menu sem quebrar em duas linhas. */
     .nav-cta .btn-primary{padding:1rem 1.4rem;font-size:1.4rem}
@@ -566,7 +574,7 @@
   @media (max-width:340px){
     .btn-lg{padding:1.6rem 2rem;font-size:1.5rem}
   }
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.fala-frase{transform:none}.step-media.in .fala-frase,.step-media.in .fone3d img{transition:none}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.fala-frase{transform:none}.step-media.in .fala-frase,.step-media.in .fone3d img,.cta-box.in .familia picture{transition:none}
     /* Sem movimento, o laço não roda: a Confira (itens, total e balão) aparece parada, por
        um esmaecer só, quando as camadas chegam. Nada sobe nem desliza. */
     .laco-item,.laco-balao{transform:none}
