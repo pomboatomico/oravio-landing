@@ -73,10 +73,18 @@
        entra um contorno verde bem fraco (--ap-aro) que impede os aparelhos de sumirem no fundo. */
     --ap-moldura-a:#2d3433; --ap-moldura-b:#0f1413;
     --ap-luz:rgba(255,255,255,.7);
-    --ap-alu-1:#f1f2f3; --ap-alu-2:#d5d8da; --ap-alu-3:#b6babd; --ap-alu-4:#9da2a5;
+    --ap-alu-1:#eef0f1; --ap-alu-2:#d0d4d6; --ap-alu-3:#a4a9ac; --ap-alu-4:#8a8f93;
     --ap-sombra-contato:rgba(19,36,32,.6); --ap-sombra-larga:rgba(19,36,32,.2);
-    --ap-aro:transparent; --ap-brilho:transparent;
+    --ap-aro:rgba(19,36,32,.22); --ap-brilho:transparent;
     --ap-barra:#132420;
+    /* A LUZ DO FUNDO: o que separa os aparelhos da caixa. No claro, as telas brancas se
+       misturavam com o fundo quase branco, então a luz ESCURECE de leve atrás do conjunto; no
+       escuro, as molduras pretas sumiam, então a luz CLAREIA. Dois halos: um mais firme no meio
+       (onde está o notebook) e um largo e fraco, para a transição não parecer holofote. A queda do firme é SUAVIZADA (vários pontos de parada
+       numa curva): num degradê linear até zero o olho enxerga o contorno do halo. ATENÇÃO: o raio
+       vertical x o ponto onde o degradê zera tem que caber na caixa (.aparelhos::after, inset
+       -8% / -6%); se passar, o degradê é cortado e aparece uma borda reta no topo ou embaixo. */
+    --ap-fundo:radial-gradient(ellipse 50% 54% at 48% 50%,rgba(19,36,32,.21),rgba(19,36,32,.185) 17%,rgba(19,36,32,.13) 36%,rgba(19,36,32,.067) 53%,rgba(19,36,32,.021) 65%,transparent 72%),radial-gradient(ellipse 84% 60% at 50% 52%,rgba(19,36,32,.08),transparent 76%);
     /* Contorno de 1px das imagens (better-ui): preto puro a 10% no claro, branco puro no escuro. */
     --contorno-img:oklch(0 0 0 / .1);
     /* O mascote (o guia do trilho): bochecha corada (--color-bochecha do app, igual nos dois
@@ -108,12 +116,13 @@
       --esmaecer-forte:.75; --esmaecer:.8;
       --fone-contorno:rgba(238,243,240,.22);
       --fone-sombra:0 3rem 5rem -2rem rgba(0,0,0,.6);
-      --ap-moldura-a:#313a38; --ap-moldura-b:#0a0e0d;
+      --ap-moldura-a:#1c2422; --ap-moldura-b:#090c0b;
       --ap-luz:rgba(255,255,255,.62);
       --ap-alu-1:#8d9397; --ap-alu-2:#70767a; --ap-alu-3:#575c60; --ap-alu-4:#43474a;
       --ap-sombra-contato:rgba(0,0,0,.8); --ap-sombra-larga:rgba(0,0,0,.6);
       --ap-aro:rgba(45,224,172,.18); --ap-brilho:rgba(45,224,172,.07);
       --ap-barra:#eef3f0;
+      --ap-fundo:radial-gradient(ellipse 56% 55% at 49% 47%,rgba(125,188,162,.72),rgba(125,188,162,.63) 18%,rgba(125,188,162,.45) 38%,rgba(125,188,162,.23) 56%,rgba(125,188,162,.07) 68%,transparent 76%),radial-gradient(ellipse 88% 58% at 50% 52%,rgba(45,224,172,.11),transparent 80%);
       --contorno-img:oklch(1 0 0 / .1);
       --brilho:#f4b24a;
     }
@@ -497,8 +506,10 @@
      só no canto de cima, sombra de contato curta + sombra larga e difusa. Cantos e proporções de
      aparelhos reais (celular ~ 0,48, tablet 0,75, tampa 16:10). */
   .familia{max-width:100rem;margin:2.4rem auto 0;container-type:inline-size}
-  .aparelhos{--u:calc(100cqw / 1000);position:relative;aspect-ratio:1000/560;opacity:0;transform:translateY(2.4rem) scale(.97)}
+  .aparelhos{--u:calc(100cqw / 1000);position:relative;isolation:isolate;aspect-ratio:1000/560;opacity:0;transform:translateY(2.4rem) scale(.97)}
   .cta-box.in .aparelhos{opacity:1;transform:none;transition:opacity .8s var(--ease-out) .35s,transform 1s var(--ease-out) .35s}
+  /* A luz do fundo (ver --ap-fundo): fica ATRÁS das peças e vaza além do palco, dissolvendo na caixa. */
+  .aparelhos::after{content:"";position:absolute;z-index:-1;inset:-8% -16% -6%;background:var(--ap-fundo);pointer-events:none}
   /* O chão: uma sombra larga e difusa, sem reflexo. */
   .aparelhos::before{content:"";position:absolute;left:calc(var(--u) * 30);top:calc(var(--u) * 492);width:calc(var(--u) * 940);height:calc(var(--u) * 64);border-radius:50%;background:radial-gradient(closest-side,var(--ap-sombra-larga),transparent)}
   .ap{position:absolute}
