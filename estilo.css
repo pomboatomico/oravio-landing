@@ -67,6 +67,16 @@
     --fone-sombra:0 3rem 5rem -2rem rgba(19,36,32,.4);
     /* A câmera do aparelho é peça física: igual nos dois temas. */
     --fone-camera:#060908; --fone-lente:#1c2622;
+    /* Os três aparelhos da caixa final (.aparelhos). São MATERIAL, não tema: a moldura é grafite
+       fosco e a base do notebook é alumínio cinza neutro (sem verde nenhum). O que muda com o
+       tema é a luz da cena: no escuro o alumínio fica menos iluminado, a sombra mais densa e
+       entra um contorno verde bem fraco (--ap-aro) que impede os aparelhos de sumirem no fundo. */
+    --ap-moldura-a:#2d3433; --ap-moldura-b:#0f1413;
+    --ap-luz:rgba(255,255,255,.7);
+    --ap-alu-1:#f1f2f3; --ap-alu-2:#d5d8da; --ap-alu-3:#b6babd; --ap-alu-4:#9da2a5;
+    --ap-sombra-contato:rgba(19,36,32,.6); --ap-sombra-larga:rgba(19,36,32,.2);
+    --ap-aro:transparent; --ap-brilho:transparent;
+    --ap-barra:#132420;
     /* Contorno de 1px das imagens (better-ui): preto puro a 10% no claro, branco puro no escuro. */
     --contorno-img:oklch(0 0 0 / .1);
     /* O mascote (o guia do trilho): bochecha corada (--color-bochecha do app, igual nos dois
@@ -98,6 +108,12 @@
       --esmaecer-forte:.75; --esmaecer:.8;
       --fone-contorno:rgba(238,243,240,.22);
       --fone-sombra:0 3rem 5rem -2rem rgba(0,0,0,.6);
+      --ap-moldura-a:#313a38; --ap-moldura-b:#0a0e0d;
+      --ap-luz:rgba(255,255,255,.62);
+      --ap-alu-1:#8d9397; --ap-alu-2:#70767a; --ap-alu-3:#575c60; --ap-alu-4:#43474a;
+      --ap-sombra-contato:rgba(0,0,0,.8); --ap-sombra-larga:rgba(0,0,0,.6);
+      --ap-aro:rgba(45,224,172,.18); --ap-brilho:rgba(45,224,172,.07);
+      --ap-barra:#eef3f0;
       --contorno-img:oklch(1 0 0 / .1);
       --brilho:#f4b24a;
     }
@@ -470,15 +486,59 @@
   /* A regra acima é mais específica que `.vagas` e zerava o espaço acima da
      linha das vagas (ela grudava no botão) e punha 32px sobrando embaixo. */
   .cta-box .vagas{margin:1.4rem auto 0;font-size:1.4rem}
-  /* Os três aparelhos (scripts/landing/heroi3d/familia.mjs): a imagem tem folga transparente em
-     cima e embaixo, que as margens negativas recolhem; em cima fica o lugar do mascote, que pula
-     do ✓ para a tampa do notebook (guia.ts). Entram uma vez, subindo, quando a caixa aparece;
-     nada em loop, porque ali a pessoa está decidindo. */
-  .familia{max-width:96rem;margin:2.4rem auto -2rem}
-  .familia picture{display:block;margin:-14% 0 -8.5%;opacity:0;transform:translateY(2.4rem) scale(.97)}
-  .familia img{display:block;width:100%;height:auto}
-  .familia figcaption{color:var(--green-text);font-size:1.25rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-  .cta-box.in .familia picture{opacity:1;transform:none;transition:opacity .8s var(--ease-out) .35s,transform 1s var(--ease-out) .35s}
+  /* OS TRÊS APARELHOS (componente .familia): notebook, tablet e celular desenhados em CSS, de frente,
+     com as telas REAIS do app (dados fictícios) dentro. O palco (.aparelhos) é um quadro de 1000 x 560
+     "unidades" que escala com a largura: `--u` vale 1/1000 da largura do .familia (container query),
+     e toda medida é `calc(var(--u) * n)`. Para mexer na pose, troque os números de left/top/width/height
+     de cada .ap-*; o notebook ao fundo, o tablet atrás à direita e o celular na frente seguem a ordem
+     do HTML (sem z-index). A tampa do notebook mora em data-tampa (fração do palco): é onde o mascote
+     do trilho pousa (guia.ts). Entra uma vez, subindo, quando a caixa aparece; nada em loop.
+     Acabamento: moldura fina e fosca (nada de reflexo no vidro nem espelho no chão), uma linha de luz
+     só no canto de cima, sombra de contato curta + sombra larga e difusa. Cantos e proporções de
+     aparelhos reais (celular ~ 0,48, tablet 0,75, tampa 16:10). */
+  .familia{max-width:100rem;margin:2.4rem auto 0;container-type:inline-size}
+  .aparelhos{--u:calc(100cqw / 1000);position:relative;aspect-ratio:1000/560;opacity:0;transform:translateY(2.4rem) scale(.97)}
+  .cta-box.in .aparelhos{opacity:1;transform:none;transition:opacity .8s var(--ease-out) .35s,transform 1s var(--ease-out) .35s}
+  /* O chão: uma sombra larga e difusa, sem reflexo. */
+  .aparelhos::before{content:"";position:absolute;left:calc(var(--u) * 30);top:calc(var(--u) * 492);width:calc(var(--u) * 940);height:calc(var(--u) * 64);border-radius:50%;background:radial-gradient(closest-side,var(--ap-sombra-larga),transparent)}
+  .ap{position:absolute}
+  .ap picture,.ap img{display:block;width:100%;height:100%}
+  .ap img{object-fit:cover}
+  /* A sombra de contato: curta e escura, logo onde o aparelho toca a mesa. */
+  .ap-chao{position:absolute;left:-4%;right:-4%;bottom:calc(var(--u) * -4);height:calc(var(--u) * 9);background:radial-gradient(closest-side,var(--ap-sombra-contato),transparent)}
+  /* O corpo: grafite fosco com um gradiente quase imperceptível, um aro interno de 1px e, no
+     escuro, o contorno verde fraco. A ::before é a linha de luz, só no canto de cima à esquerda
+     (um anel de 1,2u recortado por máscara). */
+  .ap-corpo{position:absolute;inset:0;background:linear-gradient(155deg,var(--ap-moldura-a),var(--ap-moldura-b) 60%);box-shadow:inset 0 0 0 calc(var(--u) * 1) rgba(255,255,255,.05),0 0 0 calc(var(--u) * 1) var(--ap-aro),0 0 calc(var(--u) * 16) var(--ap-brilho)}
+  .ap-corpo::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:calc(var(--u) * 1.3);background:linear-gradient(135deg,var(--ap-luz),transparent 20%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+  .ap-tela{position:absolute;overflow:hidden;background:#000;box-shadow:0 0 0 calc(var(--u) * 1) #000}
+  /* Notebook */
+  .ap-notebook{left:calc(var(--u) * 55);top:calc(var(--u) * 127);width:calc(var(--u) * 624);height:calc(var(--u) * 403)}
+  .nb-tampa{position:absolute;left:calc(var(--u) * 12);top:0;width:calc(var(--u) * 600);height:calc(var(--u) * 383)}
+  .nb-tampa .ap-corpo{border-radius:calc(var(--u) * 15) calc(var(--u) * 15) calc(var(--u) * 3) calc(var(--u) * 3);box-shadow:inset 0 0 0 calc(var(--u) * 1) rgba(255,255,255,.05),0 0 0 calc(var(--u) * 1) var(--ap-aro),0 0 calc(var(--u) * 16) var(--ap-brilho),0 calc(var(--u) * 1.5) calc(var(--u) * 2.5) rgba(0,0,0,.45)}
+  .nb-tampa .ap-tela{inset:calc(var(--u) * 8) calc(var(--u) * 8) calc(var(--u) * 10);border-radius:calc(var(--u) * 3)}
+  .nb-tampa::after{content:"";position:absolute;left:50%;top:calc(var(--u) * 3);width:calc(var(--u) * 2.4);height:calc(var(--u) * 2.4);margin-left:calc(var(--u) * -1.2);border-radius:50%;background:#2b3436}
+  /* A base: alumínio neutro, chanfro fino claro no topo, lábio escuro embaixo e o entalhe do meio. */
+  .nb-base{position:absolute;left:0;top:calc(var(--u) * 383);width:100%;height:calc(var(--u) * 20);border-radius:0 0 calc(var(--u) * 13) calc(var(--u) * 13) / 0 0 calc(var(--u) * 11) calc(var(--u) * 11);background:linear-gradient(180deg,var(--ap-alu-1),var(--ap-alu-2) 26%,var(--ap-alu-3) 70%,var(--ap-alu-4));box-shadow:inset 0 calc(var(--u) * -1) 0 rgba(0,0,0,.22),0 0 0 calc(var(--u) * 1) var(--ap-aro),0 0 calc(var(--u) * 16) var(--ap-brilho)}
+  .nb-base::before{content:"";position:absolute;left:calc(var(--u) * 3);right:calc(var(--u) * 3);top:0;height:calc(var(--u) * 2.4);background:linear-gradient(90deg,transparent,rgba(255,255,255,.9) 8%,rgba(255,255,255,.9) 92%,transparent) top/100% calc(var(--u) * 1.2) no-repeat,linear-gradient(90deg,transparent,rgba(0,0,0,.14) 8%,rgba(0,0,0,.14) 92%,transparent) bottom/100% calc(var(--u) * 1.2) no-repeat}
+  .nb-base::after{content:"";position:absolute;left:50%;top:0;width:calc(var(--u) * 120);height:calc(var(--u) * 7);margin-left:calc(var(--u) * -60);border-radius:0 0 calc(var(--u) * 10) calc(var(--u) * 10) / 0 0 calc(var(--u) * 7) calc(var(--u) * 7);background:linear-gradient(180deg,var(--ap-alu-4),var(--ap-alu-2));box-shadow:inset 0 calc(var(--u) * 1) calc(var(--u) * 1.6) rgba(0,0,0,.38)}
+  /* Tablet */
+  .ap-tablet{left:calc(var(--u) * 716);top:calc(var(--u) * 212);width:calc(var(--u) * 230);height:calc(var(--u) * 306)}
+  .ap-tablet .ap-corpo{border-radius:calc(var(--u) * 17)}
+  .ap-tablet .ap-tela{inset:calc(var(--u) * 8);border-radius:calc(var(--u) * 10)}
+  .ap-tablet::after{content:"";position:absolute;left:50%;top:calc(var(--u) * 3);width:calc(var(--u) * 2.4);height:calc(var(--u) * 2.4);margin-left:calc(var(--u) * -1.2);border-radius:50%;background:#2b3436}
+  /* Celular: ilha da câmera, barra de status desenhada (hora, sinal, wi-fi, bateria) e os botões do lado. */
+  .ap-celular{left:calc(var(--u) * 587);top:calc(var(--u) * 224);width:calc(var(--u) * 148);height:calc(var(--u) * 306)}
+  .ap-celular .ap-corpo{border-radius:calc(var(--u) * 24)}
+  .ap-celular .ap-tela{inset:calc(var(--u) * 3.6);border-radius:calc(var(--u) * 20.4)}
+  .ap-celular .ap-tela::after{content:"";position:absolute;left:50%;top:calc(var(--u) * 3.4);width:calc(var(--u) * 36);height:calc(var(--u) * 10.6);margin-left:calc(var(--u) * -18);border-radius:calc(var(--u) * 5.3);background:#000}
+  .cel-barra{position:absolute;z-index:1;left:0;right:0;top:calc(var(--u) * 3.4);height:calc(var(--u) * 10.6);display:flex;align-items:center;justify-content:space-between;padding:0 calc(var(--u) * 12) 0 calc(var(--u) * 17);color:var(--ap-barra);font:700 calc(var(--u) * 6.2)/1 var(--font-sans)}
+  .cel-barra svg{display:block;width:calc(var(--u) * 26);height:calc(var(--u) * 6.4);fill:currentColor}
+  .ap-celular::before,.ap-celular::after{content:"";position:absolute;width:calc(var(--u) * 1.7);background:linear-gradient(90deg,var(--ap-moldura-a),var(--ap-moldura-b))}
+  .ap-celular::before{left:calc(var(--u) * -1.2);top:calc(var(--u) * 60);height:calc(var(--u) * 17);border-radius:calc(var(--u) * 1) 0 0 calc(var(--u) * 1);box-shadow:0 calc(var(--u) * 23) 0 var(--ap-moldura-b)}
+  .ap-celular::after{right:calc(var(--u) * -1.2);top:calc(var(--u) * 82);height:calc(var(--u) * 26);border-radius:0 calc(var(--u) * 1) calc(var(--u) * 1) 0}
+  .familia figcaption{margin-top:0;color:var(--green-text);font-size:1.25rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  @media (min-width:561px){.familia figcaption{margin-top:-1.2rem}}
 
   /* Footer */
   footer{border-top:1px solid var(--line);padding:5.6rem 0 4rem;background:var(--surface-alt)}
@@ -536,7 +596,7 @@
   @media (max-width:340px){
     .btn-lg{padding:1.6rem 2rem;font-size:1.5rem}
   }
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.fala-frase{transform:none}.step-media.in .fala-frase,.step-media.in .fone3d img,.cta-box.in .familia picture{transition:none}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.fala-frase{transform:none}.step-media.in .fala-frase,.step-media.in .fone3d img,.cta-box.in .aparelhos{transition:none}
     /* Sem movimento, o laço não roda: a Confira (itens, total e balão) aparece parada, por
        um esmaecer só, quando as camadas chegam. Nada sobe nem desliza. */
     .laco-balao{transform:none}

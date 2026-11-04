@@ -285,15 +285,44 @@
         <p>Crie sua conta e teste o Oravio Profissional por 7 dias, sem cartão. Em poucos minutos você monta seu primeiro orçamento.</p>
         <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primary btn-lg">Criar conta grátis <span class="arrow">→</span></a>
         <p class="vagas">7 dias grátis · sem cartão</p>
-        <!-- A família: o mesmo aparelho da abertura, mais o tablet e o notebook, com telas reais
-             (dados fictícios). Fica DEPOIS do botão, para ele seguir na primeira olhada.
-             data-tampa: onde o meio da borda de cima da tampa do notebook cai na imagem (o
-             gerador imprime); é onde o mascote do trilho pousa ao pular do ✓ (mascote.js). -->
-        <figure class="familia" data-tampa="0.5395,0.3263">
-          <picture>
-            <source media="(prefers-color-scheme: dark)" srcset="familia-escuro.webp?v=2">
-            <img src="familia-claro.webp?v=2" width="1920" height="1200" loading="lazy" decoding="async" alt="O Oravio no tablet, no notebook e no celular: a lista de orçamentos, a conferência com a prévia do PDF ao lado e a tela inicial">
-          </picture>
+        <!-- A família: notebook, tablet e celular desenhados em CSS (estilo.css, "OS TRÊS APARELHOS"),
+             com as telas reais do app (dados fictícios). Fica DEPOIS do botão, para ele seguir na
+             primeira olhada. A ordem das peças é a profundidade: notebook ao fundo, tablet atrás à
+             direita, celular na frente. data-tampa: onde o meio da borda de cima da tampa do notebook
+             cai no palco, em fração (largura, altura); é onde o mascote do trilho pousa (mascote.js).
+             As telas são decorativas (alt vazio): quem lê por voz ouve só o aria-label da figura. -->
+        <figure class="familia" data-tampa="0.367,0.2268" role="img" aria-label="O Oravio no notebook, no tablet e no celular: a conferência com a prévia do PDF ao lado, a lista de orçamentos e a tela inicial">
+          <div class="aparelhos">
+            <div class="ap ap-notebook">
+              <span class="ap-chao"></span>
+              <div class="nb-base"></div>
+              <div class="nb-tampa">
+                <div class="ap-corpo"></div>
+                <div class="ap-tela"><picture>
+                  <source media="(prefers-color-scheme: dark)" srcset="tela-notebook-escuro.webp">
+                  <img src="tela-notebook-claro.webp" width="1300" height="813" alt="" loading="lazy" decoding="async">
+                </picture></div>
+              </div>
+            </div>
+            <div class="ap ap-tablet">
+              <span class="ap-chao"></span>
+              <div class="ap-corpo"></div>
+              <div class="ap-tela"><picture>
+                <source media="(prefers-color-scheme: dark)" srcset="tela-tablet-escuro.webp">
+                <img src="tela-tablet-claro.webp" width="560" height="747" alt="" loading="lazy" decoding="async">
+              </picture></div>
+            </div>
+            <div class="ap ap-celular">
+              <span class="ap-chao"></span>
+              <div class="ap-corpo"></div>
+              <div class="ap-tela"><picture>
+                <source media="(prefers-color-scheme: dark)" srcset="tela-celular-escuro.webp">
+                <img src="tela-celular-claro.webp" width="480" height="1041" alt="" loading="lazy" decoding="async">
+              </picture>
+                <div class="cel-barra" aria-hidden="true"><span>9:41</span><svg viewBox="0 0 26 6.4"><path d="M0 4.6h1.5v1.8H0zM2.4 3.4h1.5v3H2.4zM4.8 2.2h1.5v4.2H4.8zM7.2 1h1.5v5.4H7.2z"/><path d="M10.4 2.5a4.3 4.3 0 0 1 6 0M11.7 3.9a2.5 2.5 0 0 1 3.4 0" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/><circle cx="13.4" cy="5.5" r=".85"/><rect x="18.1" y=".7" width="6.6" height="5" rx="1.5" fill="none" stroke="currentColor" stroke-width=".7" opacity=".45"/><rect x="18.9" y="1.5" width="5" height="3.4" rx=".9"/><path d="M25.2 2.4v1.6" stroke="currentColor" stroke-width=".8" stroke-linecap="round" opacity=".45"/></svg></div>
+              </div>
+            </div>
+          </div>
           <figcaption>Mesma conta, vários dispositivos.</figcaption>
         </figure>
       </div>
