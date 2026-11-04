@@ -74,7 +74,7 @@
     --ap-moldura-a:#2d3433; --ap-moldura-b:#0f1413;
     --ap-luz:rgba(255,255,255,.7);
     --ap-alu-1:#eef0f1; --ap-alu-2:#d0d4d6; --ap-alu-3:#a4a9ac; --ap-alu-4:#8a8f93;
-    --ap-sombra-contato:rgba(19,36,32,.6); --ap-sombra-larga:rgba(19,36,32,.2);
+    --ap-sombra-contato:rgba(12,22,19,.72); --ap-sombra-larga:rgba(19,36,32,.26);
     --ap-aro:rgba(19,36,32,.22); --ap-brilho:transparent;
     --ap-barra:#132420;
     /* PROFUNDIDADE: o que está atrás (notebook, tablet) perde um pouco de contraste, como com ar no meio;
@@ -123,7 +123,7 @@
       --ap-moldura-a:#1c2422; --ap-moldura-b:#090c0b;
       --ap-luz:rgba(255,255,255,.62);
       --ap-alu-1:#8d9397; --ap-alu-2:#70767a; --ap-alu-3:#575c60; --ap-alu-4:#43474a;
-      --ap-sombra-contato:rgba(0,0,0,.8); --ap-sombra-larga:rgba(0,0,0,.6);
+      --ap-sombra-contato:rgba(0,0,0,.92); --ap-sombra-larga:rgba(0,0,0,.62);
       --ap-aro:rgba(45,224,172,.18); --ap-brilho:rgba(45,224,172,.07);
       --ap-barra:#eef3f0;
       --ap-recuo:contrast(.92) brightness(.86); --ap-recuo-meio:contrast(.96) brightness(.93);
@@ -512,23 +512,27 @@
      na frente (pé mais baixo). Os de trás são menores e com sombra mais mole; o celular avança (maior, com sombra projetada sobre eles); são `transform:scale` com origem
      no pé de cada aparelho, então a pose continua em números simples. data-tampa já conta a escala.
      Acabamento: moldura fina e fosca (nada de reflexo no vidro nem espelho no chão), uma linha de luz
-     só no canto de cima, sombra de contato curta + sombra larga e difusa. Cantos e proporções de
+     só no canto de cima, e cada aparelho com a PRÓPRIA sombra no chão (contato fino + penumbra curta). Cantos e proporções de
      aparelhos reais (celular ~ 0,48, tablet 0,75, tampa 16:10). */
   .familia{max-width:100rem;margin:2.4rem auto 0;container-type:inline-size}
   .aparelhos{--u:calc(100cqw / 1000);position:relative;isolation:isolate;aspect-ratio:1000/560;opacity:0;transform:translateY(2.4rem) scale(.97)}
   .cta-box.in .aparelhos{opacity:1;transform:none;transition:opacity .8s var(--ease-out) .35s,transform 1s var(--ease-out) .35s}
   /* A luz do fundo (ver --ap-fundo): fica ATRÁS das peças e vaza além do palco, dissolvendo na caixa. */
   .aparelhos::after{content:"";position:absolute;z-index:-1;inset:-8% -16% -6%;background:var(--ap-fundo);pointer-events:none}
-  /* O chão: uma sombra larga e difusa, sem reflexo. */
-  .aparelhos::before{content:"";position:absolute;left:calc(var(--u) * 30);top:calc(var(--u) * 492);width:calc(var(--u) * 940);height:calc(var(--u) * 64);border-radius:50%;background:radial-gradient(closest-side,var(--ap-sombra-larga),transparent)}
   .ap{position:absolute}
   .ap picture,.ap img{display:block;width:100%;height:100%}
   .ap img{object-fit:cover}
-  /* A sombra de contato: curta e escura, logo onde o aparelho toca a mesa. */
-  .ap-notebook .ap-chao{opacity:.55}
-  .ap-tablet .ap-chao{opacity:.75}
-  .ap-celular .ap-chao{height:calc(var(--u) * 11);bottom:calc(var(--u) * -5)}
-  .ap-chao{position:absolute;left:-4%;right:-4%;bottom:calc(var(--u) * -4);height:calc(var(--u) * 9);background:radial-gradient(closest-side,var(--ap-sombra-contato),transparent)}
+  /* A SOMBRA DE CADA APARELHO, onde ele toca a mesa (não uma mancha só para o grupo, que virava faixa
+     cinza borrada no claro e sumia no escuro): uma penumbra curta (.ap-chao) e, dentro dela, a linha de
+     contato fina e escura (::before). As duas são mais ESTREITAS que o aparelho, porque os cantos dele
+     são arredondados e só o meio encosta; largas demais, viravam "pílulas" nas pontas. Somem por degradê
+     suavizado (color-mix), sem borda. Os de trás ficam um pouco mais fracos (profundidade). Nada de
+     reflexo no chão. */
+  .ap-chao{--chao:100%;--contato:92%;position:absolute;left:50%;width:var(--chao);height:calc(var(--u) * 20);bottom:calc(var(--u) * -12);transform:translateX(-49%);background:radial-gradient(closest-side,var(--ap-sombra-larga),color-mix(in srgb,var(--ap-sombra-larga) 70%,transparent) 30%,color-mix(in srgb,var(--ap-sombra-larga) 35%,transparent) 58%,color-mix(in srgb,var(--ap-sombra-larga) 10%,transparent) 80%,transparent)}
+  .ap-chao::before{content:"";position:absolute;left:50%;top:calc(50% - var(--u) * 4);width:var(--contato);height:calc(var(--u) * 6);transform:translateX(-50%);background:radial-gradient(closest-side,var(--ap-sombra-contato),color-mix(in srgb,var(--ap-sombra-contato) 55%,transparent) 45%,color-mix(in srgb,var(--ap-sombra-contato) 15%,transparent) 75%,transparent)}
+  .ap-notebook .ap-chao{--chao:104%;--contato:95%;height:calc(var(--u) * 26);bottom:calc(var(--u) * -15);opacity:.85}
+  .ap-tablet .ap-chao{--chao:94%;--contato:84%;opacity:.92}
+  .ap-celular .ap-chao{--chao:96%;--contato:78%;height:calc(var(--u) * 22);bottom:calc(var(--u) * -13)}
   /* O corpo: grafite fosco com um gradiente quase imperceptível, um aro interno de 1px e, no
      escuro, o contorno verde fraco. A ::before é a linha de luz, só no canto de cima à esquerda
      (um anel de 1,2u recortado por máscara). */
