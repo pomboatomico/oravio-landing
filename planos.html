@@ -10,7 +10,7 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b100e" media="(prefers-color-scheme: dark)">
-<meta name="description" content="Planos do Oravio: Grátis, Essencial (R$ 29,90/mês), Profissional (R$ 49,90/mês) e Equipe (R$ 119,90/mês). Teste grátis por 7 dias, sem cartão e sem fidelidade.">
+<meta name="description" content="Planos do Oravio: Grátis, Essencial (R$ 29,90/mês), Profissional (R$ 49,90/mês) e Equipe (R$ 119,90/mês). Também semestral e anual, no cartão ou no PIX. Teste grátis por 7 dias, sem cartão e sem fidelidade.">
 <meta property="og:title" content="Planos e preços — Oravio">
 <meta property="og:description" content="Grátis, Essencial, Profissional e Equipe. Teste grátis por 7 dias, sem cartão e sem fidelidade.">
 <meta property="og:url" content="https://oravio.com.br/planos.html">
@@ -71,7 +71,7 @@
       "name": "Como eu pago?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No cartão de crédito, todo mês, pelo Stripe, a mesma empresa de pagamentos que grandes serviços usam. Entre no Oravio pelo navegador, em app.oravio.com.br, abra Ajustes e escolha o plano."
+        "text": "No cartão de crédito, que renova sozinho, ou no PIX, que paga o período de uma vez, pelo Stripe, a mesma empresa de pagamentos que grandes serviços usam. Mensal, semestral (10% de desconto) ou anual (2 meses grátis). No Oravio, abra Ajustes, toque em Plano e uso e escolha o plano."
       }
     },
     {
@@ -157,6 +157,7 @@
         <p class="plano-para">Para começar a orçar falando</p>
         <p class="plano-preco"><span class="moeda">R$</span> 29,90<span class="mes">/mês</span></p>
         <p class="plano-dia">Menos de R$ 1 por dia</p>
+        <p class="plano-ciclos">ou R$ 24,92/mês no anual (R$ 299,00 por ano)</p>
         <ul class="plano-lista">
           <li>Orçamentos ilimitados</li>
           <li>120 orçamentos com IA por mês</li>
@@ -176,6 +177,7 @@
         <p class="plano-para">Para quem orça todo dia</p>
         <p class="plano-preco"><span class="moeda">R$</span> 49,90<span class="mes">/mês</span></p>
         <p class="plano-dia">Menos de R$ 1,70 por dia</p>
+        <p class="plano-ciclos">ou R$ 41,58/mês no anual (R$ 499,00 por ano)</p>
         <ul class="plano-lista">
           <li>Orçamentos ilimitados</li>
           <li>300 orçamentos com IA por mês</li>
@@ -192,6 +194,7 @@
         <p class="plano-para">Para orçar em equipe</p>
         <p class="plano-preco"><span class="moeda">R$</span> 119,90<span class="mes">/mês</span></p>
         <p class="plano-dia">3 pessoas por R$ 39,97 cada</p>
+        <p class="plano-ciclos">ou R$ 99,92/mês no anual (R$ 1.199,00 por ano)</p>
         <ul class="plano-lista">
           <li>Orçamentos ilimitados</li>
           <li>1.000 orçamentos com IA por mês, divididos entre todos</li>
@@ -230,7 +233,9 @@
       </ul>
     </div>
 
-    <p class="planos-garantia">Cobrança mensal no cartão, sem fidelidade e sem multa. Mudou de ideia? Peça o dinheiro de volta em até 7 dias da primeira cobrança.</p>
+    <!-- Os ciclos e os preços repetem o app (oravio: src/lib/ciclos.ts e a tabela `precos`, migração 77,
+         docs/planos/025). Mudou lá, muda aqui no mesmo dia. -->
+    <p class="planos-garantia">Mensal, semestral (10% de desconto) ou anual (2 meses grátis). No cartão, que renova sozinho, ou no PIX, que paga o período de uma vez. Sem fidelidade e sem multa. Mudou de ideia? Peça o dinheiro de volta em até 7 dias da primeira cobrança.</p>
 
     <div class="doc-cta planos-ja">
       <div>
@@ -259,7 +264,7 @@
       </details>
       <details>
         <summary>Como eu pago?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <div class="ans">No cartão de crédito, todo mês, pelo Stripe, a mesma empresa de pagamentos que grandes serviços usam. Entre no Oravio pelo navegador, em app.oravio.com.br, abra Ajustes e escolha o plano.</div>
+        <div class="ans">No cartão de crédito, que renova sozinho, ou no PIX, que paga o período de uma vez, pelo Stripe, a mesma empresa de pagamentos que grandes serviços usam. Mensal, semestral (10% de desconto) ou anual (2 meses grátis). No Oravio, abra Ajustes, toque em Plano e uso e escolha o plano.</div>
       </details>
       <details>
         <summary>Posso trocar de plano ou cancelar?<span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
