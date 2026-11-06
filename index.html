@@ -68,6 +68,10 @@
        "reduzir movimento". A marca vai aqui, antes de o corpo aparecer: decidida depois,
        o título piscaria inteiro antes de se partir. -->
   <script>try{if(!localStorage.getItem('oravio-abertura')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('abre')}catch(e){}</script>
+  <!-- MEDIÇÃO DE VISITAS (Umami Cloud, sem cookies): de onde chegam e quais botões são tocados.
+       O ID do site não é segredo. `data-domains` faz teste local e prévia não sujarem os números.
+       Os toques nos botões vêm do medicao.js. Ver docs/trafego-meta.md. -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9f0b3a62-4182-475e-bf6d-a09412da9a50" data-domains="oravio.com.br,www.oravio.com.br"></script>
 </head>
 <body>
 
@@ -569,6 +573,7 @@
 
 </script>
 <script src="suporte.js" defer></script>
+<script src="medicao.js" defer></script>
 <script src="rastreio.js" defer></script>
 </body>
 </html>
