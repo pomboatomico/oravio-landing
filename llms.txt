@@ -29,3 +29,4 @@
 - [Política de privacidade](https://app.oravio.com.br/privacidade)
 - [Termos de uso](https://app.oravio.com.br/termos)
 - Guia: como montar e mandar orçamento de oficina pelo WhatsApp: https://oravio.com.br/orcamento-oficina-whatsapp.html
+- Guia: o que olhar ao escolher um app de orçamento para oficina mecânica: https://oravio.com.br/app-orcamento-oficina-mecanica.html
