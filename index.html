@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Oravio — App de orçamento para prestadores de serviço</title>
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -10,9 +10,9 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b100e" media="(prefers-color-scheme: dark)">
-<meta name="description" content="App de orçamento por voz para oficinas, clínicas, salões e assistências técnicas. Fale o serviço e o Oravio monta o orçamento em PDF na hora, com a sua tabela de preços. Teste grátis, sem cartão.">
+<meta name="description" content="App de orçamento para pequenos negócios: conte o pedido e o Oravio monta o orçamento com a sua tabela de preços, em PDF com a sua marca, PIX e link para o cliente aceitar. 7 dias grátis, sem cartão; depois, plano Grátis.">
 <meta property="og:title" content="Oravio — App de orçamento para prestadores de serviço">
-<meta property="og:description" content="Para oficinas, clínicas, salões, assistências e locadoras. Teste grátis por 7 dias, sem cartão.">
+<meta property="og:description" content="O cliente perguntou quanto fica? Mande o orçamento pronto, na hora. 7 dias grátis, sem cartão.">
 <meta property="og:url" content="https://oravio.com.br">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -63,520 +63,218 @@
 }
 </script>
 <link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="estilo.css">
-  <!-- A ABERTURA (o título entra palavra por palavra) é só da primeira visita e nunca com
-       "reduzir movimento". A marca vai aqui, antes de o corpo aparecer: decidida depois,
-       o título piscaria inteiro antes de se partir. -->
-  <script>try{if(!localStorage.getItem('oravio-abertura')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('abre')}catch(e){}</script>
-  <!-- MEDIÇÃO DE VISITAS (Umami Cloud, sem cookies): de onde chegam e quais botões são tocados.
-       O ID do site não é segredo. `data-domains` faz teste local e prévia não sujarem os números.
-       Os toques nos botões vêm do medicao.js. Ver docs/trafego-meta.md. -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9f0b3a62-4182-475e-bf6d-a09412da9a50" data-domains="oravio.com.br,www.oravio.com.br"></script>
+<link rel="stylesheet" href="inicio.css">
+<!-- Com JavaScript, a demonstração começa vazia e a pessoa monta; sem ele, o exemplo aparece pronto. -->
+<script>document.documentElement.classList.add('js')</script>
+<!-- MEDIÇÃO DE VISITAS (Umami Cloud, sem cookies). Ver docs/trafego-meta.md no app. -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="9f0b3a62-4182-475e-bf6d-a09412da9a50" data-domains="oravio.com.br,www.oravio.com.br"></script>
 </head>
 <body>
 
-<!-- ====== NAV ====== -->
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a href="#" class="brand" aria-label="Oravio"><svg width="30" height="30" viewBox="0 0 512 512" aria-hidden="true"><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z" fill="#18b98a"></path><rect x="120.7" y="137.2" width="102.6" height="153.6" rx="12" fill="#ffffff"></rect><rect x="281.8" y="54.5" width="102.6" height="236.2" rx="12" fill="#ffffff"></rect><path d="M56 299 C156 480 356 480 456 299 C356 404 156 404 56 299 Z" fill="#ffffff"></path></svg> <svg viewBox="77 465 248.181 60.823" width="81.6" height="20" fill="none" aria-hidden="true"><path d="M100.233 480.592C103.887 480.592 107.129 481.184 109.959 482.367C112.841 483.499 115.285 485.068 117.292 487.075C119.299 489.082 120.842 491.424 121.923 494.1C123.003 496.724 123.544 499.503 123.544 502.436V504.211C123.544 507.093 123.029 509.846 122 512.471C120.971 515.043 119.453 517.333 117.446 519.34C115.491 521.347 113.072 522.942 110.19 524.126C107.309 525.258 103.99 525.823 100.233 525.823C96.5285 525.823 93.2351 525.258 90.3535 524.126C87.4719 522.942 85.0274 521.347 83.0205 519.34C81.0653 517.333 79.5731 515.043 78.5439 512.471C77.5148 509.846 77 507.093 77 504.211V502.436C77 499.503 77.5148 496.724 78.5439 494.1C79.6246 491.424 81.168 489.082 83.1748 487.075C85.2331 485.068 87.7034 483.499 90.585 482.367C93.4666 481.184 96.6828 480.592 100.233 480.592ZM100.233 491.012C97.9693 491.012 96.0138 491.552 94.3672 492.633C92.7205 493.713 91.4598 495.181 90.585 497.033C89.7617 498.834 89.3496 500.944 89.3496 503.362C89.3496 505.626 89.7617 507.685 90.585 509.537C91.4083 511.39 92.6434 512.83 94.29 513.859C95.9367 514.889 97.9178 515.403 100.233 515.403C102.652 515.403 104.659 514.889 106.254 513.859C107.849 512.83 109.059 511.39 109.882 509.537C110.757 507.685 111.194 505.626 111.194 503.362C111.194 500.944 110.757 498.834 109.882 497.033C109.007 495.181 107.746 493.713 106.1 492.633C104.504 491.552 102.549 491.012 100.233 491.012Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M179.71 481.363C184.032 481.363 187.661 481.981 190.594 483.216C193.578 484.451 195.842 486.329 197.386 488.851C198.929 491.321 199.701 494.511 199.701 498.422V524.357H189.898V516.205C189.554 517.292 189.117 518.285 188.586 519.186C187.454 521.192 185.859 522.736 183.801 523.816C181.794 524.897 179.324 525.438 176.391 525.438C173.355 525.437 170.679 524.897 168.363 523.816C166.099 522.736 164.324 521.192 163.037 519.186C161.751 517.127 161.107 514.683 161.107 511.853C161.107 508.765 161.906 506.243 163.501 504.288C165.096 502.281 167.334 500.815 170.216 499.889C173.097 498.911 176.416 498.422 180.173 498.422H187.814V498.268C187.814 496.106 187.3 494.486 186.271 493.405C185.241 492.325 183.595 491.784 181.331 491.784C180.199 491.784 178.706 491.81 176.854 491.861C175.001 491.913 173.097 491.99 171.142 492.093C169.186 492.196 167.411 492.298 165.816 492.401V481.981C167 481.879 168.389 481.776 169.984 481.673C171.579 481.57 173.226 481.492 174.924 481.44C176.622 481.389 178.218 481.363 179.71 481.363ZM180.096 505.292C177.934 505.292 176.262 505.832 175.078 506.913C173.946 507.942 173.381 509.357 173.381 511.158C173.381 512.856 173.946 514.246 175.078 515.326C176.262 516.355 177.934 516.87 180.096 516.87C181.485 516.87 182.72 516.638 183.801 516.175C184.933 515.66 185.859 514.811 186.579 513.628C187.299 512.444 187.712 510.798 187.814 508.688V505.292H180.096Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M158.252 492.17H155.165C151.769 492.17 149.144 493.096 147.292 494.948C145.439 496.749 144.513 499.375 144.513 502.822V524.357H132.163V482.059H141.966V496.02C142.435 492.034 143.619 488.821 145.517 486.381C148.09 483.139 151.795 481.519 156.632 481.519H158.252V492.17Z" fill="currentColor"></path><path d="M226.687 514.091H228.513L236.287 482.059H248.174L237.213 524.357H217.607L204.949 482.059H217.685L226.687 514.091Z" fill="currentColor"></path><path d="M301.87 480.592C305.524 480.592 308.766 481.184 311.596 482.367C314.477 483.499 316.922 485.068 318.929 487.075C320.936 489.082 322.479 491.424 323.56 494.1C324.64 496.724 325.181 499.503 325.181 502.436V504.211C325.181 507.093 324.666 509.846 323.637 512.471C322.608 515.043 321.09 517.333 319.083 519.34C317.128 521.347 314.709 522.942 311.827 524.126C308.946 525.258 305.626 525.823 301.87 525.823C298.165 525.823 294.872 525.258 291.99 524.126C289.109 522.942 286.664 521.347 284.657 519.34C282.702 517.333 281.21 515.043 280.181 512.471C279.151 509.846 278.637 507.093 278.637 504.211V502.436C278.637 499.503 279.152 496.724 280.181 494.1C281.261 491.424 282.805 489.082 284.812 487.075C286.87 485.068 289.34 483.499 292.222 482.367C295.103 481.184 298.32 480.592 301.87 480.592ZM296.004 492.633C297.651 491.552 299.606 491.012 301.87 491.012C304.186 491.012 306.141 491.552 307.736 492.633C309.383 493.713 310.644 495.181 311.519 497.033C312.393 498.834 312.831 500.944 312.831 503.362C312.831 505.626 312.393 507.685 311.519 509.537C310.695 511.39 309.486 512.83 307.891 513.859C306.295 514.888 304.289 515.403 301.87 515.403C299.555 515.403 297.573 514.889 295.927 513.859C294.28 512.83 293.045 511.39 292.222 509.537C291.398 507.685 290.987 505.626 290.987 503.362C290.987 500.944 291.398 498.834 292.222 497.033C293.096 495.181 294.357 493.713 296.004 492.633Z" fill="#18b98a" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M269.839 524.357H257.489V491.167H251.854V482.059H269.839V524.357Z" fill="#18b98a"></path><path d="M262.274 465C264.59 465 266.289 465.618 267.369 466.853C268.501 468.036 269.067 469.58 269.067 471.483C269.067 473.336 268.501 474.88 267.369 476.115C266.289 477.299 264.59 477.891 262.274 477.891C259.959 477.891 258.235 477.299 257.103 476.115C256.022 474.88 255.481 473.336 255.481 471.483C255.482 469.58 256.022 468.036 257.103 466.853C258.235 465.618 259.959 465 262.274 465Z" fill="#18b98a"></path></svg></a>
-    <nav class="nav-links" aria-label="Principal">
-      <a href="#passos">Como funciona</a>
-      <a href="planos.html">Planos</a>
-      <a href="ajuda.html">Ajuda</a>
+<header class="topo">
+  <div class="wrap topo-dentro">
+    <a href="/" class="marca" aria-label="Oravio, página inicial"><svg width="30" height="30" viewBox="0 0 512 512" aria-hidden="true"><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z" fill="#18b98a"></path><rect x="120.7" y="137.2" width="102.6" height="153.6" rx="12" fill="#ffffff"></rect><rect x="281.8" y="54.5" width="102.6" height="236.2" rx="12" fill="#ffffff"></rect><path d="M56 299 C156 480 356 480 456 299 C356 404 156 404 56 299 Z" fill="#ffffff"></path></svg> <svg viewBox="77 465 248.181 60.823" width="81.6" height="20" fill="none" aria-hidden="true"><path d="M100.233 480.592C103.887 480.592 107.129 481.184 109.959 482.367C112.841 483.499 115.285 485.068 117.292 487.075C119.299 489.082 120.842 491.424 121.923 494.1C123.003 496.724 123.544 499.503 123.544 502.436V504.211C123.544 507.093 123.029 509.846 122 512.471C120.971 515.043 119.453 517.333 117.446 519.34C115.491 521.347 113.072 522.942 110.19 524.126C107.309 525.258 103.99 525.823 100.233 525.823C96.5285 525.823 93.2351 525.258 90.3535 524.126C87.4719 522.942 85.0274 521.347 83.0205 519.34C81.0653 517.333 79.5731 515.043 78.5439 512.471C77.5148 509.846 77 507.093 77 504.211V502.436C77 499.503 77.5148 496.724 78.5439 494.1C79.6246 491.424 81.168 489.082 83.1748 487.075C85.2331 485.068 87.7034 483.499 90.585 482.367C93.4666 481.184 96.6828 480.592 100.233 480.592ZM100.233 491.012C97.9693 491.012 96.0138 491.552 94.3672 492.633C92.7205 493.713 91.4598 495.181 90.585 497.033C89.7617 498.834 89.3496 500.944 89.3496 503.362C89.3496 505.626 89.7617 507.685 90.585 509.537C91.4083 511.39 92.6434 512.83 94.29 513.859C95.9367 514.889 97.9178 515.403 100.233 515.403C102.652 515.403 104.659 514.889 106.254 513.859C107.849 512.83 109.059 511.39 109.882 509.537C110.757 507.685 111.194 505.626 111.194 503.362C111.194 500.944 110.757 498.834 109.882 497.033C109.007 495.181 107.746 493.713 106.1 492.633C104.504 491.552 102.549 491.012 100.233 491.012Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M179.71 481.363C184.032 481.363 187.661 481.981 190.594 483.216C193.578 484.451 195.842 486.329 197.386 488.851C198.929 491.321 199.701 494.511 199.701 498.422V524.357H189.898V516.205C189.554 517.292 189.117 518.285 188.586 519.186C187.454 521.192 185.859 522.736 183.801 523.816C181.794 524.897 179.324 525.438 176.391 525.438C173.355 525.437 170.679 524.897 168.363 523.816C166.099 522.736 164.324 521.192 163.037 519.186C161.751 517.127 161.107 514.683 161.107 511.853C161.107 508.765 161.906 506.243 163.501 504.288C165.096 502.281 167.334 500.815 170.216 499.889C173.097 498.911 176.416 498.422 180.173 498.422H187.814V498.268C187.814 496.106 187.3 494.486 186.271 493.405C185.241 492.325 183.595 491.784 181.331 491.784C180.199 491.784 178.706 491.81 176.854 491.861C175.001 491.913 173.097 491.99 171.142 492.093C169.186 492.196 167.411 492.298 165.816 492.401V481.981C167 481.879 168.389 481.776 169.984 481.673C171.579 481.57 173.226 481.492 174.924 481.44C176.622 481.389 178.218 481.363 179.71 481.363ZM180.096 505.292C177.934 505.292 176.262 505.832 175.078 506.913C173.946 507.942 173.381 509.357 173.381 511.158C173.381 512.856 173.946 514.246 175.078 515.326C176.262 516.355 177.934 516.87 180.096 516.87C181.485 516.87 182.72 516.638 183.801 516.175C184.933 515.66 185.859 514.811 186.579 513.628C187.299 512.444 187.712 510.798 187.814 508.688V505.292H180.096Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M158.252 492.17H155.165C151.769 492.17 149.144 493.096 147.292 494.948C145.439 496.749 144.513 499.375 144.513 502.822V524.357H132.163V482.059H141.966V496.02C142.435 492.034 143.619 488.821 145.517 486.381C148.09 483.139 151.795 481.519 156.632 481.519H158.252V492.17Z" fill="currentColor"></path><path d="M226.687 514.091H228.513L236.287 482.059H248.174L237.213 524.357H217.607L204.949 482.059H217.685L226.687 514.091Z" fill="currentColor"></path><path d="M301.87 480.592C305.524 480.592 308.766 481.184 311.596 482.367C314.477 483.499 316.922 485.068 318.929 487.075C320.936 489.082 322.479 491.424 323.56 494.1C324.64 496.724 325.181 499.503 325.181 502.436V504.211C325.181 507.093 324.666 509.846 323.637 512.471C322.608 515.043 321.09 517.333 319.083 519.34C317.128 521.347 314.709 522.942 311.827 524.126C308.946 525.258 305.626 525.823 301.87 525.823C298.165 525.823 294.872 525.258 291.99 524.126C289.109 522.942 286.664 521.347 284.657 519.34C282.702 517.333 281.21 515.043 280.181 512.471C279.151 509.846 278.637 507.093 278.637 504.211V502.436C278.637 499.503 279.152 496.724 280.181 494.1C281.261 491.424 282.805 489.082 284.812 487.075C286.87 485.068 289.34 483.499 292.222 482.367C295.103 481.184 298.32 480.592 301.87 480.592ZM296.004 492.633C297.651 491.552 299.606 491.012 301.87 491.012C304.186 491.012 306.141 491.552 307.736 492.633C309.383 493.713 310.644 495.181 311.519 497.033C312.393 498.834 312.831 500.944 312.831 503.362C312.831 505.626 312.393 507.685 311.519 509.537C310.695 511.39 309.486 512.83 307.891 513.859C306.295 514.888 304.289 515.403 301.87 515.403C299.555 515.403 297.573 514.889 295.927 513.859C294.28 512.83 293.045 511.39 292.222 509.537C291.398 507.685 290.987 505.626 290.987 503.362C290.987 500.944 291.398 498.834 292.222 497.033C293.096 495.181 294.357 493.713 296.004 492.633Z" fill="#18b98a" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M269.839 524.357H257.489V491.167H251.854V482.059H269.839V524.357Z" fill="#18b98a"></path><path d="M262.274 465C264.59 465 266.289 465.618 267.369 466.853C268.501 468.036 269.067 469.58 269.067 471.483C269.067 473.336 268.501 474.88 267.369 476.115C266.289 477.299 264.59 477.891 262.274 477.891C259.959 477.891 258.235 477.299 257.103 476.115C256.022 474.88 255.481 473.336 255.481 471.483C255.482 469.58 256.022 468.036 257.103 466.853C258.235 465.618 259.959 465 262.274 465Z" fill="#18b98a"></path></svg></a>
+    <nav class="topo-links" aria-label="Principal">
+      <a href="#passos" class="so-largo">Como funciona</a>
+      <a href="planos.html" class="so-largo">Planos</a>
+      <a href="https://app.oravio.com.br" class="btn btn-contorno">Entrar</a>
     </nav>
-    <div class="nav-cta">
-      <a href="https://app.oravio.com.br" class="btn btn-primary">Entrar</a>
-      <button class="hamburger" id="ham" aria-label="Abrir menu"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-  <div class="mobile-menu" id="mob">
-    <a href="#passos">Como funciona</a>
-    <a href="planos.html">Planos</a>
-    <a href="ajuda.html">Ajuda</a>
-    <a href="https://app.oravio.com.br/privacidade">Privacidade</a>
-    <a href="https://app.oravio.com.br/termos">Termos</a>
   </div>
 </header>
 
-<!-- ====== HERÓI — a promessa à esquerda e, à direita, o APARELHO 3D (no celular, embaixo).
-     O aparelho é um VÍDEO de 12 s em laço (heroi-<tema>-<pc|cel>.mp4): o mesmo trailer dos três
-     passos que antes era montado em camadas, agora renderizado dentro do aparelho da capa
-     (fonte: scratchpad m3d/video.mjs; telas do app de verdade, com dados inventados: a oficina
-     fictícia e a cliente Carla Mendes, o mesmo orçamento de R$ 1.919,90 do resto da página).
-     Por cima, VIVOS: o balão da fala (texto, nítido e lido por leitor de tela) e o mascote
-     2,5D, que assiste ao vídeo (heroi.js). As âncoras .alvo-* são os pontos do vídeo para onde
-     ele olha (medidos na cena 3D, em % do quadro). Sem JS ou com "reduzir movimento", fica a
-     imagem parada (a Confira com o total). ====== -->
-<section class="hero hero-3d">
-  <div class="wrap hero-grade">
-  <div class="hero-inner reveal">
-    <h1 class="hero-title">Seu orçamento pronto antes do cliente ir embora.</h1>
-    <p class="hero-sub">O aplicativo de orçamento por voz: fale o serviço, confira e envie. O Oravio monta o PDF com a <strong>sua</strong> tabela de preços.</p>
-    <div class="hero-cta">
-      <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primary btn-lg">Criar conta grátis <span class="arrow">→</span></a>
-      <div class="hero-note">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-        7 dias grátis · sem cartão
+<main>
+  <!-- 1. A PROMESSA (a mesma do anúncio) e a DEMONSTRAÇÃO. O texto está no HTML desde o primeiro
+       quadro: nada de título entrando palavra por palavra. -->
+  <section class="heroi">
+    <div class="wrap heroi-grade">
+      <div>
+        <span class="selo">App de orçamento</span>
+        <h1>O cliente perguntou quanto fica? <em>Mande o orçamento pronto, na hora.</em></h1>
+        <p class="heroi-apoio">Você conta o pedido do jeito que o cliente pediu. O Oravio monta com os seus preços e sai o PDF com a sua marca, pronto para o WhatsApp.</p>
+        <div class="heroi-acao" id="heroi-acao">
+          <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primario">Criar conta grátis</a>
+          <p class="garantia">7 dias do plano completo · sem cartão · depois, continua grátis</p>
+        </div>
       </div>
-    </div>
-    <div class="hero-marquee" role="img" aria-label="Feito para locação, oficina, clínica, salão, assistência técnica e qualquer outro serviço com tabela de preços">
-      <div class="track" aria-hidden="true"><span class="seg">Locação</span><span class="seg">Oficina</span><span class="seg">Clínica</span><span class="seg">Salão</span><span class="seg">Assistência técnica</span><span class="seg">Pet shop</span><span class="seg">Serralheria</span><span class="seg">Marcenaria</span><span class="seg">Gráfica</span><span class="seg">Dedetização</span><span class="seg">Refrigeração</span><span class="seg">Chaveiro</span><span class="seg">Estética</span><span class="seg">Odontologia</span><span class="seg">Vidraçaria</span><span class="seg">Elétrica</span><span class="seg">Locação</span><span class="seg">Oficina</span><span class="seg">Clínica</span><span class="seg">Salão</span><span class="seg">Assistência técnica</span><span class="seg">Pet shop</span><span class="seg">Serralheria</span><span class="seg">Marcenaria</span><span class="seg">Gráfica</span><span class="seg">Dedetização</span><span class="seg">Refrigeração</span><span class="seg">Chaveiro</span><span class="seg">Estética</span><span class="seg">Odontologia</span><span class="seg">Vidraçaria</span><span class="seg">Elétrica</span></div>
-    </div>
-    <p class="hero-for">…e qualquer serviço com tabela de preços.</p>
-  </div>
 
-    <div class="palco3d" id="palco" role="img" aria-label="Um celular com o Oravio: a pessoa segura o microfone e fala o serviço, o app mostra os itens com o total de R$ 1.919,90, e o PDF do orçamento sai pronto para enviar">
-      <picture class="palco-capa"><source media="(min-width:901px) and (prefers-color-scheme: dark)" srcset="heroi-capa-escuro-pc.webp"><source media="(min-width:901px)" srcset="heroi-capa-claro-pc.webp"><source media="(prefers-color-scheme: dark)" srcset="heroi-capa-escuro-cel.webp"><img src="heroi-capa-claro-cel.webp" alt="" decoding="async" fetchpriority="high"></picture>
-      <video class="palco-video" muted playsinline preload="none" aria-hidden="true" disablepictureinpicture></video>
-      <span class="alvo alvo-mic"></span><span class="alvo alvo-itens"></span><span class="alvo alvo-total"></span><span class="alvo alvo-salvar"></span><span class="alvo alvo-aviso"></span><span class="alvo alvo-folha"></span>
-    <blockquote class="laco-balao" aria-hidden="true">
-      <span class="fala-quem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Você, no balcão</span>
-      <p>“Orçamento pra Carla Mendes, Onix 2019. Troca de óleo com filtro, pastilha de freio da frente e amortecedores da frente.”</p>
-    </blockquote>
-      <div class="heroi-mascote" aria-hidden="true"><svg viewBox="0 0 512 512" overflow="visible" focusable="false"><defs><linearGradient id="hm-c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fd9aa"/><stop offset=".5" stop-color="#1cbd8e"/><stop offset="1" stop-color="#12a67b"/></linearGradient><radialGradient id="hm-b" cx=".3" cy=".08" r=".62"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><radialGradient id="hm-i" cx=".5" cy="1.05" r=".6"><stop offset="0" stop-color="#05402f" stop-opacity=".3"/><stop offset="1" stop-color="#05402f" stop-opacity="0"/></radialGradient><radialGradient id="hm-s"><stop offset="0" class="hm-sombra"/><stop offset="1" class="hm-sombra0"/></radialGradient><radialGradient id="hm-a"><stop offset="0" class="hm-aura"/><stop offset="1" class="hm-aura0"/></radialGradient><linearGradient id="hm-f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#e6f5ef"/></linearGradient><clipPath id="hm-k"><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z"/></clipPath></defs><ellipse data-parte="sombra" cx="256" cy="560" rx="230" ry="34" fill="url(#hm-s)"/><g data-parte="corpo"><ellipse cx="256" cy="330" rx="330" ry="300" fill="url(#hm-a)"/><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z" transform="translate(0 26)" fill="#0b8a64"/><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z" fill="url(#hm-c)"/><g clip-path="url(#hm-k)"><ellipse cx="200" cy="40" rx="300" ry="190" fill="url(#hm-b)"/><rect width="512" height="512" fill="url(#hm-i)"/><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="6" transform="translate(0 3)"/></g><ellipse data-parte="bochecha" cx="128" cy="326" rx="40" ry="20" fill="var(--bochecha)" opacity="0"/><ellipse data-parte="bochecha" cx="384" cy="326" rx="40" ry="20" fill="var(--bochecha)" opacity="0"/><g data-parte="olho"><rect x="120.7" y="149.2" width="102.6" height="153.6" rx="12" fill="#0a7a58"/><rect x="120.7" y="137.2" width="102.6" height="153.6" rx="12" fill="url(#hm-f)"/></g><g data-parte="olho"><rect x="281.8" y="66.5" width="102.6" height="236.2" rx="12" fill="#0a7a58"/><rect x="281.8" y="54.5" width="102.6" height="236.2" rx="12" fill="url(#hm-f)"/></g><use href="#hm-boca" transform="translate(0 12)" fill="#0a7a58"/><g fill="url(#hm-f)"><path id="hm-boca" data-parte="boca" d="M56 299 C156 480 356 480 456 299 C356 404 156 404 56 299 Z"/></g></g><g data-parte="efeitos"/></svg></div>
-    <!-- Pausar (WCAG 2.2.2: movimento que dura mais de 5 s precisa de um jeito de parar). -->
-      <button class="laco-botao" type="button" aria-label="Pausar a animação do celular" hidden>
-      <svg class="i-pausa" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4.5" width="4" height="15" rx="1.2"/><rect x="14" y="4.5" width="4" height="15" rx="1.2"/></svg>
-      <svg class="i-tocar" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2Z"/></svg>
-      <svg class="i-denovo" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
-      </button>
-    </div>
-  </div>
-</section>
+      <div class="demo" id="demo" aria-labelledby="demo-titulo">
+        <h2 class="demo-titulo" id="demo-titulo">Experimente agora, sem criar conta</h2>
+        <p class="demo-sub">Escolha um negócio e veja o orçamento se montar.</p>
+        <div class="ramos" role="group" aria-label="Negócio do exemplo">
+          <button type="button" class="ramo" data-ramo="oficina" aria-pressed="true">Oficina</button>
+          <button type="button" class="ramo" data-ramo="salao" aria-pressed="false">Salão de beleza</button>
+          <button type="button" class="ramo" data-ramo="eletrica" aria-pressed="false">Eletricista</button>
+        </div>
 
-<!-- ====== OS TRÊS PASSOS + CTA — "a jornada" ======
-     Cada afirmação do produto tem UMA casa: o passo onde ela acontece.
-     Jeito de falar e offline moram no Fale, a tabela de preços e a sugestão
-     moram no Confira, PDF, PIX, link e aceite moram no Envie. É isso
-     que impede a página de repetir o mesmo argumento em quatro lugares.
+        <span class="rotulo">O cliente pergunta no WhatsApp</span>
+        <p class="balao" id="demo-balao">Oi! Quanto fica a revisão do Onix? Óleo, pastilha da frente e amortecedor.</p>
 
-     O TRILHO. Um fio só liga o aparelho do herói ao passo 1, ao 2, ao 3 e ao
-     botão final, e vai se preenchendo conforme a rolagem; cada número acende
-     quando o fio chega nele. Sem ele, os três passos eram três ilhas soltas no
-     escuro — a página não dizia que uma coisa leva à outra, nem onde você está.
-     Os números do trilho são só desenho (aria-hidden): quem usa leitor de tela
-     ouve "Passo 1 de 3" no rótulo de cada passo.
+        <span class="rotulo">Você conta o pedido no Oravio, falando ou escrevendo</span>
+        <p class="frase"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19v3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><rect x="9" y="2" width="6" height="13" rx="3"/></svg><span class="frase-texto" id="demo-frase">Orçamento pra Carla Mendes. Troca de óleo com filtro, pastilha de freio da frente e amortecedores da frente.</span></p>
 
-     O FIO DA HISTÓRIA. É o MESMO orçamento nos três passos: a frase do passo 1
-     é a que aparece no topo da tela do passo 2, e os itens dela são os do PDF
-     do passo 3. As legendas dizem isso, pra quem rola sem ler os textos.
+        <button type="button" class="btn btn-primario btn-largo btn-montar" id="demo-montar">Montar orçamento</button>
+        <p class="procurando" id="demo-procurando" aria-hidden="true"></p>
 
-     O GUIA. O mascote do app (a marca com rosto) é a ponta do fio: desce com
-     ele, senta em cada número e reage ao passo. O rosto parado já vem aqui no
-     HTML; quem o faz andar e reagir é o mascote.js, pedido depois de a página
-     carregar (fonte em scripts/landing/mascote/ no repositório do app). As
-     partes levam `data-parte`, que é como o motor do app as encontra. -->
-<div class="jornada" id="passos">
-  <div class="trilho" aria-hidden="true"><i></i></div>
-  <div class="guia" aria-hidden="true"><svg viewBox="0 0 512 512" overflow="visible" focusable="false"><g data-parte="corpo"><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z" fill="#18b98a"/><ellipse data-parte="bochecha" cx="128" cy="326" rx="40" ry="20" fill="var(--bochecha)" opacity="0"/><ellipse data-parte="bochecha" cx="384" cy="326" rx="40" ry="20" fill="var(--bochecha)" opacity="0"/><rect data-parte="olho" x="120.7" y="137.2" width="102.6" height="153.6" rx="12" fill="#ffffff"/><rect data-parte="olho" x="281.8" y="54.5" width="102.6" height="236.2" rx="12" fill="#ffffff"/><path data-parte="boca" d="M56 299 C156 480 356 480 456 299 C356 404 156 404 56 299 Z" fill="#ffffff"/></g><g data-parte="efeitos"/></svg></div>
+        <div class="resultado">
+          <ul class="itens" id="demo-itens">
+            <li class="item"><span class="item-qtd">1×</span><span>Troca de óleo 5W30 + filtro</span><span class="item-preco">R$ 289,90</span></li>
+            <li class="item"><span class="item-qtd">1×</span><span>Pastilha de freio dianteira (par)</span><span class="item-preco">R$ 340,00</span></li>
+            <li class="item"><span class="item-qtd">1×</span><span>Amortecedores dianteiros (par)</span><span class="item-preco">R$ 1.290,00</span></li>
+          </ul>
+          <p class="itens-vazio">Os itens aparecem aqui, com os preços da tabela.</p>
+          <p class="total"><span>Total</span><strong id="demo-total">R$ 1.919,90</strong></p>
+        </div>
+        <p class="so-leitor" id="demo-aviso" aria-live="polite"></p>
 
-  <div class="steps-band">
-    <div class="wrap steps">
-
-      <!-- 1 — FALE -->
-      <section class="step">
-        <span class="no" aria-hidden="true">1</span>
-        <div class="step-copy reveal">
-          <p class="step-n"><span class="sr">Passo 1 de 3: </span>Fale</p>
-          <h2>Descreva do jeito que você já fala.</h2>
-          <p class="step-lead">Segura o microfone e fala o serviço — ou digita, se preferir. Sem formulário no meio do atendimento.</p>
-          <div class="checklist">
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Apelido, nome pela metade, “pastilha da frente”: ele entende — e aprende como você chama cada item.</span></div>
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sem sinal na casa do cliente? Monte à mão e salve no aparelho — sobe sozinho quando a internet volta.</span></div>
+        <div class="fim">
+          <div class="saidas">
+            <span class="saida"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>PDF com a sua marca</span>
+            <span class="saida"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>QR do PIX</span>
+            <span class="saida"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Link para o cliente aceitar</span>
           </div>
+          <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primario btn-largo">Fazer com os meus preços · grátis</a>
+          <button type="button" class="de-novo" id="demo-de-novo">Montar de novo</button>
         </div>
-        <div class="step-media reveal">
-          <div class="glow"></div>
-          <!-- O MESMO aparelho 3D da abertura, parado, com a tela inicial: duas camadas do
-               mesmo enquadramento, em repouso e gravando. Ao entrar na tela, o "gravando"
-               aparece por cima (é o toque no microfone) e, logo depois, a frase dita surge
-               acima. A frase é um balão de fala, não uma tela do app: o Oravio não transcreve
-               ao vivo, e o desenho não pode sugerir que sim. -->
-          <div class="fala">
-            <blockquote class="fala-frase">
-              <span class="fala-quem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Você, no balcão</span>
-              <p>“Orçamento pra Carla Mendes, Onix 2019. Troca de óleo com filtro, pastilha de freio da frente e amortecedores da frente.”</p>
-            </blockquote>
-            <figure class="fone3d fone-fale">
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="fale-repouso-escuro.webp">
-              <img src="fale-repouso-claro.webp" width="705" height="1320" loading="lazy" decoding="async" alt="Aparelho com a tela inicial do Oravio: os últimos orçamentos, o faturamento do mês e o botão de microfone no pé da tela">
-            </picture>
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="fale-gravando-escuro.webp">
-              <img class="cam" src="fale-gravando-claro.webp" width="705" height="1320" loading="lazy" decoding="async" alt="" aria-hidden="true">
-            </picture>
-              <figcaption>A tela inicial: é daqui que o orçamento começa.</figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <!-- 2 — CONFIRA -->
-      <section class="step">
-        <span class="no" aria-hidden="true">2</span>
-        <div class="step-copy reveal">
-          <p class="step-n"><span class="sr">Passo 2 de 3: </span>Confira</p>
-          <h2>Veja o que ele entendeu, antes de salvar.</h2>
-          <p class="step-lead">Cada item aparece com o preço que veio da sua tabela. Nada é salvo sem o seu ok.</p>
-          <div class="checklist">
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>A IA não inventa valor — ela casa o que você falou com o seu catálogo.</span></div>
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Ficou entre dois itens parecidos? Ele sugere o mais provável e deixa os outros a um toque.</span></div>
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Quantidade errada ou desconto? Corrige ali mesmo, sem refazer tudo.</span></div>
-          </div>
-        </div>
-        <div class="step-media reveal">
-          <div class="glow"></div>
-          <!-- Duas camadas do mesmo aparelho: a Confira ainda vazia e, por cima, com os itens e o
-               total. Ao entrar na tela, os itens são revelados de cima para baixo, como a lista
-               sendo montada. -->
-          <figure class="fone3d fone-confira">
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="confira-vazia-escuro.webp">
-              <img src="confira-vazia-claro.webp" width="705" height="1320" loading="lazy" decoding="async" alt="Aparelho com a tela de conferência do Oravio: a frase falada no topo, a cliente Carla Mendes, três itens com o preço da tabela e quantidade ajustável, e o total de R$ 1.919,90 ao lado do botão Salvar">
-            </picture>
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="confira-itens-escuro.webp">
-              <img class="cam" src="confira-itens-claro.webp" width="705" height="1320" loading="lazy" decoding="async" alt="" aria-hidden="true">
-            </picture>
-            <figcaption>A mesma frase, já virada em três itens.</figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <!-- 3 — ENVIE -->
-      <section class="step">
-        <span class="no" aria-hidden="true">3</span>
-        <div class="step-copy reveal">
-          <p class="step-n"><span class="sr">Passo 3 de 3: </span>Envie</p>
-          <h2>Chega como documento, não como textão.</h2>
-          <p class="step-lead">PDF com a logo e os dados do seu negócio — ou um link que o cliente abre no navegador, sem instalar nada. Com a sua chave PIX, o QR Code já vai junto.</p>
-          <div class="checklist">
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Ele aceita pelo próprio link, sem precisar te responder — e você vê no app quando ele abriu e quando aceitou.</span></div>
-            <div class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Mudou de ideia? Você derruba o link e ele para de abrir.</span></div>
-          </div>
-        </div>
-        <div class="step-media reveal">
-          <div class="glow"></div>
-          <!-- O aparelho mostra o aceite ("Carla aceitou") e a folha do PDF, inteira, sai ao lado dele:
-               o canhoto do PIX mora no pé dela, e cortá-lo esconderia justo o que é novo. É o mesmo
-               orçamento dos passos 1 e 2. A folha é uma camada à parte do mesmo enquadramento, e é
-               ela que desliza para fora. -->
-          <figure class="fone3d fone-envie">
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="envie-fone-escuro.webp">
-              <img src="envie-fone-claro.webp" width="1320" height="1320" loading="lazy" decoding="async" alt="Aparelho com o aviso “Carla aceitou, pelo link” no topo da tela do Oravio e, ao lado, o PDF do orçamento: logo e dados da oficina Ribeiro Auto Center no topo; cliente Carla Mendes; troca de óleo com filtro, pastilha de freio dianteira e amortecedores dianteiros; no pé da folha, o canhoto para pagar R$ 1.919,90 com chave PIX, QR Code e o link para aceitar">
-            </picture>
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="envie-folha-escuro.webp">
-              <img class="folha" src="envie-folha-claro.webp" width="1320" height="1320" loading="lazy" decoding="async" alt="" aria-hidden="true">
-            </picture>
-            <figcaption>O mesmo orçamento, em PDF — é isto que chega pro seu cliente.</figcaption>
-          </figure>
-        </div>
-      </section>
-
-    </div>
-  </div>
-
-  <!-- ====== CTA FINAL — o fim do trilho ====== -->
-  <section class="cta-final">
-    <div class="wrap">
-      <span class="no no-fim" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-      <div class="cta-box reveal">
-        <div class="glow"></div>
-        <h2>O orçamento sai na hora.</h2>
-        <p>Crie sua conta e teste o Oravio Profissional por 7 dias, sem cartão. Em poucos minutos você monta seu primeiro orçamento.</p>
-        <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primary btn-lg">Criar conta grátis <span class="arrow">→</span></a>
-        <p class="vagas">7 dias grátis · sem cartão</p>
-        <!-- A família: notebook, tablet e celular desenhados em CSS (estilo.css, "OS TRÊS APARELHOS"),
-             com as telas reais do app (dados fictícios). Fica DEPOIS do botão, para ele seguir na
-             primeira olhada. A ordem das peças é a profundidade: notebook ao fundo, tablet atrás à
-             direita, celular na frente. data-tampa: onde o meio da borda de cima da tampa do notebook
-             cai no palco, em fração (largura, altura); é onde o mascote do trilho pousa (mascote.js).
-             As telas são decorativas (alt vazio): quem lê por voz ouve só o aria-label da figura. -->
-        <figure class="familia" data-tampa="0.367,0.2162" role="img" aria-label="O Oravio no notebook, no tablet e no celular: a conferência com a prévia do PDF ao lado, a lista de orçamentos e a tela inicial">
-          <div class="aparelhos">
-            <div class="ap ap-notebook">
-              <span class="ap-chao"></span>
-              <div class="nb-base"></div>
-              <div class="nb-tampa">
-                <div class="ap-corpo"></div>
-                <div class="ap-tela"><picture>
-                  <source media="(prefers-color-scheme: dark)" srcset="tela-notebook-escuro.webp">
-                  <img src="tela-notebook-claro.webp" width="1300" height="813" alt="" loading="lazy" decoding="async">
-                </picture></div>
-              </div>
-            </div>
-            <div class="ap ap-tablet">
-              <span class="ap-chao"></span>
-              <div class="ap-corpo"></div>
-              <div class="ap-tela"><picture>
-                <source media="(prefers-color-scheme: dark)" srcset="tela-tablet-escuro.webp">
-                <img src="tela-tablet-claro.webp" width="560" height="747" alt="" loading="lazy" decoding="async">
-              </picture></div>
-            </div>
-            <div class="ap ap-celular">
-              <span class="ap-chao"></span>
-              <div class="ap-corpo"></div>
-              <div class="ap-tela"><picture>
-                <source media="(prefers-color-scheme: dark)" srcset="tela-celular-escuro.webp">
-                <img src="tela-celular-claro.webp" width="480" height="1041" alt="" loading="lazy" decoding="async">
-              </picture>
-                <div class="cel-barra" aria-hidden="true"><span>9:41</span><svg viewBox="0 0 26 6.4"><path d="M0 4.6h1.5v1.8H0zM2.4 3.4h1.5v3H2.4zM4.8 2.2h1.5v4.2H4.8zM7.2 1h1.5v5.4H7.2z"/><path d="M10.4 2.5a4.3 4.3 0 0 1 6 0M11.7 3.9a2.5 2.5 0 0 1 3.4 0" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/><circle cx="13.4" cy="5.5" r=".85"/><rect x="18.1" y=".7" width="6.6" height="5" rx="1.5" fill="none" stroke="currentColor" stroke-width=".7" opacity=".45"/><rect x="18.9" y="1.5" width="5" height="3.4" rx=".9"/><path d="M25.2 2.4v1.6" stroke="currentColor" stroke-width=".8" stroke-linecap="round" opacity=".45"/></svg></div>
-              </div>
-            </div>
-          </div>
-          <figcaption>Mesma conta, vários dispositivos.</figcaption>
-        </figure>
+        <p class="demo-nota">Exemplo com preços fictícios. No app, a tabela é a sua.</p>
       </div>
     </div>
   </section>
-</div>
 
-<!-- ====== FOOTER ====== -->
-<footer>
+  <!-- 2. COMO FUNCIONA: quatro passos, um argumento em cada, com telas reais do app. -->
+  <section class="secao secao-alt" id="passos">
+    <div class="wrap">
+      <div class="secao-cabeca">
+        <h2>Do pedido ao "aceito", sem papel e sem planilha</h2>
+        <p>Serve para qualquer negócio que manda orçamento com tabela de preços: oficina, salão, clínica, assistência técnica, elétrica, locação e por aí vai.</p>
+      </div>
+      <ol class="passos">
+        <li class="passo">
+          <div class="passo-tela"><picture><source srcset="fale-gravando-escuro.webp" media="(prefers-color-scheme: dark)"><img src="fale-gravando-claro.webp" width="705" height="1320" loading="lazy" alt="Tela inicial do Oravio gravando o pedido, com os últimos orçamentos e o faturamento do mês"></picture></div>
+          <span class="passo-num" aria-hidden="true">1</span>
+          <h3>Conte o pedido</h3>
+          <p>Fale ou escreva do jeito que o cliente pediu. Não precisa decorar código nem procurar item por item.</p>
+        </li>
+        <li class="passo">
+          <div class="passo-tela"><picture><source srcset="confira-itens-escuro.webp" media="(prefers-color-scheme: dark)"><img src="confira-itens-claro.webp" width="705" height="1320" loading="lazy" alt="Tela de conferir: cliente Carla Mendes, três itens com preço e o total de R$ 1.919,90"></picture></div>
+          <span class="passo-num" aria-hidden="true">2</span>
+          <h3>Confira</h3>
+          <p>Os itens chegam com os preços da sua tabela. A IA não inventa preço: você confere, ajusta e salva.</p>
+        </li>
+        <li class="passo">
+          <div class="passo-tela"><picture><source srcset="passo-pdf-escuro.webp" media="(prefers-color-scheme: dark)"><img src="passo-pdf-claro.webp" width="700" height="886" loading="lazy" alt="PDF do orçamento com a logo da oficina, os itens, o total e o QR Code do PIX"></picture></div>
+          <span class="passo-num" aria-hidden="true">3</span>
+          <h3>Envie</h3>
+          <p>PDF com a sua logo e o QR do PIX, ou um link que o cliente abre no navegador, sem instalar nada.</p>
+        </li>
+        <li class="passo">
+          <div class="passo-tela"><picture><source srcset="passo-aceite-escuro.webp" media="(prefers-color-scheme: dark)"><img src="passo-aceite-claro.webp" width="522" height="1025" loading="lazy" alt="Aviso no app: Carla aceitou pelo link, R$ 1.919,90"></picture></div>
+          <span class="passo-num" aria-hidden="true">4</span>
+          <h3>Acompanhe</h3>
+          <p>Você vê quando o cliente abriu e quando aceitou. Nada de ficar perguntando "e aí, fechou?".</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 3. SEM PEGADINHA: o que acontece no teste e depois dele. Responde "e no 8º dia?". -->
+  <section class="secao" id="teste">
+    <div class="wrap">
+      <div class="secao-cabeca">
+        <h2>Teste sem medo de cobrança escondida</h2>
+      </div>
+      <ul class="garantias">
+        <li>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="m4 4 16 16"/></svg>
+          <h3>7 dias do plano completo, sem cartão</h3>
+          <p>Você cria a conta com o e-mail e usa tudo do plano Profissional. Não pedimos cartão para começar.</p>
+        </li>
+        <li>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+          <h3>No 8º dia, nada é cobrado</h3>
+          <p>A conta continua no plano Grátis, com 5 orçamentos por mês. Se quiser mais, os planos começam em R$ 29,90 por mês.</p>
+        </li>
+        <li>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          <h3>No celular que você já tem</h3>
+          <p>Abre no navegador do celular ou do computador. Dá para pôr na tela inicial, como um app.</p>
+        </li>
+      </ul>
+      <div class="garantias-pe">
+        <a href="planos.html">Ver todos os planos</a>
+        <a data-track="whatsapp" href="https://wa.me/558688197951?text=Oi%21%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20Oravio.">Dúvida? Fale com uma pessoa no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. DÚVIDAS: só o que trava o cadastro. As outras ficam na Ajuda. -->
+  <section class="secao secao-alt" id="duvidas">
+    <div class="wrap">
+      <div class="secao-cabeca"><h2>Dúvidas comuns</h2></div>
+      <div class="duvidas">
+        <details>
+          <summary>Serve pro meu tipo de negócio?<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <p>Se você manda orçamento com tabela de preços, serve. Oficina, salão, clínica, assistência técnica, elétrica, locação e por aí vai: o Oravio não é preso a um ramo.</p>
+        </details>
+        <details>
+          <summary>A IA pode inventar um preço errado?<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <p>Não. O Oravio só usa os valores da sua tabela. Ele casa cada item do pedido com o que está cadastrado e mostra tudo para você conferir antes de salvar.</p>
+        </details>
+        <details>
+          <summary>O cliente precisa baixar alguma coisa?<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <p>Não. Ele recebe o PDF no WhatsApp ou abre o link no navegador, vê o orçamento, paga pelo PIX e aceita com um toque.</p>
+        </details>
+        <details>
+          <summary>Funciona sem internet?<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <p>Dá para montar o orçamento pelo catálogo e salvar mesmo sem sinal, e o PDF sai do próprio celular. Quando a internet volta, tudo sobe sozinho. Para o Oravio entender o pedido falado ou escrito, precisa de internet.</p>
+        </details>
+        <details>
+          <summary>E se eu não souber mexer?<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <p>Na primeira vez, o app mostra o caminho em três telas. Se travar em algo, chame no WhatsApp: quem responde é uma pessoa da equipe.</p>
+        </details>
+        <details>
+          <summary>Como cancelo?<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <p>Não tem fidelidade. O plano pago se cancela no próprio app, quando quiser, e a conta volta ao Grátis. Se preferir sair de vez, a conta pode ser excluída em Ajustes.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. O CONVITE FINAL. -->
+  <section class="secao final" id="final">
+    <div class="wrap">
+      <h2>Seu próximo orçamento pode sair antes de o cliente ir embora</h2>
+      <p>Crie a conta, cadastre os itens que você mais vende e mande o primeiro hoje.</p>
+      <div class="final-acoes">
+        <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primario">Criar conta grátis</a>
+        <p class="garantia">7 dias do plano completo · sem cartão · depois, continua grátis</p>
+        <a class="zap" data-track="whatsapp" href="https://wa.me/558688197951?text=Oi%21%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20Oravio.">Prefere perguntar antes? Chame no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
   <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a href="#" class="brand"><svg width="32" height="32" viewBox="0 0 512 512" aria-hidden="true"><path d="M 115.2 0 L 396.8 0 C 460.5056 0 512 51.4944 512 115.2 L 512 396.8 C 512 460.5056 460.5056 512 396.8 512 L 115.2 512 C 51.4944 512 0 460.5056 0 396.8 L 0 115.2 C 0 51.4944 51.4944 0 115.2 0 Z" fill="#18b98a"></path><rect x="120.7" y="137.2" width="102.6" height="153.6" rx="12" fill="#ffffff"></rect><rect x="281.8" y="54.5" width="102.6" height="236.2" rx="12" fill="#ffffff"></rect><path d="M56 299 C156 480 356 480 456 299 C356 404 156 404 56 299 Z" fill="#ffffff"></path></svg> <svg viewBox="77 465 248.181 60.823" width="85.7" height="21" fill="none" aria-hidden="true"><path d="M100.233 480.592C103.887 480.592 107.129 481.184 109.959 482.367C112.841 483.499 115.285 485.068 117.292 487.075C119.299 489.082 120.842 491.424 121.923 494.1C123.003 496.724 123.544 499.503 123.544 502.436V504.211C123.544 507.093 123.029 509.846 122 512.471C120.971 515.043 119.453 517.333 117.446 519.34C115.491 521.347 113.072 522.942 110.19 524.126C107.309 525.258 103.99 525.823 100.233 525.823C96.5285 525.823 93.2351 525.258 90.3535 524.126C87.4719 522.942 85.0274 521.347 83.0205 519.34C81.0653 517.333 79.5731 515.043 78.5439 512.471C77.5148 509.846 77 507.093 77 504.211V502.436C77 499.503 77.5148 496.724 78.5439 494.1C79.6246 491.424 81.168 489.082 83.1748 487.075C85.2331 485.068 87.7034 483.499 90.585 482.367C93.4666 481.184 96.6828 480.592 100.233 480.592ZM100.233 491.012C97.9693 491.012 96.0138 491.552 94.3672 492.633C92.7205 493.713 91.4598 495.181 90.585 497.033C89.7617 498.834 89.3496 500.944 89.3496 503.362C89.3496 505.626 89.7617 507.685 90.585 509.537C91.4083 511.39 92.6434 512.83 94.29 513.859C95.9367 514.889 97.9178 515.403 100.233 515.403C102.652 515.403 104.659 514.889 106.254 513.859C107.849 512.83 109.059 511.39 109.882 509.537C110.757 507.685 111.194 505.626 111.194 503.362C111.194 500.944 110.757 498.834 109.882 497.033C109.007 495.181 107.746 493.713 106.1 492.633C104.504 491.552 102.549 491.012 100.233 491.012Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M179.71 481.363C184.032 481.363 187.661 481.981 190.594 483.216C193.578 484.451 195.842 486.329 197.386 488.851C198.929 491.321 199.701 494.511 199.701 498.422V524.357H189.898V516.205C189.554 517.292 189.117 518.285 188.586 519.186C187.454 521.192 185.859 522.736 183.801 523.816C181.794 524.897 179.324 525.438 176.391 525.438C173.355 525.437 170.679 524.897 168.363 523.816C166.099 522.736 164.324 521.192 163.037 519.186C161.751 517.127 161.107 514.683 161.107 511.853C161.107 508.765 161.906 506.243 163.501 504.288C165.096 502.281 167.334 500.815 170.216 499.889C173.097 498.911 176.416 498.422 180.173 498.422H187.814V498.268C187.814 496.106 187.3 494.486 186.271 493.405C185.241 492.325 183.595 491.784 181.331 491.784C180.199 491.784 178.706 491.81 176.854 491.861C175.001 491.913 173.097 491.99 171.142 492.093C169.186 492.196 167.411 492.298 165.816 492.401V481.981C167 481.879 168.389 481.776 169.984 481.673C171.579 481.57 173.226 481.492 174.924 481.44C176.622 481.389 178.218 481.363 179.71 481.363ZM180.096 505.292C177.934 505.292 176.262 505.832 175.078 506.913C173.946 507.942 173.381 509.357 173.381 511.158C173.381 512.856 173.946 514.246 175.078 515.326C176.262 516.355 177.934 516.87 180.096 516.87C181.485 516.87 182.72 516.638 183.801 516.175C184.933 515.66 185.859 514.811 186.579 513.628C187.299 512.444 187.712 510.798 187.814 508.688V505.292H180.096Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M158.252 492.17H155.165C151.769 492.17 149.144 493.096 147.292 494.948C145.439 496.749 144.513 499.375 144.513 502.822V524.357H132.163V482.059H141.966V496.02C142.435 492.034 143.619 488.821 145.517 486.381C148.09 483.139 151.795 481.519 156.632 481.519H158.252V492.17Z" fill="currentColor"></path><path d="M226.687 514.091H228.513L236.287 482.059H248.174L237.213 524.357H217.607L204.949 482.059H217.685L226.687 514.091Z" fill="currentColor"></path><path d="M301.87 480.592C305.524 480.592 308.766 481.184 311.596 482.367C314.477 483.499 316.922 485.068 318.929 487.075C320.936 489.082 322.479 491.424 323.56 494.1C324.64 496.724 325.181 499.503 325.181 502.436V504.211C325.181 507.093 324.666 509.846 323.637 512.471C322.608 515.043 321.09 517.333 319.083 519.34C317.128 521.347 314.709 522.942 311.827 524.126C308.946 525.258 305.626 525.823 301.87 525.823C298.165 525.823 294.872 525.258 291.99 524.126C289.109 522.942 286.664 521.347 284.657 519.34C282.702 517.333 281.21 515.043 280.181 512.471C279.151 509.846 278.637 507.093 278.637 504.211V502.436C278.637 499.503 279.152 496.724 280.181 494.1C281.261 491.424 282.805 489.082 284.812 487.075C286.87 485.068 289.34 483.499 292.222 482.367C295.103 481.184 298.32 480.592 301.87 480.592ZM296.004 492.633C297.651 491.552 299.606 491.012 301.87 491.012C304.186 491.012 306.141 491.552 307.736 492.633C309.383 493.713 310.644 495.181 311.519 497.033C312.393 498.834 312.831 500.944 312.831 503.362C312.831 505.626 312.393 507.685 311.519 509.537C310.695 511.39 309.486 512.83 307.891 513.859C306.295 514.888 304.289 515.403 301.87 515.403C299.555 515.403 297.573 514.889 295.927 513.859C294.28 512.83 293.045 511.39 292.222 509.537C291.398 507.685 290.987 505.626 290.987 503.362C290.987 500.944 291.398 498.834 292.222 497.033C293.096 495.181 294.357 493.713 296.004 492.633Z" fill="#18b98a" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M269.839 524.357H257.489V491.167H251.854V482.059H269.839V524.357Z" fill="#18b98a"></path><path d="M262.274 465C264.59 465 266.289 465.618 267.369 466.853C268.501 468.036 269.067 469.58 269.067 471.483C269.067 473.336 268.501 474.88 267.369 476.115C266.289 477.299 264.59 477.891 262.274 477.891C259.959 477.891 258.235 477.299 257.103 476.115C256.022 474.88 255.481 473.336 255.481 471.483C255.482 469.58 256.022 468.036 257.103 466.853C258.235 465.618 259.959 465 262.274 465Z" fill="#18b98a"></path></svg></a>
-        <p>Orçamento por voz para quem vive de serviço. Fale, confira e envie — o resto é com a gente.</p>
-      </div>
-      <div class="foot-cols">
-        <div class="foot-col">
-          <h4>Produto</h4>
-          <a href="#passos">Como funciona</a>
-          <a href="planos.html">Planos</a>
-          <a href="orcamento-oficina-whatsapp.html">Orçamento pelo WhatsApp</a>
-          <a href="app-orcamento-oficina-mecanica.html">App para oficina</a>
-          <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro">Criar conta</a>
-          <a href="https://app.oravio.com.br">Entrar</a>
-        </div>
-        <div class="foot-col">
-          <h4>Empresa</h4>
-          <a href="ajuda.html">Ajuda</a>
-          <a href="https://app.oravio.com.br/privacidade">Privacidade</a>
-          <a href="https://app.oravio.com.br/termos">Termos</a>
-          <a href="#" data-cookies-abrir hidden>Cookies</a>
-          <a data-track="whatsapp" href="https://wa.me/558688197951?text=Oi%21%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20Oravio.">WhatsApp</a>
-        </div>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <span>© 2026 Oravio. Todos os direitos reservados.</span>
-      <span>oravio.com.br</span>
-    </div>
+    <p>Oravio · app de orçamento para pequenos negócios</p>
+    <nav aria-label="Rodapé">
+      <a href="planos.html">Planos</a>
+      <a href="ajuda.html">Ajuda</a>
+      <a href="app-orcamento-oficina-mecanica.html">Orçamento para oficina</a>
+      <a href="orcamento-oficina-whatsapp.html">Orçamento pelo WhatsApp</a>
+      <a href="https://www.instagram.com/oravio.app">Instagram</a>
+      <a href="https://app.oravio.com.br/privacidade">Privacidade</a>
+      <a href="https://app.oravio.com.br/termos">Termos</a>
+    </nav>
   </div>
 </footer>
 
-<script>
-  var ham=document.getElementById('ham'), mob=document.getElementById('mob');
-  ham.addEventListener('click',function(){ham.classList.toggle('open');mob.classList.toggle('show');});
-  mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){ham.classList.remove('open');mob.classList.remove('show');});});
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  /* A ABERTURA. Na primeira visita (a marca `abre`, posta no <head>), o título se parte em
-     palavras e o CSS as faz entrar uma a uma quando o herói aparece. O texto inteiro fica
-     como nome do título para o leitor de tela, que não precisa ouvir palavra por palavra. */
-  (function(){
-    var h=document.querySelector('.hero-title');
-    if(!h||!document.documentElement.classList.contains('abre'))return;
-    var texto=h.textContent.trim();
-    h.setAttribute('aria-label',texto);
-    h.textContent='';
-    texto.split(/\s+/).forEach(function(p,i){
-      if(i)h.appendChild(document.createTextNode(' '));
-      var s=document.createElement('span');s.className='pal';s.setAttribute('aria-hidden','true');s.style.setProperty('--i',i);s.textContent=p;h.appendChild(s);
-    });
-    h.classList.add('partido');
-    try{localStorage.setItem('oravio-abertura','1');}catch(e){}
-  })();
+<div class="barra" id="barra" aria-hidden="true">
+  <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primario btn-largo" tabindex="-1">Criar conta grátis · 7 dias sem cartão</a>
+</div>
 
-  /* O LAÇO DO TOPO. Quem anda é o VÍDEO do aparelho (heroi-<tema>-<pc|cel>.mp4, 12 s); este
-     script lê o tempo dele a cada quadro e, ao passar por cada momento do ROTEIRO (os mesmos
-     tempos com que o vídeo foi renderizado), avisa com o evento "laco" no palco: o mascote da
-     abertura (heroi.js) assiste por aí. O balão da fala é HTML e entra/sai pelas classes.
-     Só toca à vista (60% do palco na tela) e com a aba aberta. Para de vez depois de três
-     voltas, no quadro da Confira (itens e total), que é também a imagem de quem pede
-     "reduzir movimento" (aí o vídeo nem é baixado). Tema e formato (pc a partir de 901px)
-     escolhem o arquivo; trocar um dos dois no meio troca o vídeo no mesmo ponto. */
-  var palco=document.getElementById('palco');
-  (function(){
-    if(!palco)return;
-    var video=palco.querySelector('.palco-video'), botao=palco.querySelector('.laco-botao');
-    var largo=window.matchMedia('(min-width:901px)'), escuro=window.matchMedia('(prefers-color-scheme: dark)');
-    var VOLTAS=3, PARA_EM=6300;
-    var ROTEIRO=[[0,'inicio'],[800,'toque'],[950,'gravando'],[2000,'balao'],[3600,'solta'],[3750,'espera'],[4250,'confira'],
-      [4550,'item1'],[4770,'item2'],[4990,'item3'],[5350,'total'],[6100,'contou'],[6400,'salvar'],[7000,'pdf'],[9400,'aceite'],[11200,'volta']];
-    var CLASSES=ROTEIRO.map(function(r){return r[1];}).filter(function(c){return c!=='inicio'&&c!=='volta';});
-    var volta=0, passo=0, antes=0, quadro=0, pronto=false, visto=false, pausado=false, acabou=false, ativo=false;
-    function nome(){return (escuro.matches?'escuro':'claro')+'-'+(largo.matches?'pc':'cel');}
-    function avisar(cena){palco.dispatchEvent(new CustomEvent('laco',{detail:{cena:cena}}));}
-    function limpar(){CLASSES.forEach(function(c){palco.classList.remove(c);});}
-    function momento(cena){
-      if(cena==='volta')limpar();else if(cena!=='inicio')palco.classList.add(cena);
-      avisar(cena);
-    }
-    function marcarBotao(){
-      var estado=acabou?'fim':pausado?'pausado':'tocando';
-      botao.dataset.estado=estado;
-      botao.setAttribute('aria-label',estado==='fim'?'Ver a animação do celular de novo':estado==='pausado'?'Continuar a animação do celular':'Pausar a animação do celular');
-    }
-    function acabar(){
-      acabou=true;ativo=false;cancelAnimationFrame(quadro);quadro=0;video.pause();
-      palco.classList.add('ultima');marcarBotao();avisar('fim');
-    }
-    function anda(){
-      quadro=0;
-      if(!ativo)return;
-      var t=video.currentTime*1000;
-      if(t+1000<antes){volta++;passo=0;limpar();if(volta===VOLTAS-1)palco.classList.add('ultima');}
-      antes=t;
-      while(passo<ROTEIRO.length&&ROTEIRO[passo][0]<=t){momento(ROTEIRO[passo][1]);passo++;}
-      if(volta===VOLTAS-1&&t>=PARA_EM)return acabar();
-      quadro=requestAnimationFrame(anda);
-    }
-    function decidir(){
-      var deve=pronto&&visto&&!pausado&&!acabou&&!document.hidden;
-      if(deve===ativo)return;
-      ativo=deve;
-      if(deve){
-        var p=video.play();if(p&&p.catch)p.catch(function(e){ativo=false;if(e&&e.name==='NotAllowedError'){pausado=true;marcarBotao();}});
-        quadro=requestAnimationFrame(anda);avisar('segue');
-      }else{video.pause();cancelAnimationFrame(quadro);quadro=0;if(!acabou)avisar('pausa');}
-    }
-    function trocar(){
-      var em=video.currentTime||0, tocava=ativo;
-      video.src='heroi-'+nome()+'.mp4';
-      video.addEventListener('loadedmetadata',function f(){video.removeEventListener('loadedmetadata',f);try{video.currentTime=em;}catch(e){}if(tocava)video.play().catch(function(){});},{once:true});
-    }
-    // Sem movimento: a imagem parada da Confira (a <picture> troca de "capa" para "parado").
-    if(reduce){
-      palco.querySelectorAll('.palco-capa source, .palco-capa img').forEach(function(s){var a=s.tagName==='IMG'?'src':'srcset';s[a]=s.getAttribute(a).replace('-capa-','-parado-');});
-      palco.classList.add('parado');return;
-    }
-    window.addEventListener('load',function(){
-      function ir(){
-        video.preload='auto';video.loop=true;trocar();
-        video.addEventListener('playing',function(){palco.classList.add('pronto');},{once:true});
-        video.addEventListener('canplay',function(){pronto=true;botao.hidden=false;marcarBotao();decidir();},{once:true});
-      }
-      if('requestIdleCallback' in window)requestIdleCallback(ir,{timeout:1500});else setTimeout(ir,200);
-    });
-    [largo,escuro].forEach(function(m){(m.addEventListener?m.addEventListener('change',trocar):m.addListener(trocar));});
-    botao.addEventListener('click',function(){
-      if(acabou){limpar();palco.classList.remove('ultima');acabou=false;pausado=false;volta=0;passo=0;antes=0;video.currentTime=0;}
-      else pausado=!pausado;
-      marcarBotao();decidir();
-    });
-    document.addEventListener('visibilitychange',decidir);
-    if('IntersectionObserver' in window){
-      new IntersectionObserver(function(en){
-        var e=en[0], cabe=Math.min(e.boundingClientRect.height,window.innerHeight)||1, dentro=e.intersectionRect.height/cabe;
-        if(dentro>=.6)visto=true;else if(dentro<.2)visto=false;
-        decidir();
-      },{threshold:[0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1]}).observe(palco);
-    }else visto=true;
-  })();
-
-  window.addEventListener('load',function(){
-    if(reduce){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in');});return;}
-    document.querySelectorAll('.hero .reveal').forEach(function(e,i){setTimeout(function(){e.classList.add('in');},120+i*110);});
-
-    var targets=Array.prototype.slice.call(document.querySelectorAll('.reveal')).filter(function(e){return !e.closest('.hero');});
-    if(!('IntersectionObserver' in window)){targets.forEach(function(e){e.classList.add('in');});return;}
-    var counts=new Map();
-    targets.forEach(function(e){
-      var p=e.parentElement;
-      var idx=counts.get(p)||0;
-      e.style.transitionDelay=Math.min(idx*70,280)+'ms';
-      counts.set(p,idx+1);
-    });
-    var io=new IntersectionObserver(function(entries,obs){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){entry.target.classList.add('in');obs.unobserve(entry.target);}
-      });
-    },{threshold:.15,rootMargin:'0px 0px -60px 0px'});
-    targets.forEach(function(e){io.observe(e);});
-  });
-
-  /* O TRILHO. Mede, não calcula: a posição de cada número é lida da tela, e
-     refeita sempre que a jornada muda de tamanho (imagem que termina de baixar,
-     fonte que chega, giro do celular). A "linha de chegada" fica a 55% da
-     altura da tela: o fio se enche até ela, e o número que ela já passou
-     acende — os dois usam a mesma conta, então o fio chega JUNTO com o número.
-     No computador o fio sai de baixo do aparelho do herói; no celular, que não
-     tem aparelho centralizado em cima, ele começa no número 1.
-
-     O GUIA usa estas MESMAS medidas, publicadas em `j.trilho` a cada quadro (com
-     o evento "trilho"): assim ele reage no instante em que o número acende. Aqui
-     só se calcula onde ele senta (`paradas`: em cima de cada número) e onde ele
-     estaciona antes de tudo; quem o faz andar é o mascote.js. Até ele chegar, e
-     sempre com "reduzir movimento", o mascote fica estacionado e parado.
-     No computador ele estaciona SENTADO EM CIMA DO APARELHO do topo, assistindo ao laço;
-     `fone` é onde o aparelho termina, para o guia saber quando passa atrás dele (ao descer
-     para o fio, ele some atrás do aparelho e sai embaixo, onde o fio nasce). No celular o
-     aparelho não fica na linha do fio, e ele começa sentado no número 1. */
-  (function(){
-    var j=document.querySelector('.jornada'); if(!j)return;
-    var trilho=j.querySelector('.trilho'), cheio=trilho.firstElementChild, guia=j.querySelector('.guia');
-    var nos=Array.prototype.slice.call(j.querySelectorAll('.no'));
-    var largo=window.matchMedia('(min-width:901px)');
-    var aparelho=null;
-    var topo=0, alt=0, centros=[], paradas=[], ini=0, fone=NaN, medida=0, agendado=false;
-    function pintar(){
-      agendado=false;
-      var linha=window.innerHeight*.55-j.getBoundingClientRect().top;
-      var p=alt?Math.min(1,Math.max(0,(linha-topo)/alt)):0;
-      cheio.style.transform='scaleY('+p+')';
-      var ativo=0;
-      for(var i=0;i<nos.length;i++){var on=centros[i]<=linha;nos[i].classList.toggle('on',on);if(on)ativo=i+1;}
-      j.trilho={linha:linha,ativo:ativo,centros:centros,paradas:paradas,ini:ini,fone:fone,medida:medida};
-      j.dispatchEvent(new Event('trilho'));
-    }
-    function medir(){
-      var jt=j.getBoundingClientRect().top;
-      centros=nos.map(function(n){var r=n.getBoundingClientRect();return r.top+r.height/2-jt;});
-      topo=largo.matches?0:centros[0];
-      alt=Math.max(0,centros[centros.length-1]-topo);
-      trilho.style.top=topo+'px';trilho.style.height=alt+'px';
-      if(guia){
-        /* Sentado: a base do rosto encosta no topo do número (ou do aparelho) e afunda 8% nele. */
-        var tam=guia.offsetHeight;
-        paradas=nos.map(function(n,i){return centros[i]-n.offsetHeight/2-tam*.42;});
-        var ra=largo.matches&&aparelho?aparelho.getBoundingClientRect():null;
-        fone=ra?ra.bottom-jt:NaN;
-        ini=ra?ra.top-jt-tam*.42:paradas[0];
-        if(!('vivo' in guia.dataset))guia.style.transform='translate3d(0,'+(ini-tam/2).toFixed(1)+'px,0)';
-        guia.classList.add('pronta');
-      }
-      medida++;
-      pintar();
-    }
-    window.addEventListener('scroll',function(){if(!agendado){agendado=true;requestAnimationFrame(pintar);}},{passive:true});
-    window.addEventListener('resize',medir);
-    if('ResizeObserver' in window)new ResizeObserver(medir).observe(j);
-    medir();
-  })();
-
-  /* Um mascote por vez: enquanto o da abertura está à vista, o do trilho fica apagado. */
-  (function(){
-    var h=document.querySelector('.heroi-mascote'), j=document.querySelector('.jornada');
-    if(!h||!j||!('IntersectionObserver' in window))return;
-    new IntersectionObserver(function(en){j.classList.toggle('heroi-a-vista',en[0].isIntersecting);}).observe(h);
-  })();
-
-  /* O motor do guia chega por último: depois do `load`, quando o navegador folga. Quem
-     abre a página não paga por ele antes de ver o topo. */
-  window.addEventListener('load',function(){
-    if(reduce||!document.querySelector('.guia'))return;
-    function pedir(){['mascote.js','heroi.js'].forEach(function(f){var s=document.createElement('script');s.src=f;s.async=true;document.body.appendChild(s);});}
-    if('requestIdleCallback' in window)requestIdleCallback(pedir,{timeout:2000});else setTimeout(pedir,300);
-  });
-
-</script>
-<script src="suporte.js" defer></script>
 <script src="origem.js" defer></script>
 <script src="medicao.js" defer></script>
 <script src="rastreio.js" defer></script>
+<script src="demo.js" defer></script>
 </body>
 </html>
