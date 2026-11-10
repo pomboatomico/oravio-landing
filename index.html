@@ -90,10 +90,10 @@
     <div class="wrap heroi-grade">
       <div class="heroi-texto">
         <h1>O cliente perguntou quanto fica?<br> Mande o orçamento pronto, na hora.</h1>
-        <p class="heroi-apoio">Você conta o pedido do jeito que o cliente pediu. O Oravio monta com os seus preços e sai o PDF com a sua marca, pronto para o WhatsApp.</p>
+        <p class="heroi-apoio">Conte o pedido, falando ou escrevendo. O Oravio monta com os seus preços e entrega o PDF pronto para o WhatsApp.</p>
         <div class="heroi-acao" id="heroi-acao">
           <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primario">Criar conta grátis</a>
-          <p class="garantia">Sem cartão. Tem plano Grátis para sempre, e os primeiros 7 dias vêm com tudo liberado.</p>
+          <p class="garantia">Sem cartão. O plano Grátis não tem prazo.</p>
         </div>
       </div>
 
@@ -110,11 +110,8 @@
         <p class="rotulo">O cliente pergunta no WhatsApp:</p>
         <p class="balao" id="demo-balao">Oi! Quanto fica a revisão do Onix? Óleo, pastilha da frente e amortecedor.</p>
 
-        <p class="rotulo">Você conta no Oravio, falando ou escrevendo:</p>
+        <p class="rotulo">Você conta no Oravio:</p>
         <p class="frase"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19v3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><rect x="9" y="2" width="6" height="13" rx="3"/></svg><span class="frase-texto" id="demo-frase">Orçamento pra Carla Mendes. Troca de óleo com filtro, pastilha de freio da frente e amortecedores da frente.</span></p>
-
-        <button type="button" class="btn btn-primario btn-largo btn-montar" id="demo-montar">Montar orçamento</button>
-        <p class="procurando" id="demo-procurando" aria-hidden="true"></p>
 
         <div class="folha">
           <p class="folha-cabeca"><span class="folha-titulo">Orçamento</span><span class="folha-cliente" id="demo-cliente">Carla Mendes</span></p>
@@ -125,13 +122,16 @@
               <li class="item"><span class="item-qtd">1×</span><span>Amortecedores dianteiros (par)</span><span class="item-preco">R$ 1.290,00</span></li>
             </ul>
             <p class="itens-vazio">Os itens entram aqui, com os preços da sua tabela.</p>
+            <p class="procurando" id="demo-procurando" aria-hidden="true"></p>
             <p class="total"><span>Total</span><strong id="demo-total">R$ 1.919,90</strong></p>
           </div>
         </div>
         <p class="so-leitor" id="demo-aviso" aria-live="polite"></p>
 
+        <!-- O botão "Montar" e o convite dividem o mesmo lugar, no pé da caixa: um sai, o outro entra. -->
+        <button type="button" class="btn btn-primario btn-largo btn-montar" id="demo-montar">Montar orçamento</button>
         <div class="fim">
-          <p class="saidas">Sai em PDF com a sua marca, com o QR do PIX e um link para o cliente aceitar.</p>
+          <p class="saidas">Sai em PDF com a sua marca, QR do PIX e link para o cliente aceitar.</p>
           <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primario btn-largo">Fazer com os meus preços</a>
           <button type="button" class="de-novo" id="demo-de-novo">Montar de novo</button>
         </div>
@@ -144,84 +144,68 @@
   <section class="secao secao-alt" id="passos">
     <div class="wrap">
       <div class="secao-cabeca">
-        <h2>Do pedido ao "aceito", sem papel e sem planilha</h2>
-        <p>Serve para qualquer negócio que manda orçamento com tabela de preços: oficina, salão, clínica, assistência técnica, elétrica, locação e por aí vai.</p>
+        <h2>Do pedido ao “aceito”, em quatro passos</h2>
+        <p>Para qualquer negócio que trabalha com tabela de preços.</p>
       </div>
       <ol class="passos">
         <li class="passo">
           <div class="passo-tela"><picture><source srcset="fale-gravando-escuro.webp" media="(prefers-color-scheme: dark)"><img src="fale-gravando-claro.webp" width="705" height="1320" loading="lazy" alt="Tela inicial do Oravio gravando o pedido, com os últimos orçamentos e o faturamento do mês"></picture></div>
           <span class="passo-num" aria-hidden="true">1</span>
           <h3>Conte o pedido</h3>
-          <p>Fale ou escreva do jeito que o cliente pediu. Não precisa decorar código nem procurar item por item.</p>
+          <p>Fale ou escreva do jeito que o cliente pediu.</p>
         </li>
         <li class="passo">
           <div class="passo-tela"><picture><source srcset="confira-itens-escuro.webp" media="(prefers-color-scheme: dark)"><img src="confira-itens-claro.webp" width="705" height="1320" loading="lazy" alt="Tela de conferir: cliente Carla Mendes, três itens com preço e o total de R$ 1.919,90"></picture></div>
           <span class="passo-num" aria-hidden="true">2</span>
           <h3>Confira</h3>
-          <p>Os itens chegam com os preços da sua tabela. A IA não inventa preço: você confere, ajusta e salva.</p>
+          <p>Os itens chegam com os preços da sua tabela. Nada é inventado.</p>
         </li>
         <li class="passo">
           <div class="passo-tela"><picture><source srcset="passo-pdf-escuro.webp" media="(prefers-color-scheme: dark)"><img src="passo-pdf-claro.webp" width="700" height="886" loading="lazy" alt="PDF do orçamento com a logo da oficina, os itens, o total e o QR Code do PIX"></picture></div>
           <span class="passo-num" aria-hidden="true">3</span>
           <h3>Envie</h3>
-          <p>PDF com a sua logo e o QR do PIX, ou um link que o cliente abre no navegador, sem instalar nada.</p>
+          <p>PDF com a sua logo e o QR do PIX, ou um link que o cliente só abre.</p>
         </li>
         <li class="passo">
           <div class="passo-tela"><picture><source srcset="passo-aceite-escuro.webp" media="(prefers-color-scheme: dark)"><img src="passo-aceite-claro.webp" width="522" height="1035" loading="lazy" alt="Aviso no app: Carla aceitou pelo link, R$ 1.919,90"></picture></div>
           <span class="passo-num" aria-hidden="true">4</span>
           <h3>Acompanhe</h3>
-          <p>Você vê quando o cliente abriu e quando aceitou. Nada de ficar perguntando "e aí, fechou?".</p>
+          <p>Você vê quando o cliente abriu e quando aceitou.</p>
         </li>
       </ol>
     </div>
   </section>
 
   <!-- 3. O GRÁTIS (10/11/2026, pedido do dono: "não quero que pareça obrigado a ter um plano pago").
-       O Grátis aparece como plano de verdade, não como consolação do fim do teste: primeiro a linha
-       do tempo da conta (hoje, 8º dia, depois), depois o que o Grátis faz e o que o pago acrescenta.
+       O Grátis aparece como plano de verdade, não como consolação do fim do teste: uma frase
+       sobre o que acontece com a conta e, embaixo, o que o Grátis faz e o que o pago acrescenta.
+       (A linha do tempo "hoje, 8º dia, depois" saiu no mesmo dia: repetia a frase e pesava a leitura.)
        Os números repetem PLANO_GRATIS e SO_NOS_PAGOS da vitrine do app (oravio:
        src/components/secao-plano.tsx) e a planos.html. Mudou lá, muda aqui no mesmo dia. -->
   <section class="secao" id="gratis">
     <div class="wrap">
       <div class="secao-cabeca">
         <h2>Dá para usar sem pagar nada</h2>
-        <p>O plano Grátis não é um teste que acaba. É um plano de verdade, sem prazo, para quem faz poucos orçamentos por mês. Pagar só faz sentido quando o Oravio já estiver trabalhando para você.</p>
+        <p>A conta nasce sem cartão, com 7 dias de tudo liberado. Depois, passa sozinha para o Grátis: nada é cobrado e nada é apagado.</p>
       </div>
-
-      <ol class="linha">
-        <li>
-          <h3>Hoje</h3>
-          <p>Você cria a conta, sem cartão. Nos primeiros 7 dias, tudo fica liberado para você testar com calma.</p>
-        </li>
-        <li>
-          <h3>No 8º dia</h3>
-          <p>A conta passa sozinha para o Grátis. Nada é cobrado e nada é apagado: orçamentos, clientes e tabela continuam lá.</p>
-        </li>
-        <li>
-          <h3>Depois</h3>
-          <p>Você segue no Grátis pelo tempo que quiser. Se o movimento crescer, assina um plano. Se não crescer, não precisa.</p>
-        </li>
-      </ol>
 
       <div class="comparar">
         <div class="comparar-col">
           <h3>No Grátis <span class="preco">R$ 0 por mês</span></h3>
           <ul>
-            <li>5 orçamentos por mês, falando, escrevendo ou à mão</li>
-            <li>Tabela de preços com até 30 itens</li>
-            <li>PDF com a sua logo e um selo pequeno do Oravio</li>
-            <li>QR do PIX no orçamento</li>
-            <li>Link para o cliente aceitar</li>
+            <li>5 orçamentos por mês</li>
+            <li>Tabela com até 30 itens</li>
+            <li>PDF com a sua logo e o selo do Oravio</li>
+            <li>QR do PIX e link para o cliente aceitar</li>
           </ul>
         </div>
         <div class="comparar-col comparar-pago">
           <h3>Nos planos pagos <span class="preco">a partir de R$ 29,90 por mês</span></h3>
           <ul>
             <li>Orçamentos sem limite</li>
-            <li>Tabela de preços com 300 itens ou sem limite</li>
+            <li>Tabela com 300 itens ou sem limite</li>
             <li>PDF só com a sua marca</li>
             <li>Aviso no celular quando o cliente abre</li>
-            <li>Sugestão dos itens que costumam ir junto</li>
           </ul>
         </div>
       </div>
@@ -274,7 +258,7 @@
   <section class="secao final" id="final">
     <div class="wrap">
       <h2>Seu próximo orçamento pode sair antes de o cliente ir embora</h2>
-      <p>Crie a conta, cadastre os itens que você mais vende e mande o primeiro hoje. Sem cartão, e sem prazo para começar a pagar.</p>
+      <p>Crie a conta e mande o primeiro hoje. Sem cartão.</p>
       <div class="final-acoes">
         <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primario">Criar conta grátis</a>
         <a class="zap" data-track="whatsapp" href="https://wa.me/558688197951?text=Oi%21%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20Oravio.">Prefere perguntar antes? Chame no WhatsApp</a>
