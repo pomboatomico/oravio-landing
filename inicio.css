@@ -3,15 +3,23 @@
    Plano no repositório do app: docs/planos/027-landing-conversao.md.
 
    O QUE ELA FAZ: uma promessa só (a do anúncio), uma DEMONSTRAÇÃO que a pessoa toca antes de
-   criar conta, telas reais em quatro passos, "sem pegadinha" (teste, Grátis depois, preço) e
+   criar conta, telas reais em quatro passos, o plano Grátis explicado como plano de verdade e
    dúvidas. Um botão só ("Criar conta grátis"), repetido, e barra fixa no celular.
+
+   A CARA (v5.1, 10/11/2026, "tirar o aspecto de feito por IA"): a mesma do app, não a de um
+   modelo de landing. Por isso:
+   - títulos na Source Serif 4, a serifa do app (só de 20px pra cima, a regra do app em
+     docs/marca-temas.md); o resto na fonte do sistema, como no app;
+   - uma peça só chama atenção: a FOLHA do orçamento se montando na demonstração. O resto
+     é quieto: sem etiqueta em cima de título, sem pedaço de título colorido, sem frases
+     soltas com "·", sem fileira de cartões iguais com ícone, sem sombra cinza em tudo;
+   - número só onde há sequência de verdade (os passos e a linha do tempo da conta).
 
    Só a home usa este arquivo. As outras páginas (planos, ajuda, artigos, termos) continuam no
    estilo.css; os tokens abaixo são os mesmos de lá, que por sua vez vêm do app
    (src/app/globals.css). Regras herdadas que valem aqui:
    - 1rem = 10px (a régua do html), nada de px novo fora linha de 1px;
    - --green só PREENCHE; texto e ícone verdes usam --green-text;
-   - Sora só nos títulos; o resto na fonte do sistema;
    - o tema segue o aparelho, sem botão.
    ============================================================ */
 :root{
@@ -20,36 +28,35 @@
   --line:#dde4e0; --line-suave:rgba(19,36,32,.08);
   --green:#18b98a; --green-text:#0b7d5c; --green-fill:#e6f7f1; --on-green:#132420;
   --text:#132420; --muted:#5f6e66;
-  --anel:rgba(24,185,138,.2);
-  --shadow-card:0 2.4rem 6rem -2.8rem rgba(19,36,32,.3);
-  --shadow-sm:0 1.8rem 4rem -1.8rem rgba(19,36,32,.3);
-  --contorno-img:oklch(0 0 0 / .1);
+  --seg-ativo:#ffffff;
+  --papel-sombra:0 .1rem .2rem rgba(19,36,32,.06),0 1.2rem 3.2rem -1.2rem rgba(19,36,32,.22);
   --entra:cubic-bezier(.2,0,0,1);
   --font-sans:-apple-system,BlinkMacSystemFont,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",Arial,sans-serif;
-  --font-titulo:'Sora',var(--font-sans);
+  --font-titulo:'Source Serif 4',Georgia,var(--font-sans);
   --maxw:112rem;
 }
 @media (prefers-color-scheme:dark){
   :root{
     color-scheme:dark;
-    --bg:#0b100e; --surface:#1a2420; --superficie:#1e2824;
+    --bg:#0b100e; --surface:#141c19; --superficie:#1e2824;
     --line:#2d3d37; --line-suave:rgba(45,61,55,.6);
     --green:#2de0ac; --green-text:#2de0ac; --green-fill:#0f3629;
     --text:#eef3f0; --muted:#9fb0a8;
-    --anel:rgba(45,224,172,.12);
-    --shadow-card:0 2.4rem 6rem -2.8rem rgba(0,0,0,.7);
-    --shadow-sm:0 1.8rem 4rem -1.8rem rgba(0,0,0,.55);
-    --contorno-img:oklch(1 0 0 / .1);
+    --seg-ativo:#2d3d37;
+    --papel-sombra:0 .1rem .2rem rgba(0,0,0,.4),0 1.6rem 4rem -1.6rem rgba(0,0,0,.8);
   }
 }
-@font-face{font-family:'Sora';font-style:normal;font-weight:600 800;font-display:swap;src:url(fonts/sora-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* Só 600 e 700, latin: os pesos que o app usa (src/app/layout.tsx). Licença em fonts/SourceSerif4-OFL.txt. */
+@font-face{font-family:'Source Serif 4';font-style:normal;font-weight:600 700;font-display:swap;src:url(fonts/source-serif-4-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
 *{box-sizing:border-box;margin:0;padding:0}
-html{font-size:62.5%;font-size:clamp(62.5%, min(62.5% + (100vw - 1440px) * .003125, 62.5% + (100vh - 650px) * .005), 81.25%);scroll-behavior:smooth}
+html{font-size:62.5%;font-size:clamp(62.5%, min(62.5% + (100vw - 1440px) * .003125, 62.5% + (100vh - 650px) * .005), 81.25%);scroll-behavior:smooth;accent-color:var(--green)}
 body{font-family:var(--font-sans);font-size:1.6rem;line-height:1.55;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3{font-family:var(--font-titulo);font-weight:700;letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
+::selection{background:var(--green-fill);color:var(--text)}
+h1,h2{font-family:var(--font-titulo);font-weight:600;letter-spacing:-.015em;line-height:1.12;text-wrap:balance}
+h3{font-weight:600;line-height:1.3;text-wrap:balance}
 p{text-wrap:pretty}
-a{color:inherit}
+a{color:inherit;text-underline-offset:.3rem;text-decoration-thickness:1px}
 img{display:block;max-width:100%;height:auto}
 button{font:inherit;color:inherit}
 :focus-visible{outline:.2rem solid var(--green);outline-offset:.3rem;border-radius:.4rem}
@@ -57,14 +64,14 @@ button{font:inherit;color:inherit}
 .so-leitor{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- Botões ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;min-height:5.2rem;padding:0 2.6rem;border-radius:1.2rem;border:1px solid transparent;font-weight:700;font-size:1.6rem;line-height:1.2;text-decoration:none;cursor:pointer;transition-property:scale,box-shadow,border-color;transition-duration:.15s;transition-timing-function:ease-out}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;min-height:5.2rem;padding:0 2.6rem;border-radius:1.2rem;border:1px solid transparent;font-weight:700;font-size:1.6rem;line-height:1.2;text-decoration:none;cursor:pointer;transition-property:scale,background-color,border-color;transition-duration:.15s;transition-timing-function:ease-out}
 .btn:active{scale:.96}
 .btn-primario{background:var(--green);color:var(--on-green)}
-.btn-primario:hover{box-shadow:var(--shadow-sm)}
+.btn-primario:hover{background:color-mix(in oklch,var(--green) 88%,var(--text))}
 .btn-contorno{background:transparent;border-color:var(--line);color:var(--text);font-weight:600}
-.btn-contorno:hover{border-color:var(--green)}
+.btn-contorno:hover{border-color:var(--text)}
 .btn-largo{width:100%}
-.garantia{margin-top:1.2rem;font-size:1.4rem;color:var(--muted)}
+.garantia{margin-top:1.4rem;font-size:1.5rem;color:var(--muted);max-width:44rem}
 
 /* ---------- Cabeçalho: marca e "Entrar". Sem menu: cada link a mais é uma saída. ---------- */
 .topo{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line-suave)}
@@ -78,57 +85,64 @@ button{font:inherit;color:inherit}
 @media (min-width:761px){.so-largo{display:inline}}
 
 /* ---------- Herói: promessa + demonstração ---------- */
-.heroi{padding:3.2rem 0 5.6rem}
-.heroi-grade{display:grid;gap:3.2rem;align-items:center}
+.heroi{padding:4rem 0 6.4rem}
+.heroi-grade{display:grid;gap:4rem;align-items:start}
 @media (min-width:960px){
-  .heroi{padding:6.4rem 0 8rem}
-  .heroi-grade{grid-template-columns:1.05fr .95fr;gap:6.4rem}
+  .heroi{padding:8rem 0 9.6rem}
+  .heroi-grade{grid-template-columns:1.15fr .85fr;gap:6.4rem}
+  .heroi-texto{position:sticky;top:12rem}
 }
-.selo{display:inline-block;font-size:1.3rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-text);margin-bottom:1.4rem}
-.heroi h1{font-size:clamp(3.2rem,8.4vw,5.4rem)}
-.heroi h1 em{font-style:normal;color:var(--green-text)}
-.heroi-apoio{margin-top:1.6rem;font-size:1.8rem;color:var(--muted);max-width:52rem}
-.heroi-acao{margin-top:2.8rem}
+.heroi h1{font-size:clamp(3.4rem,8.8vw,5.4rem)}
+.heroi-apoio{margin-top:2rem;font-size:1.8rem;color:var(--muted);max-width:50rem}
+.heroi-acao{margin-top:3.2rem}
 @media (max-width:480px){.heroi-acao .btn{width:100%}}
 
 /* ---------- A demonstração ----------
    Um orçamento de exemplo, montado na hora, SEM conta e SEM IA (dados fixos no demo.js).
-   O espaço do resultado é reservado desde o início (visibility, não display): os itens entram
-   sem empurrar a página. Os três exemplos têm três itens cada. */
-.demo{background:var(--surface);border:1px solid var(--line);border-radius:2.4rem;padding:2rem;box-shadow:var(--shadow-card)}
-.demo-titulo{font-family:var(--font-titulo);font-size:1.7rem;font-weight:700}
-.demo-sub{font-size:1.4rem;color:var(--muted);margin-top:.2rem}
-.ramos{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.4rem}
-.ramo{min-height:4.4rem;padding:0 1.6rem;border-radius:99rem;border:1px solid var(--line);background:var(--bg);font-size:1.4rem;font-weight:600;cursor:pointer;transition-property:background-color,border-color,color,scale;transition-duration:.15s;transition-timing-function:ease-out}
-.ramo:active{scale:.96}
-.ramo[aria-pressed="true"]{background:var(--green-fill);border-color:var(--green);color:var(--green-text)}
+   Em cima a conversa, embaixo a FOLHA: a peça que vai para o cliente, e a única da página
+   com sombra de papel. O espaço do resultado é reservado desde o início (visibility, não
+   display): os itens entram sem empurrar a página. Os três exemplos têm três itens cada. */
+.demo{background:var(--surface);border-radius:2.4rem;padding:2.4rem 2rem}
+@media (min-width:480px){.demo{padding:2.8rem}}
+.demo-titulo{font-family:var(--font-titulo);font-size:2.2rem;font-weight:700;letter-spacing:-.01em}
 
-.rotulo{display:block;font-size:1.2rem;font-weight:600;color:var(--muted);margin:1.8rem 0 .6rem}
-.balao{display:inline-block;max-width:92%;background:var(--bg);border:1px solid var(--line);border-radius:1.8rem 1.8rem 1.8rem .6rem;padding:1rem 1.4rem;font-size:1.5rem}
-.frase{display:flex;gap:1rem;align-items:flex-start;background:var(--bg);border:1px solid var(--line);border-radius:1.4rem;padding:1.2rem 1.4rem;min-height:7.2rem;font-size:1.5rem}
+/* Os ramos: controle segmentado, como os do app. */
+.ramos{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-top:1.6rem;padding:.4rem;background:var(--line-suave);border-radius:1.4rem}
+.ramo{min-height:4.4rem;padding:0 .8rem;border-radius:1rem;border:0;background:transparent;font-size:1.5rem;font-weight:600;color:var(--muted);cursor:pointer;transition-property:background-color,color,scale;transition-duration:.15s;transition-timing-function:ease-out}
+.ramo:hover{color:var(--text)}
+.ramo:active{scale:.96}
+.ramo[aria-pressed="true"]{background:var(--seg-ativo);color:var(--text);box-shadow:0 .1rem .3rem rgba(19,36,32,.12)}
+
+.rotulo{font-size:1.4rem;color:var(--muted);margin:2rem 0 .8rem}
+.balao{display:inline-block;max-width:92%;background:var(--superficie);border-radius:1.8rem 1.8rem 1.8rem .6rem;padding:1rem 1.4rem;font-size:1.5rem}
+.frase{display:flex;gap:1rem;align-items:flex-start;background:var(--superficie);border:1px solid var(--line);border-radius:1.4rem;padding:1.2rem 1.4rem;min-height:7.2rem;font-size:1.5rem}
 .frase svg{flex:none;margin-top:.2rem;color:var(--green-text)}
 .frase-texto:empty::before{content:"O pedido aparece aqui, do jeito que você falaria.";color:var(--muted)}
-.demo .btn-montar{margin-top:1.4rem}
+.demo .btn-montar{margin-top:1.6rem}
 .demo.montando .btn-montar,.demo.pronto .btn-montar{display:none}
-
-.resultado{margin-top:1.4rem;position:relative}
-.itens{list-style:none;min-height:16.8rem}
-.item{display:grid;grid-template-columns:3.2rem 1fr auto;gap:.8rem;align-items:baseline;padding:1rem 0;border-bottom:1px solid var(--line-suave);font-size:1.5rem;opacity:0;transform:translateY(.8rem);filter:blur(4px);transition-property:opacity,transform,filter;transition-duration:.3s;transition-timing-function:var(--entra)}
-.item.entra{opacity:1;transform:none;filter:none}
-.item-qtd{color:var(--muted);font-variant-numeric:tabular-nums}
-.item-preco{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
-.itens-vazio{position:absolute;inset:0 0 auto;min-height:16.8rem;display:grid;place-items:center;text-align:center;font-size:1.4rem;color:var(--muted);padding:0 2rem;border:1px dashed var(--line);border-radius:1.4rem}
-.demo.montando .itens-vazio,.demo.pronto .itens-vazio{display:none}
-.total{display:flex;justify-content:space-between;align-items:baseline;padding-top:1.2rem;visibility:hidden}
-.demo.montando .total,.demo.pronto .total{visibility:visible}
-.total span{font-size:1.4rem;color:var(--muted)}
-.total strong{font-family:var(--font-titulo);font-size:2.6rem;font-variant-numeric:tabular-nums}
 .procurando{font-size:1.4rem;color:var(--muted);min-height:2.2rem;margin-top:.8rem}
 
-.fim{margin-top:1.6rem;visibility:hidden;opacity:0;transform:translateY(.8rem);transition-property:opacity,transform,visibility;transition-duration:.3s;transition-timing-function:var(--entra)}
+/* A FOLHA do orçamento. */
+.folha{margin-top:.8rem;background:var(--superficie);border-radius:.6rem;padding:2rem 2rem 2.2rem;box-shadow:var(--papel-sombra)}
+.folha-cabeca{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--text)}
+.folha-titulo{font-family:var(--font-titulo);font-size:2.2rem;font-weight:700;letter-spacing:-.01em}
+.folha-cliente{font-size:1.4rem;color:var(--muted);text-align:right}
+.resultado{position:relative}
+.itens{list-style:none;min-height:15.6rem}
+.item{display:grid;grid-template-columns:3rem 1fr auto;gap:.8rem;align-items:baseline;padding:1rem 0;border-bottom:1px solid var(--line-suave);font-size:1.5rem;opacity:0;transform:translateY(.8rem);filter:blur(4px);transition-property:opacity,transform,filter;transition-duration:.3s;transition-timing-function:var(--entra)}
+.item.entra{opacity:1;transform:none;filter:none}
+.item-qtd{color:var(--muted);font-variant-numeric:tabular-nums}
+.item-preco{font-variant-numeric:tabular-nums;white-space:nowrap}
+.itens-vazio{position:absolute;inset:0 0 auto;min-height:15.6rem;display:grid;place-items:center;text-align:center;font-size:1.4rem;color:var(--muted);padding:0 2rem}
+.demo.montando .itens-vazio,.demo.pronto .itens-vazio{display:none}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding-top:1.4rem;visibility:hidden}
+.demo.montando .total,.demo.pronto .total{visibility:visible}
+.total span{font-size:1.4rem;color:var(--muted)}
+.total strong{font-family:var(--font-titulo);font-size:3rem;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+.fim{margin-top:2rem;visibility:hidden;opacity:0;transform:translateY(.8rem);transition-property:opacity,transform,visibility;transition-duration:.3s;transition-timing-function:var(--entra)}
 .demo.pronto .fim{visibility:visible;opacity:1;transform:none}
-.saidas{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.4rem}
-.saida{display:inline-flex;align-items:center;gap:.6rem;font-size:1.3rem;font-weight:600;color:var(--green-text);background:var(--green-fill);border-radius:99rem;padding:.6rem 1.2rem}
+.saidas{font-size:1.5rem;margin-bottom:1.4rem}
 .de-novo{display:block;margin:1rem auto 0;background:none;border:0;min-height:4.4rem;padding:0 1.2rem;font-size:1.4rem;color:var(--muted);text-decoration:underline;text-underline-offset:.3rem;cursor:pointer}
 .demo-nota{font-size:1.3rem;color:var(--muted);margin-top:1.2rem;text-align:center}
 
@@ -140,17 +154,18 @@ html:not(.js) .total,html:not(.js) .fim{visibility:visible;opacity:1;transform:n
 .js .demo:not(.vivo) .resultado,.js .demo:not(.vivo) .fim{visibility:hidden}
 
 /* ---------- Seções ---------- */
-.secao{padding:6.4rem 0}
+.secao{padding:7.2rem 0}
+@media (min-width:960px){.secao{padding:10.4rem 0}}
 .secao-alt{background:var(--surface)}
-.secao-cabeca{max-width:64rem;margin-bottom:3.6rem}
-.secao-cabeca h2{font-size:clamp(2.6rem,6vw,3.8rem)}
-.secao-cabeca p{margin-top:1.2rem;font-size:1.7rem;color:var(--muted)}
+.secao-cabeca{max-width:64rem;margin-bottom:4.8rem}
+.secao-cabeca h2{font-size:clamp(2.8rem,6.4vw,4.2rem)}
+.secao-cabeca p{margin-top:1.6rem;font-size:1.8rem;color:var(--muted)}
 
 /* Quatro passos, com telas reais (dados fictícios: a oficina Ribeiro Auto Center). */
-.passos{list-style:none;display:grid;gap:4rem}
+.passos{list-style:none;display:grid;gap:4rem;counter-reset:passo}
 @media (min-width:761px){.passos{grid-template-columns:repeat(2,1fr);gap:5.6rem 4rem}}
 @media (min-width:1100px){.passos{grid-template-columns:repeat(4,1fr);gap:3.2rem}}
-.passo-tela{display:flex;justify-content:center;align-items:flex-end;height:36rem;margin-bottom:2rem}
+.passo-tela{display:flex;justify-content:center;align-items:flex-end;height:36rem;margin-bottom:2.4rem}
 /* O <picture> some do layout: senão a altura da caixa não chega à imagem e ela vaza por cima. */
 .passo-tela picture{display:contents}
 .passo-tela img{height:100%;width:auto;max-width:100%;object-fit:contain}
@@ -160,37 +175,57 @@ html:not(.js) .total,html:not(.js) .fim{visibility:visible;opacity:1;transform:n
   .passo{display:grid;grid-template-columns:11rem 1fr;column-gap:1.8rem;align-items:start}
   .passo-tela{grid-column:1;grid-row:1 / span 3;height:21rem;margin:0}
   .passo>:not(.passo-tela){grid-column:2}
-  .passo-num{margin-top:2rem}
+  .passo-num{margin-top:1.6rem}
 }
-.passo-num{display:inline-grid;place-items:center;width:3.2rem;height:3.2rem;border-radius:99rem;background:var(--green);color:var(--on-green);font-weight:700;font-size:1.5rem;margin-bottom:1rem}
-.passo h3{font-size:2rem}
+/* O número do passo é tipografia, não um selo: a mesma serifa dos títulos, em verde. */
+.passo-num{display:block;font-family:var(--font-titulo);font-weight:700;font-size:3.2rem;line-height:1;color:var(--green-text);margin-bottom:.8rem;font-variant-numeric:lining-nums}
+.passo h3{font-family:var(--font-titulo);font-weight:700;font-size:2.2rem;letter-spacing:-.01em}
 .passo p{margin-top:.6rem;color:var(--muted)}
 
-/* Sem pegadinha: o que acontece no teste e depois dele. */
-.garantias{list-style:none;display:grid;gap:1.6rem}
-@media (min-width:761px){.garantias{grid-template-columns:repeat(3,1fr)}}
-.garantias li{background:var(--bg);border:1px solid var(--line);border-radius:1.8rem;padding:2.4rem}
-.garantias svg{color:var(--green-text);margin-bottom:1.2rem}
-.garantias h3{font-size:1.8rem}
-.garantias p{margin-top:.6rem;color:var(--muted)}
-.garantias-pe{margin-top:2.4rem;display:flex;flex-wrap:wrap;gap:1.2rem 2.4rem;align-items:center;font-size:1.5rem}
-.garantias-pe a{color:var(--green-text);font-weight:600;text-underline-offset:.3rem}
+/* ---------- O Grátis ---------- */
+/* A linha do tempo da conta: três marcos numa linha só (no celular, em pé). */
+.linha{list-style:none;display:grid;gap:0;position:relative;margin-bottom:6.4rem}
+.linha li{position:relative;padding:0 0 3.2rem 3.2rem;border-left:1px solid var(--line)}
+.linha li:last-child{padding-bottom:0;border-left-color:transparent}
+.linha li::before{content:"";position:absolute;left:-.6rem;top:.7rem;width:1.1rem;height:1.1rem;border-radius:50%;background:var(--bg);border:.2rem solid var(--green)}
+.linha li:first-child::before{background:var(--green)}
+@media (min-width:761px){
+  .linha{grid-template-columns:repeat(3,1fr);gap:4rem}
+  .linha li{padding:3.2rem 0 0;border-left:0;border-top:1px solid var(--line)}
+  .linha li:last-child{border-top-color:var(--line)}
+  .linha li::before{left:0;top:-.6rem}
+}
+.linha h3{font-family:var(--font-titulo);font-weight:700;font-size:2.4rem;letter-spacing:-.01em}
+.linha p{margin-top:.8rem;color:var(--muted);max-width:34rem}
+
+/* O que o Grátis faz e o que o pago acrescenta: duas colunas e uma linha entre elas, sem cartão. */
+.comparar{display:grid;gap:4rem}
+@media (min-width:761px){.comparar{grid-template-columns:1fr 1fr;gap:0}.comparar-pago{border-left:1px solid var(--line);padding-left:4rem}.comparar-col:first-child{padding-right:4rem}}
+.comparar h3{font-size:1.8rem;display:flex;flex-direction:column;gap:.2rem}
+.comparar .preco{font-family:var(--font-titulo);font-weight:700;font-size:3rem;letter-spacing:-.01em;line-height:1.2;order:2}
+.comparar-pago .preco{font-family:var(--font-sans);font-weight:600;font-size:1.8rem;color:var(--muted);line-height:1.5}
+.comparar ul{list-style:none;margin-top:2rem}
+.comparar li{position:relative;padding:1rem 0 1rem 2.8rem;border-top:1px solid var(--line-suave)}
+.comparar li::before{content:"";position:absolute;left:.2rem;top:1.65rem;width:1.2rem;height:.6rem;border-left:.2rem solid var(--green-text);border-bottom:.2rem solid var(--green-text);rotate:-45deg}
+.comparar-pago li::before{width:1rem;height:1rem;top:1.6rem;left:.3rem;border:0;rotate:0deg;background:linear-gradient(var(--muted),var(--muted)) center/100% .2rem no-repeat,linear-gradient(var(--muted),var(--muted)) center/.2rem 100% no-repeat}
+.gratis-pe{margin-top:4.8rem;display:flex;flex-wrap:wrap;gap:1.2rem 3.2rem;align-items:center;font-size:1.6rem}
+.gratis-pe a{color:var(--green-text);font-weight:600;min-height:4.4rem;display:inline-flex;align-items:center}
 
 /* Dúvidas. */
 .duvidas{max-width:76rem}
 .duvidas details{border-bottom:1px solid var(--line)}
-.duvidas summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1.6rem;min-height:6rem;padding:1.4rem 0;font-weight:600;font-size:1.7rem;cursor:pointer}
+.duvidas summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1.6rem;min-height:6.4rem;padding:1.4rem 0;font-weight:600;font-size:1.7rem;cursor:pointer}
 .duvidas summary::-webkit-details-marker{display:none}
 .duvidas summary svg{flex:none;color:var(--muted);transition:rotate .2s ease-out}
 .duvidas details[open] summary svg{rotate:45deg}
-.duvidas details p{padding:0 0 1.8rem;color:var(--muted);max-width:64rem}
+.duvidas details p{padding:0 0 2rem;color:var(--muted);max-width:64rem}
 
 /* Convite final. */
-.final{text-align:center}
-.final h2{font-size:clamp(2.8rem,6.4vw,4.2rem);max-width:64rem;margin:0 auto}
-.final p{margin:1.2rem auto 0;color:var(--muted);font-size:1.7rem;max-width:52rem}
-.final-acoes{margin-top:2.8rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
-.final-acoes a.zap{font-size:1.5rem;color:var(--muted);text-underline-offset:.3rem;min-height:4.4rem;display:inline-flex;align-items:center}
+.final h2{font-size:clamp(3rem,7vw,4.8rem);max-width:72rem}
+.final p{margin-top:1.6rem;color:var(--muted);font-size:1.8rem;max-width:56rem}
+.final-acoes{margin-top:3.2rem;display:flex;flex-wrap:wrap;align-items:center;gap:1.2rem 3.2rem}
+@media (max-width:480px){.final-acoes .btn{width:100%}}
+.final-acoes a.zap{font-size:1.5rem;color:var(--muted);min-height:4.4rem;display:inline-flex;align-items:center}
 
 /* Rodapé. */
 .rodape{border-top:1px solid var(--line);padding:3.2rem 0 4rem;font-size:1.4rem;color:var(--muted)}
