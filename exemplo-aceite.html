@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exemplo de orçamento recebido — Oravio</title>
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b100e" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Veja o que o seu cliente recebe pelo WhatsApp e toque em Aceitar, como ele faria. Exemplo da oficina Ribeiro Auto Center, com dados fictícios.">
+<!-- Exemplo, não é para buscador: a página real do cliente também não é indexada. -->
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://oravio.com.br/exemplo-aceite.html">
+<link rel="preload" href="fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="estilo.css">
+<link rel="stylesheet" href="exemplo-aceite.css">
+<!-- Medição de visitas (Umami, sem cookies). O ID não é segredo. Toques nos botões: medicao.js. -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="9f0b3a62-4182-475e-bf6d-a09412da9a50" data-domains="oravio.com.br,www.oravio.com.br"></script>
+</head>
+<body class="ex-pagina">
+
+<!-- A FAIXA DE AVISO: a única parte que não existe na página real do cliente. Diz o que é
+     isto e some de vista quando a pessoa rola; a página embaixo é uma cópia da verdadeira
+     (app: src/app/o/[token]/page.tsx), com dados fictícios. -->
+<div class="ex-aviso">
+  <p><strong>Exemplo.</strong> Você é a Carla, cliente da oficina. Toque em <em>Aceitar</em>.</p>
+  <a href="index.html" class="ex-voltar">Voltar</a>
+</div>
+
+<main class="ex-main">
+  <div class="ex-coluna">
+
+    <header class="ex-quem">
+      <h1>Ribeiro Auto Center</h1>
+      <p>11 3000-0000 · Av. Brasil, 1450 · Vila Nova</p>
+    </header>
+
+    <article class="ex-cartao">
+      <div class="ex-topo">
+        <p class="ex-rotulo">Orçamento #ORC-2026-0142</p>
+        <p class="ex-cliente">Carla Mendes</p>
+        <p class="ex-apoio">Emitido em 15/10/2026</p>
+      </div>
+
+      <div class="ex-item">
+        <div>
+          <p class="ex-item-nome">Troca de óleo 5W30 + filtro</p>
+          <p class="ex-apoio">Óleo sintético 5W30, filtro novo e mão de obra.</p>
+        </div>
+        <p class="ex-preco">R$&nbsp;289,90</p>
+      </div>
+      <div class="ex-item">
+        <div>
+          <p class="ex-item-nome">Pastilha de freio dianteira (par)</p>
+          <p class="ex-apoio">Par de pastilhas com mão de obra.</p>
+        </div>
+        <p class="ex-preco">R$&nbsp;340,00</p>
+      </div>
+      <div class="ex-item">
+        <div>
+          <p class="ex-item-nome">Amortecedores dianteiros (par)</p>
+          <p class="ex-apoio">Par de amortecedores, kit de batente e mão de obra.</p>
+        </div>
+        <p class="ex-preco">R$&nbsp;1.290,00</p>
+      </div>
+
+      <div class="ex-conta">
+        <span>3 itens</span>
+        <span>Soma <strong>R$&nbsp;1.919,90</strong></span>
+      </div>
+
+      <div class="ex-obs">
+        <h2 class="ex-rotulo">Observações</h2>
+        <p>Garantia de 90 dias em peças e mão de obra.</p>
+      </div>
+
+      <!-- O CANHOTO: o que é sobre pagar, no papel claro nos dois temas, como no app. -->
+      <section class="ex-canhoto" aria-label="Para pagar">
+        <span class="ex-luas" aria-hidden="true"></span>
+        <h2 class="ex-rotulo">Para pagar</h2>
+        <p class="ex-total">R$&nbsp;1.919,90</p>
+        <dl>
+          <div><dt>Válido até</dt><dd><strong>14/11/2026</strong></dd></div>
+          <div><dt>Condições</dt><dd>À vista no PIX ou em 3x no cartão.</dd></div>
+          <div><dt>Recebedor</dt><dd><strong>Ribeiro Auto Center</strong></dd></div>
+        </dl>
+        <!-- Sem chave PIX nem QR: a chave seria inventada e o banco diria "chave não
+             encontrada". No exemplo, o foco é o Aceitar. -->
+      </section>
+    </article>
+
+    <!-- A RESPOSTA: o botão vira a pergunta, e a pergunta vira o "aceito", como na página
+         real (aceitar-orcamento.tsx). Nada é gravado: é só a tela, e some ao recarregar. -->
+    <div class="ex-aceite" id="aceite" aria-live="polite">
+      <div data-estado="pode">
+        <button type="button" class="ex-aceitar" id="ex-aceitar" data-track="aceite-exemplo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          Aceitar orçamento
+        </button>
+        <p class="ex-apoio ex-centro">Ao aceitar, Ribeiro Auto Center vê a sua resposta no app.</p>
+      </div>
+
+      <section class="ex-confirma" data-estado="confirmando" hidden>
+        <p class="ex-item-nome">Aceitar o orçamento de R$&nbsp;1.919,90?</p>
+        <p class="ex-apoio">Ribeiro Auto Center vai ver que você aceitou.</p>
+        <label class="ex-campo">
+          <span class="ex-rotulo">Seu nome</span>
+          <input type="text" value="Carla Mendes" maxlength="80" autocomplete="off" aria-label="Seu nome">
+        </label>
+        <div class="ex-botoes">
+          <button type="button" class="ex-voltar-botao" id="ex-voltar-pergunta">Voltar</button>
+          <button type="button" class="ex-sim" id="ex-sim">Sim, aceitar</button>
+        </div>
+      </section>
+
+      <section class="ex-aceito" data-estado="aceito" hidden>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        <div>
+          <p class="ex-item-nome">Orçamento aceito</p>
+          <p class="ex-apoio-tinta">Pronto. Ribeiro Auto Center já pode ver que você aceitou.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- O QUE ACONTECEU DO OUTRO LADO: aparece só depois do aceite. É a hora de maior
+         vontade, então o convite fica aqui e não antes. -->
+    <section class="ex-depois" id="depois" hidden>
+      <h2>Do lado da oficina</h2>
+      <p>O Paulo, dono da oficina, recebe o aviso na hora e o orçamento passa a constar como <strong>Aceito</strong> no app dele. Ninguém precisou mandar mensagem.</p>
+      <p>É isso que o Oravio faz com cada orçamento que você enviar.</p>
+      <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primary">Criar conta grátis</a>
+      <p class="ex-apoio">Sem cartão. Dá para usar sem pagar nada.</p>
+    </section>
+
+    <p class="ex-rodape"><a href="index.html">Voltar para o início</a></p>
+  </div>
+</main>
+
+<script src="exemplo-aceite.js" defer></script>
+<script src="medicao.js" defer></script>
+</body>
+</html>

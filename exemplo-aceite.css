@@ -1,0 +1,87 @@
+/* ============================================================
+   EXEMPLO DE ACEITE (10/11/2026): a página que o cliente recebe pelo WhatsApp, copiada do app
+   (src/app/o/[token]/page.tsx e aceitar-orcamento.tsx) com os dados fictícios da oficina.
+   Só a faixa de aviso do topo e o bloco "Do lado da oficina" não existem na página real.
+
+   Tudo em rem (régua da landing). Cores dos tokens do estilo.css; o canhoto é papel claro nos
+   dois temas, como no app (--color-papel-*), por isso as cores dele são fixas.
+   ============================================================ */
+.ex-pagina{background:var(--bg);color:var(--text)}
+
+.ex-aviso{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding:1.2rem 2rem;background:var(--green-fill);border-bottom:1px solid var(--eyebrow-borda);font-size:1.4rem;line-height:1.4}
+.ex-aviso p{margin:0;color:var(--text)}
+.ex-voltar{flex:none;display:inline-flex;align-items:center;min-height:4.4rem;color:var(--green-text);font-weight:600}
+
+.ex-main{padding:3.2rem 1.6rem 6rem}
+.ex-coluna{max-width:58rem;margin:0 auto}
+
+.ex-quem{text-align:center;padding-bottom:2.4rem}
+.ex-quem h1{font-family:var(--font-titulo);font-size:2.6rem;font-weight:600;line-height:1.2;margin:0;text-wrap:balance}
+.ex-quem p{margin:.4rem 0 0;font-size:1.4rem;color:var(--muted);text-wrap:balance}
+
+.ex-cartao{overflow:hidden;border-radius:2.4rem;background:var(--superficie);box-shadow:var(--shadow-card)}
+.ex-topo,.ex-item,.ex-conta,.ex-obs{padding-left:2rem;padding-right:2rem}
+.ex-topo{padding-top:1.6rem;padding-bottom:1.6rem;border-bottom:1px solid var(--line)}
+.ex-rotulo{margin:0;font-size:1.2rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ex-cliente{margin:.6rem 0 0;font-size:1.6rem;font-weight:600}
+.ex-apoio{margin:.4rem 0 0;font-size:1.4rem;color:var(--muted);text-wrap:pretty}
+.ex-apoio-tinta{margin:.2rem 0 0;font-size:1.4rem;color:var(--text);text-wrap:pretty}
+.ex-centro{text-align:center;margin-top:1.2rem}
+
+.ex-item{display:flex;align-items:flex-start;justify-content:space-between;gap:1.6rem;padding-top:1.6rem;padding-bottom:1.6rem;border-bottom:1px solid var(--line)}
+.ex-item>div{min-width:0}
+.ex-item-nome{margin:0;font-size:1.6rem}
+.ex-item .ex-apoio{margin-top:.2rem}
+.ex-preco{flex:none;margin:0;font-size:1.6rem;font-weight:600;font-variant-numeric:tabular-nums}
+
+.ex-conta{display:flex;justify-content:space-between;gap:1.6rem;padding-top:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--line);font-size:1.4rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.ex-conta strong{color:var(--text)}
+.ex-obs{padding-top:1.6rem;padding-bottom:1.6rem}
+.ex-obs p{margin:.6rem 0 0;font-size:1.6rem;text-wrap:pretty}
+
+/* O canhoto: papel claro e tintas fixas, nos dois temas. */
+.ex-canhoto{position:relative;padding:2.8rem 2rem 2.4rem;background:#e6f7f1;color:#132420}
+.ex-canhoto .ex-rotulo{color:#5f6e66}
+.ex-total{margin:.4rem 0 0;font-family:var(--font-titulo);font-size:3.4rem;font-weight:700;line-height:1.1;color:#0b7d5c;font-variant-numeric:tabular-nums}
+.ex-canhoto dl{margin:1.6rem 0 0;display:flex;flex-direction:column;gap:1.2rem}
+.ex-canhoto dl div{display:block}
+.ex-canhoto dt{font-size:1.2rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5f6e66}
+.ex-canhoto dd{margin:.2rem 0 0;font-size:1.6rem}
+/* As duas meias-luas e o picote tracejado. */
+.ex-canhoto::before{content:"";position:absolute;left:1.6rem;right:1.6rem;top:0;border-top:2px dashed color-mix(in oklab,#0b7d5c 45%,white)}
+.ex-luas,.ex-canhoto::after{position:absolute;top:-1rem;width:2rem;height:2rem;border-radius:50%;background:var(--bg)}
+.ex-luas{left:-1rem}
+.ex-canhoto::after{content:"";right:-1rem}
+
+.ex-aceite{margin-top:2.4rem}
+.ex-aceite [hidden]{display:none}
+.ex-aceitar{display:flex;width:100%;align-items:center;justify-content:center;gap:.8rem;min-height:5.2rem;padding:1.4rem 2rem;border:0;border-radius:99rem;background:var(--green);color:var(--on-green);font:inherit;font-size:1.6rem;font-weight:600;cursor:pointer;transition:transform .14s ease}
+.ex-aceitar:active,.ex-sim:active,.ex-voltar-botao:active{transform:scale(.97)}
+
+.ex-confirma{padding:1.6rem 2rem;border-radius:2.4rem;background:var(--superficie);box-shadow:var(--shadow-card)}
+.ex-confirma .ex-item-nome{font-weight:600}
+.ex-campo{display:block;margin-top:1.6rem}
+.ex-campo input{display:block;width:100%;margin-top:.6rem;padding:1.2rem 1.6rem;border:0;border-radius:1.6rem;background:var(--bg);color:var(--text);font:inherit;font-size:1.6rem;outline:none}
+.ex-campo input:focus-visible{box-shadow:0 0 0 .3rem var(--anel)}
+.ex-botoes{display:flex;gap:1.2rem;margin-top:1.6rem}
+.ex-voltar-botao,.ex-sim{min-height:4.8rem;padding:1.2rem 2rem;border:0;border-radius:99rem;font:inherit;font-size:1.6rem;font-weight:600;cursor:pointer;transition:transform .14s ease}
+.ex-voltar-botao{background:var(--surface);color:var(--text)}
+.ex-sim{flex:1;background:var(--green);color:var(--on-green)}
+
+.ex-aceito{display:flex;align-items:flex-start;gap:1.2rem;padding:1.6rem 2rem;border-radius:2.4rem;background:var(--green-fill)}
+.ex-aceito svg{flex:none;margin-top:.2rem;color:var(--green-text)}
+.ex-aceito .ex-item-nome{font-weight:600}
+
+.ex-depois{margin-top:3.2rem;padding-top:2.4rem;border-top:1px solid var(--line)}
+.ex-depois h2{font-family:var(--font-titulo);font-size:2.2rem;font-weight:600;line-height:1.25;margin:0}
+.ex-depois p{margin:1.2rem 0 0;font-size:1.6rem;text-wrap:pretty}
+.ex-depois .btn{margin-top:2rem;width:100%;min-height:5.2rem}
+.ex-depois .ex-apoio{text-align:center}
+
+.ex-rodape{margin:3.2rem 0 0;text-align:center;font-size:1.4rem}
+.ex-rodape a{display:inline-flex;align-items:center;min-height:4.4rem;color:var(--muted)}
+
+@media (prefers-reduced-motion:no-preference){
+  .ex-aceite>*:not([hidden]),.ex-depois:not([hidden]){animation:ex-entra .28s var(--ease-out)}
+}
+@keyframes ex-entra{from{opacity:0}to{opacity:1}}

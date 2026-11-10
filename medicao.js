@@ -12,8 +12,9 @@
    `data-domains`, rede caída), `window.umami` não existe e o toque segue normalmente, sem erro.
    Botão novo de cadastro ou de WhatsApp precisa da marca `data-track`. */
 (function () {
-  // "pdf-exemplo": o link "Ver um orçamento de verdade" do passo 3 (só Umami; o Pixel ignora).
-  var EVENTOS = { 'cta-signup': true, 'whatsapp': true, 'pdf-exemplo': true };
+  // "pdf-exemplo": o link "Ver um orçamento de verdade" do passo 3. "aceite-exemplo": o link do
+  // passo 4 e o botão Aceitar da página de exemplo (só Umami; o Pixel ignora).
+  var EVENTOS = { 'cta-signup': true, 'whatsapp': true, 'pdf-exemplo': true, 'aceite-exemplo': true };
 
   document.addEventListener('click', function (e) {
     var alvo = e.target.closest && e.target.closest('[data-track]');
