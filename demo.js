@@ -14,16 +14,19 @@
 (function () {
   var EXEMPLOS = {
     oficina: {
+      cliente: 'Carla Mendes',
       balao: 'Oi! Quanto fica a revisão do Onix? Óleo, pastilha da frente e amortecedor.',
       frase: 'Orçamento pra Carla Mendes. Troca de óleo com filtro, pastilha de freio da frente e amortecedores da frente.',
       itens: [[1, 'Troca de óleo 5W30 + filtro', 28990], [1, 'Pastilha de freio dianteira (par)', 34000], [1, 'Amortecedores dianteiros (par)', 129000]]
     },
     salao: {
+      cliente: 'Júlia Prado',
       balao: 'Oi! Quanto fica progressiva com corte e hidratação?',
       frase: 'Orçamento pra Júlia Prado. Progressiva, corte e hidratação.',
       itens: [[1, 'Progressiva (cabelo médio)', 18000], [1, 'Corte feminino', 7000], [1, 'Hidratação', 6000]]
     },
     eletrica: {
+      cliente: 'Renato Dias',
       balao: 'Boa tarde! Quanto fica trocar 6 tomadas e instalar 2 ventiladores de teto?',
       frase: 'Orçamento pro Renato Dias. Trocar seis tomadas, instalar dois ventiladores de teto e um disjuntor novo.',
       itens: [[6, 'Troca de tomada', 3500], [2, 'Instalação de ventilador de teto', 12000], [1, 'Troca de disjuntor', 9000]]
@@ -39,6 +42,7 @@
     var ramos = demo.querySelectorAll('[data-ramo]');
     var balao = document.getElementById('demo-balao');
     var frase = document.getElementById('demo-frase');
+    var cliente = document.getElementById('demo-cliente');
     var lista = document.getElementById('demo-itens');
     var total = document.getElementById('demo-total');
     var procurando = document.getElementById('demo-procurando');
@@ -65,6 +69,7 @@
       ramos.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-ramo') === ramo)); });
       demo.classList.remove('montando', 'pronto');
       balao.textContent = ex.balao;
+      if (cliente) cliente.textContent = ex.cliente;
       frase.textContent = '';
       lista.textContent = '';
       total.textContent = brl(0);
