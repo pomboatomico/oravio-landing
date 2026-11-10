@@ -96,7 +96,7 @@
     --bochecha:#ff7a93; --brilho:#e8930f;
     /* A mesma cadeia do --font-sans do app; a Sora só entra nos títulos. */
     --font-sans:-apple-system,BlinkMacSystemFont,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    --font-titulo:'Sora',var(--font-sans);
+    --font-titulo:'Source Serif 4',Georgia,var(--font-sans);
   }
   @media (prefers-color-scheme:dark){
     :root{
@@ -139,7 +139,9 @@
      e só o recorte latino (cobre ç, ã, é e a pontuação). O texto corrido é a fonte do
      sistema, a mesma cadeia do app (--font-sans): San Francisco no iPhone, Roboto no
      Android. Licença da Sora (SIL OFL 1.1) em fonts/Sora-OFL.txt. */
-  @font-face{font-family:'Sora';font-style:normal;font-weight:600 800;font-display:swap;src:url(fonts/sora-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  /* Desde 10/11/2026 os títulos usam a Source Serif 4, a serifa do app (ver inicio.css e, no app,
+     docs/landing.md, "v5.1"). A Sora saiu do site. Licença em fonts/SourceSerif4-OFL.txt. */
+  @font-face{font-family:'Source Serif 4';font-style:normal;font-weight:600 700;font-display:swap;src:url(fonts/source-serif-4-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
   *{box-sizing:border-box;margin:0;padding:0}
   /* A RÉGUA DA PÁGINA. Todo tamanho aqui é `rem`, e 1rem = 10px — então
      `1.7rem` são 17px, conta de cabeça. Nada de `px` novo, fora linha de 1px:
@@ -154,7 +156,7 @@
   html{font-size:62.5%;font-size:clamp(62.5%, min(62.5% + (100vw - 1440px) * .003125, 62.5% + (100vh - 650px) * .005), 81.25%);scroll-behavior:smooth}
   body{font-family:var(--font-sans);font-size:1.6rem;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   /* Títulos em Sora; todo o resto herda a fonte do sistema do body. */
-  h1,h2,h3{font-family:var(--font-titulo)}
+  h1,h2{font-family:var(--font-titulo)}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 2.4rem}
   /* `height:auto` é obrigatório junto dos atributos width/height do HTML: eles
@@ -371,10 +373,10 @@
 
   /* Bandas */
   .band{padding:9.2rem 0;position:relative}
-  .band-head{max-width:68rem;margin:0 auto 5.4rem;text-align:center}
+  .band-head{max-width:68rem;margin:0 0 4rem}
   .kicker{display:inline-flex;align-items:center;gap:1rem;color:var(--green-text);font-size:1.25rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.8rem}
   .kicker::before{content:"";width:2.4rem;height:.2rem;background:var(--green);border-radius:.2rem}
-  h2{font-size:clamp(2.8rem,3.3vw,4.2rem);font-weight:700;letter-spacing:-.025em;line-height:1.07}
+  h2{font-size:clamp(2.8rem,3.3vw,4.2rem);font-weight:600;letter-spacing:-.015em;line-height:1.12}
   .band-head p{color:var(--muted);font-size:1.7rem;margin-top:1.6rem}
 
   /* ====== Os três passos ======
@@ -630,9 +632,9 @@
     .palco .laco-balao{transition:opacity .2s ease}}
 
 /* ====== Páginas internas (ajuda, privacidade, termos) ====== */
-.page-top{padding:6.6rem 0 4rem;text-align:center;border-bottom:1px solid var(--line-suave)}
-.page-top h1{font-size:clamp(3rem,4vw,4.6rem);font-weight:700;letter-spacing:-.025em;line-height:1.05}
-.page-top p{color:var(--muted);margin-top:1.4rem;font-size:1.7rem;max-width:52ch;margin-left:auto;margin-right:auto;text-wrap:balance}
+.page-top{padding:5.6rem 0 4rem;border-bottom:1px solid var(--line-suave)}
+.page-top h1{font-size:clamp(3.2rem,4.4vw,4.8rem);font-weight:600;letter-spacing:-.015em;line-height:1.1}
+.page-top p{color:var(--muted);margin-top:1.4rem;font-size:1.7rem;max-width:52ch;text-wrap:pretty}
 .doc{max-width:76rem;margin:0 auto;padding:6rem 0}
 .doc .updated{color:var(--muted);font-size:1.35rem;opacity:var(--esmaecer);margin-bottom:3.4rem}
 .doc h2{font-size:2.1rem;font-weight:700;margin:3.6rem 0 1.2rem;letter-spacing:-.01em}
@@ -691,11 +693,11 @@
 .plano-lista li::before{content:"";position:absolute;left:0;top:.35rem;width:1.6rem;height:1.6rem;background:var(--green-text);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat}
 .plano-btn{width:100%}
 .plano-nota{color:var(--muted);font-size:1.3rem;line-height:1.45;margin:-1.4rem 0 1.6rem;text-wrap:balance}
-.planos-todos{margin-top:4rem;text-align:center}
-.planos-todos h2{font-size:1.25rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green-text);font-family:var(--font-sans)}
-.planos-todos ul{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:1.6rem}
+.planos-todos{margin-top:4rem}
+.planos-todos h2{font-size:1.7rem;font-weight:600;letter-spacing:0;color:var(--text);font-family:var(--font-sans)}
+.planos-todos ul{list-style:none;display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.2rem}
 .planos-todos li{background:var(--surface);border:1px solid var(--line);border-radius:10rem;padding:.8rem 1.6rem;font-size:1.45rem;font-weight:500}
-.planos-garantia{color:var(--muted);text-align:center;font-size:1.45rem;max-width:56ch;margin:2.8rem auto 0;text-wrap:balance}
+.planos-garantia{color:var(--muted);font-size:1.45rem;max-width:64ch;margin:2.8rem 0 0;text-wrap:pretty}
 .planos-ja{max-width:76rem;margin-left:auto;margin-right:auto}
 .faq .ans a{color:var(--green-text);text-decoration:underline;text-underline-offset:.2em}
 @media (max-width:1060px){.planos-grade{grid-template-columns:repeat(2,1fr);gap:2.8rem 2rem}}
