@@ -177,8 +177,8 @@ html:not(.js) .fim{display:block}
 /* No celular, tela ao lado do texto: quatro passos empilhados com tela cheia davam quatro rolagens. */
 @media (max-width:760px){
   .passos{gap:3.2rem}
-  .passo{display:grid;grid-template-columns:11rem 1fr;grid-template-rows:auto auto 1fr;column-gap:1.8rem;align-items:start}
-  .passo-tela{grid-column:1;grid-row:1 / span 3;height:21rem;margin:0}
+  .passo{display:grid;grid-template-columns:11rem 1fr;grid-template-rows:auto auto auto 1fr;column-gap:1.8rem;align-items:start}
+  .passo-tela{grid-column:1;grid-row:1 / span 4;height:21rem;margin:0}
   .passo>:not(.passo-tela){grid-column:2}
   .passo-num{margin-top:1.6rem}
 }
@@ -186,6 +186,7 @@ html:not(.js) .fim{display:block}
 .passo-num{display:block;font-family:var(--font-titulo);font-weight:700;font-size:3.2rem;line-height:1;color:var(--green-text);margin-bottom:.8rem;font-variant-numeric:lining-nums}
 .passo h3{font-family:var(--font-titulo);font-weight:700;font-size:2.2rem;letter-spacing:-.01em}
 .passo p{margin-top:.6rem;color:var(--muted)}
+.passo-link{display:inline-flex;align-items:center;min-height:4.4rem;color:var(--green-text);font-weight:600}
 
 /* ---------- O Grátis ---------- */
 /* O que o Grátis faz e o que o pago acrescenta: duas colunas e uma linha entre elas, sem cartão. */
