@@ -89,8 +89,7 @@ button{font:inherit;color:inherit}
 .heroi-grade{display:grid;gap:4rem;align-items:start}
 @media (min-width:960px){
   .heroi{padding:8rem 0 9.6rem}
-  .heroi-grade{grid-template-columns:1.15fr .85fr;gap:6.4rem}
-  .heroi-texto{position:sticky;top:12rem}
+  .heroi-grade{grid-template-columns:1.15fr .85fr;gap:6.4rem;align-items:center}
 }
 .heroi h1{font-size:clamp(3.4rem,8.8vw,5.4rem)}
 .heroi-apoio{margin-top:2rem;font-size:1.8rem;color:var(--muted);max-width:50rem}
@@ -118,12 +117,14 @@ button{font:inherit;color:inherit}
 .frase{display:flex;gap:1rem;align-items:flex-start;background:var(--superficie);border:1px solid var(--line);border-radius:1.4rem;padding:1.2rem 1.4rem;min-height:7.2rem;font-size:1.5rem}
 .frase svg{flex:none;margin-top:.2rem;color:var(--green-text)}
 .frase-texto:empty::before{content:"O pedido aparece aqui, do jeito que você falaria.";color:var(--muted)}
-.demo .btn-montar{margin-top:1.6rem}
-.demo.montando .btn-montar,.demo.pronto .btn-montar{display:none}
-.procurando{font-size:1.4rem;color:var(--muted);min-height:2.2rem;margin-top:.8rem}
+.demo .btn-montar{margin-top:2rem}
+.demo.pronto .btn-montar{display:none}
+.btn:disabled{opacity:.5;cursor:default}
+/* "Procurando na sua tabela" aparece DENTRO da folha, no lugar dos itens: sem linha reservada fora. */
+.procurando{position:absolute;inset:0 0 auto;min-height:15.6rem;display:grid;place-items:center;text-align:center;font-size:1.4rem;color:var(--muted);pointer-events:none}
 
 /* A FOLHA do orçamento. */
-.folha{margin-top:.8rem;background:var(--superficie);border-radius:.6rem;padding:2rem 2rem 2.2rem;box-shadow:var(--papel-sombra)}
+.folha{margin-top:1.6rem;background:var(--superficie);border-radius:.6rem;padding:2rem 2rem 2.2rem;box-shadow:var(--papel-sombra)}
 .folha-cabeca{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--text)}
 .folha-titulo{font-family:var(--font-titulo);font-size:2.2rem;font-weight:700;letter-spacing:-.01em}
 .folha-cliente{font-size:1.4rem;color:var(--muted);text-align:right}
@@ -133,31 +134,35 @@ button{font:inherit;color:inherit}
 .item.entra{opacity:1;transform:none;filter:none}
 .item-qtd{color:var(--muted);font-variant-numeric:tabular-nums}
 .item-preco{font-variant-numeric:tabular-nums;white-space:nowrap}
-.itens-vazio{position:absolute;inset:0 0 auto;min-height:15.6rem;display:grid;place-items:center;text-align:center;font-size:1.4rem;color:var(--muted);padding:0 2rem}
+.itens-vazio{position:absolute;inset:0 0 auto;min-height:15.6rem;display:grid;place-items:center;text-align:center;text-wrap:balance;font-size:1.4rem;color:var(--muted);padding:0 2rem}
 .demo.montando .itens-vazio,.demo.pronto .itens-vazio{display:none}
 .total{display:flex;justify-content:space-between;align-items:baseline;padding-top:1.4rem;visibility:hidden}
 .demo.montando .total,.demo.pronto .total{visibility:visible}
 .total span{font-size:1.4rem;color:var(--muted)}
 .total strong{font-family:var(--font-titulo);font-size:3rem;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 
-.fim{margin-top:2rem;visibility:hidden;opacity:0;transform:translateY(.8rem);transition-property:opacity,transform,visibility;transition-duration:.3s;transition-timing-function:var(--entra)}
-.demo.pronto .fim{visibility:visible;opacity:1;transform:none}
+/* O convite só ocupa espaço quando aparece: entra no lugar do botão "Montar", no pé da caixa.
+   Reservar o espaço dele deixava um vazio grande antes da montagem (visto no celular em 10/11). */
+.fim{margin-top:2rem;display:none}
+.demo.pronto .fim{display:block;animation:fim-entra .3s var(--entra) both}
+@keyframes fim-entra{from{opacity:0;transform:translateY(.8rem)}}
 .saidas{font-size:1.5rem;margin-bottom:1.4rem}
 .de-novo{display:block;margin:1rem auto 0;background:none;border:0;min-height:4.4rem;padding:0 1.2rem;font-size:1.4rem;color:var(--muted);text-decoration:underline;text-underline-offset:.3rem;cursor:pointer}
-.demo-nota{font-size:1.3rem;color:var(--muted);margin-top:1.2rem;text-align:center}
+.demo-nota{font-size:1.3rem;color:var(--muted);margin-top:1.2rem;text-align:center;text-wrap:balance}
 
 /* Sem JavaScript (a classe .js vem do <head>): mostra o exemplo pronto, parado. Com
    JavaScript, o demo.js limpa e a pessoa monta. */
 html:not(.js) .demo .btn-montar,html:not(.js) .demo .itens-vazio,html:not(.js) .de-novo{display:none}
 html:not(.js) .item{opacity:1;transform:none;filter:none}
-html:not(.js) .total,html:not(.js) .fim{visibility:visible;opacity:1;transform:none}
+html:not(.js) .total{visibility:visible}
+html:not(.js) .fim{display:block}
 .js .demo:not(.vivo) .resultado,.js .demo:not(.vivo) .fim{visibility:hidden}
 
 /* ---------- Seções ---------- */
-.secao{padding:7.2rem 0}
-@media (min-width:960px){.secao{padding:10.4rem 0}}
+.secao{padding:5.6rem 0}
+@media (min-width:960px){.secao{padding:8.8rem 0}}
 .secao-alt{background:var(--surface)}
-.secao-cabeca{max-width:64rem;margin-bottom:4.8rem}
+.secao-cabeca{max-width:64rem;margin-bottom:4rem}
 .secao-cabeca h2{font-size:clamp(2.8rem,6.4vw,4.2rem)}
 .secao-cabeca p{margin-top:1.6rem;font-size:1.8rem;color:var(--muted)}
 
@@ -172,7 +177,7 @@ html:not(.js) .total,html:not(.js) .fim{visibility:visible;opacity:1;transform:n
 /* No celular, tela ao lado do texto: quatro passos empilhados com tela cheia davam quatro rolagens. */
 @media (max-width:760px){
   .passos{gap:3.2rem}
-  .passo{display:grid;grid-template-columns:11rem 1fr;column-gap:1.8rem;align-items:start}
+  .passo{display:grid;grid-template-columns:11rem 1fr;grid-template-rows:auto auto 1fr;column-gap:1.8rem;align-items:start}
   .passo-tela{grid-column:1;grid-row:1 / span 3;height:21rem;margin:0}
   .passo>:not(.passo-tela){grid-column:2}
   .passo-num{margin-top:1.6rem}
@@ -183,21 +188,6 @@ html:not(.js) .total,html:not(.js) .fim{visibility:visible;opacity:1;transform:n
 .passo p{margin-top:.6rem;color:var(--muted)}
 
 /* ---------- O Grátis ---------- */
-/* A linha do tempo da conta: três marcos numa linha só (no celular, em pé). */
-.linha{list-style:none;display:grid;gap:0;position:relative;margin-bottom:6.4rem}
-.linha li{position:relative;padding:0 0 3.2rem 3.2rem;border-left:1px solid var(--line)}
-.linha li:last-child{padding-bottom:0;border-left-color:transparent}
-.linha li::before{content:"";position:absolute;left:-.6rem;top:.7rem;width:1.1rem;height:1.1rem;border-radius:50%;background:var(--bg);border:.2rem solid var(--green)}
-.linha li:first-child::before{background:var(--green)}
-@media (min-width:761px){
-  .linha{grid-template-columns:repeat(3,1fr);gap:4rem}
-  .linha li{padding:3.2rem 0 0;border-left:0;border-top:1px solid var(--line)}
-  .linha li:last-child{border-top-color:var(--line)}
-  .linha li::before{left:0;top:-.6rem}
-}
-.linha h3{font-family:var(--font-titulo);font-weight:700;font-size:2.4rem;letter-spacing:-.01em}
-.linha p{margin-top:.8rem;color:var(--muted);max-width:34rem}
-
 /* O que o Grátis faz e o que o pago acrescenta: duas colunas e uma linha entre elas, sem cartão. */
 .comparar{display:grid;gap:4rem}
 @media (min-width:761px){.comparar{grid-template-columns:1fr 1fr;gap:0}.comparar-pago{border-left:1px solid var(--line);padding-left:4rem}.comparar-col:first-child{padding-right:4rem}}
@@ -208,7 +198,7 @@ html:not(.js) .total,html:not(.js) .fim{visibility:visible;opacity:1;transform:n
 .comparar li{position:relative;padding:1rem 0 1rem 2.8rem;border-top:1px solid var(--line-suave)}
 .comparar li::before{content:"";position:absolute;left:.2rem;top:1.65rem;width:1.2rem;height:.6rem;border-left:.2rem solid var(--green-text);border-bottom:.2rem solid var(--green-text);rotate:-45deg}
 .comparar-pago li::before{width:1rem;height:1rem;top:1.6rem;left:.3rem;border:0;rotate:0deg;background:linear-gradient(var(--muted),var(--muted)) center/100% .2rem no-repeat,linear-gradient(var(--muted),var(--muted)) center/.2rem 100% no-repeat}
-.gratis-pe{margin-top:4.8rem;display:flex;flex-wrap:wrap;gap:1.2rem 3.2rem;align-items:center;font-size:1.6rem}
+.gratis-pe{margin-top:3.2rem;display:flex;flex-wrap:wrap;gap:1.2rem 3.2rem;align-items:center;font-size:1.6rem}
 .gratis-pe a{color:var(--green-text);font-weight:600;min-height:4.4rem;display:inline-flex;align-items:center}
 
 /* Dúvidas. */
@@ -245,7 +235,8 @@ html:not(.js) .total,html:not(.js) .fim{visibility:visible;opacity:1;transform:n
 /* ---------- Menos movimento ---------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .item,.fim{transform:none;filter:none;transition-property:opacity,visibility;transition-duration:.15s}
+  .item{transform:none;filter:none;transition-property:opacity;transition-duration:.15s}
+  .demo.pronto .fim{animation:none}
   .barra{transition:none}
   .btn:active,.ramo:active{scale:1}
 }
