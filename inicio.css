@@ -233,6 +233,28 @@ html:not(.js) .fim{display:block}
 @media (min-width:761px){.barra{display:none}}
 @media (max-width:760px){.rodape{padding-bottom:calc(10rem + env(safe-area-inset-bottom))}}
 
+/* ---------- Página da ordem de serviço (ordem-de-servico.html) ----------
+   Telas reais do app, sem aparelho desenhado em volta: recorte da própria tela, com cantos
+   arredondados e uma linha, para não destoar do papel da página. */
+.heroi-tela{display:flex;justify-content:center}
+.tela-os{border-radius:2.4rem;border:1px solid var(--line)}
+.heroi-tela .tela-os{height:44rem;width:auto;max-width:100%}
+@media (min-width:960px){.heroi-tela .tela-os{height:56rem}}
+/* Passos só de texto: sem a coluna da tela que o .passo reserva no celular. */
+.passos-texto .passo{display:block}
+.duas-telas{display:grid;gap:4.8rem;justify-items:center}
+@media (min-width:761px){.duas-telas{grid-template-columns:1fr 1fr;justify-items:center}}
+.duas-telas figure{max-width:36rem;text-align:left}
+.duas-telas .passo-tela{height:46rem;margin-bottom:2rem}
+.duas-telas figcaption{color:var(--muted);font-size:1.6rem}
+.duas-telas figcaption strong{color:var(--text)}
+/* Dois planos pagos lado a lado: os dois com o mesmo peso (o .comparar-pago da home rebaixa o segundo). */
+@media (min-width:761px){.comparar-segunda{border-left:1px solid var(--line);padding-left:4rem}}
+.lado-a-lado{display:grid;gap:3.2rem;max-width:88rem}
+@media (min-width:761px){.lado-a-lado{grid-template-columns:1fr 1fr;gap:6.4rem}}
+.lado-a-lado h3{font-family:var(--font-titulo);font-weight:700;font-size:2.2rem;letter-spacing:-.01em}
+.lado-a-lado p{margin-top:.8rem;color:var(--muted)}
+
 /* ---------- Menos movimento ---------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}

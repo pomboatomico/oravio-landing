@@ -20,6 +20,7 @@
 ## Páginas
 
 - [Página inicial](https://oravio.com.br/): o que é o Oravio e como funciona
+- [Ordem de serviço](https://oravio.com.br/ordem-de-servico.html): como funciona a ordem de serviço, o que o cliente vê no link e em quais planos tem
 - [Planos e preços](https://oravio.com.br/planos.html): os quatro planos, limites e perguntas sobre cobrança
 - [Ajuda](https://oravio.com.br/ajuda.html): dúvidas de uso
 - [Criar conta](https://app.oravio.com.br/cadastro): grátis, sem cartão
