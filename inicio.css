@@ -34,6 +34,12 @@
   --font-sans:-apple-system,BlinkMacSystemFont,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",Arial,sans-serif;
   --font-titulo:'Source Serif 4',Georgia,var(--font-sans);
   --maxw:112rem;
+  /* O celular da demonstração é MATERIAL, não tema: o mesmo aro de metal verde-prata e o mesmo
+     vidro preto do aparelho 3D dos passos, nos dois temas. Só a sombra no chão muda. */
+  --fone-metal:linear-gradient(140deg,#eef3f1 0%,#b4c4bd 24%,#e3ebe7 50%,#9cafa6 76%,#dbe4e0 100%);
+  --fone-vidro:#070a09; --fone-camera:#020303; --fone-lente:#1c2622;
+  --fone-chao:rgba(19,36,32,.3);
+  --dica-fundo:#132420; --dica-texto:#ffffff;
 }
 @media (prefers-color-scheme:dark){
   :root{
@@ -44,6 +50,8 @@
     --text:#eef3f0; --muted:#9fb0a8;
     --seg-ativo:#2d3d37;
     --papel-sombra:0 .1rem .2rem rgba(0,0,0,.4),0 1.6rem 4rem -1.6rem rgba(0,0,0,.8);
+    --fone-chao:rgba(0,0,0,.8);
+    --dica-fundo:#eef3f0; --dica-texto:#0b100e;
   }
 }
 /* Só 600 e 700, latin: os pesos que o app usa (src/app/layout.tsx). Licença em fonts/SourceSerif4-OFL.txt. */
@@ -89,7 +97,8 @@ button{font:inherit;color:inherit}
 .heroi-grade{display:grid;gap:4rem;align-items:start}
 @media (min-width:960px){
   .heroi{padding:8rem 0 9.6rem}
-  .heroi-grade{grid-template-columns:1.15fr .85fr;gap:6.4rem;align-items:center}
+  .heroi-grade{grid-template-columns:1.15fr .85fr;gap:6.4rem;align-items:start}
+  .heroi-texto{padding-top:4rem}
 }
 .heroi h1{font-size:clamp(3.4rem,8.8vw,5.4rem)}
 .heroi-apoio{margin-top:2rem;font-size:1.8rem;color:var(--muted);max-width:50rem}
@@ -98,12 +107,13 @@ button{font:inherit;color:inherit}
 
 /* ---------- A demonstração ----------
    Um orçamento de exemplo, montado na hora, SEM conta e SEM IA (dados fixos no demo.js).
-   Em cima a conversa, embaixo a FOLHA: a peça que vai para o cliente, e a única da página
-   com sombra de papel. O espaço do resultado é reservado desde o início (visibility, não
-   display): os itens entram sem empurrar a página. Os três exemplos têm três itens cada. */
-.demo{background:var(--surface);border-radius:2.4rem;padding:2.4rem 2rem}
-@media (min-width:480px){.demo{padding:2.8rem}}
-.demo-titulo{font-family:var(--font-titulo);font-size:2.2rem;font-weight:700;letter-spacing:-.01em}
+   Desde 13/11/2026 (v5.2) ela acontece DENTRO de um celular com a cara da Início do app: a
+   mensagem do cliente chega como notificação, a FOLHA se monta no meio e o campo de falar fica
+   no pé, como no app. Antes era uma caixa cinza com rótulos ("O cliente pergunta no
+   WhatsApp:") e parecia um formulário do site. A folha continua a única peça com sombra de
+   papel; o aparelho só tem a sombra de contato no chão, como os dos passos. */
+.demo{width:100%;max-width:34rem;margin-inline:auto}
+.demo-titulo{font-family:var(--font-titulo);font-size:2.2rem;font-weight:700;letter-spacing:-.01em;text-align:center}
 
 /* Os ramos: controle segmentado, como os do app. */
 .ramos{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-top:1.6rem;padding:.4rem;background:var(--line-suave);border-radius:1.4rem}
@@ -112,47 +122,83 @@ button{font:inherit;color:inherit}
 .ramo:active{scale:.96}
 .ramo[aria-pressed="true"]{background:var(--seg-ativo);color:var(--text);box-shadow:0 .1rem .3rem rgba(19,36,32,.12)}
 
-.rotulo{font-size:1.4rem;color:var(--muted);margin:2rem 0 .8rem}
-.balao{display:inline-block;max-width:92%;background:var(--superficie);border-radius:1.8rem 1.8rem 1.8rem .6rem;padding:1rem 1.4rem;font-size:1.5rem}
-.frase{display:flex;gap:1rem;align-items:flex-start;background:var(--superficie);border:1px solid var(--line);border-radius:1.4rem;padding:1.2rem 1.4rem;min-height:7.2rem;font-size:1.5rem}
-.frase svg{flex:none;margin-top:.2rem;color:var(--green-text)}
-.frase-texto:empty::before{content:"O pedido aparece aqui, do jeito que você falaria.";color:var(--muted)}
-.demo .btn-montar{margin-top:2rem}
-.demo.pronto .btn-montar{display:none}
-.btn:disabled{opacity:.5;cursor:default}
-/* "Procurando na sua tabela" aparece DENTRO da folha, no lugar dos itens: sem linha reservada fora. */
-.procurando{position:absolute;inset:0 0 auto;min-height:15.6rem;display:grid;place-items:center;text-align:center;font-size:1.4rem;color:var(--muted);pointer-events:none}
+/* O CELULAR, de frente (dá para tocar), no material do aparelho 3D dos passos. No celular de
+   quem visita o vidro é fino, para a tela não perder largura; no computador, o aparelho
+   inteiro. Raios CONCÊNTRICOS: o de fora é o da tela + o vidro + o aro. */
+.celular{--aro:.25rem;--vidro:.6rem;--canto-tela:3.2rem;position:relative;margin-top:2rem;padding:var(--vidro);border:var(--aro) solid transparent;border-radius:calc(var(--canto-tela) + var(--vidro) + var(--aro));background:linear-gradient(var(--fone-vidro),var(--fone-vidro)) padding-box,var(--fone-metal) border-box}
+@media (min-width:960px){.celular{--aro:.35rem;--vidro:1rem}}
+.celular::after{content:"";position:absolute;z-index:-1;left:12%;right:12%;bottom:-2rem;height:3rem;border-radius:50%;background:radial-gradient(closest-side,var(--fone-chao),transparent);filter:blur(.8rem)}
+/* A altura mínima já guarda o pedido de quatro linhas: o campo cresce para cima, no vão entre a
+   folha e ele, e o aparelho não estica enquanto o pedido aparece. */
+.tela{position:relative;display:flex;flex-direction:column;min-height:64rem;border-radius:var(--canto-tela);background:var(--surface);overflow:hidden}
+.tela::before{content:"";position:absolute;top:1.15rem;left:50%;width:1.1rem;height:1.1rem;margin-left:-.55rem;border-radius:50%;background:var(--fone-camera);box-shadow:inset 0 0 0 .2rem var(--fone-lente)}
+.tela-status{display:flex;justify-content:space-between;align-items:center;padding:.9rem 2.2rem .2rem 2.6rem;font-size:1.25rem;font-weight:600;font-variant-numeric:tabular-nums}
+.tela-status svg{width:5.2rem;height:1.2rem}
 
-/* A FOLHA do orçamento. */
-.folha{margin-top:1.6rem;background:var(--superficie);border-radius:.6rem;padding:2rem 2rem 2.2rem;box-shadow:var(--papel-sombra)}
-.folha-cabeca{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--text)}
-.folha-titulo{font-family:var(--font-titulo);font-size:2.2rem;font-weight:700;letter-spacing:-.01em}
-.folha-cliente{font-size:1.4rem;color:var(--muted);text-align:right}
+/* A mensagem do cliente chega como notificação do WhatsApp, no topo, como num celular de verdade. */
+.notificacao{display:grid;grid-template-columns:3.4rem 1fr;column-gap:1rem;margin:.8rem .8rem 0;padding:1rem 1.2rem 1.1rem;background:var(--superficie);border-radius:2.4rem;box-shadow:0 0 0 1px var(--line-suave),0 .4rem 1.2rem -.6rem rgba(19,36,32,.25)}
+.notif-avatar{grid-row:1 / span 2;display:grid;place-items:center;width:3.4rem;height:3.4rem;border-radius:50%;background:var(--green-fill);color:var(--green-text);font-weight:700;font-size:1.4rem}
+.notif-topo{display:flex;justify-content:space-between;align-items:baseline;gap:.8rem;font-size:1.3rem;line-height:1.4}
+.notif-topo span{font-size:1.2rem;color:var(--muted)}
+.notif-texto{font-size:1.35rem;line-height:1.4}
+
+/* "Procurando na sua tabela" aparece DENTRO da folha, no lugar dos itens: sem linha reservada fora. */
+.procurando{position:absolute;inset:0 0 auto;min-height:15.6rem;display:grid;place-items:center;text-align:center;font-size:1.3rem;color:var(--muted);pointer-events:none}
+
+/* A FOLHA do orçamento. O espaço do resultado é reservado desde o início (visibility, não
+   display): os itens entram sem empurrar nada. Os três exemplos têm três itens cada. */
+.folha{margin:1.2rem 1rem 1.6rem;background:var(--superficie);border-radius:.6rem;padding:1.4rem 1.4rem 1.6rem;box-shadow:var(--papel-sombra)}
+.folha-cabeca{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding-bottom:1rem;border-bottom:1px solid var(--text)}
+.folha-titulo{font-family:var(--font-titulo);font-size:2rem;font-weight:700;letter-spacing:-.01em}
+.folha-cliente{font-size:1.3rem;color:var(--muted);text-align:right}
 .resultado{position:relative}
 .itens{list-style:none;min-height:15.6rem}
-.item{display:grid;grid-template-columns:3rem 1fr auto;gap:.8rem;align-items:baseline;padding:1rem 0;border-bottom:1px solid var(--line-suave);font-size:1.5rem;opacity:0;transform:translateY(.8rem);filter:blur(4px);transition-property:opacity,transform,filter;transition-duration:.3s;transition-timing-function:var(--entra)}
+.item{display:grid;grid-template-columns:2.4rem 1fr auto;gap:.6rem;align-items:baseline;padding:.8rem 0;border-bottom:1px solid var(--line-suave);font-size:1.3rem;line-height:1.4;opacity:0;transform:translateY(.8rem);filter:blur(4px);transition-property:opacity,transform,filter;transition-duration:.3s;transition-timing-function:var(--entra)}
 .item.entra{opacity:1;transform:none;filter:none}
 .item-qtd{color:var(--muted);font-variant-numeric:tabular-nums}
 .item-preco{font-variant-numeric:tabular-nums;white-space:nowrap}
-.itens-vazio{position:absolute;inset:0 0 auto;min-height:15.6rem;display:grid;place-items:center;text-align:center;text-wrap:balance;font-size:1.4rem;color:var(--muted);padding:0 2rem}
+.itens-vazio{position:absolute;inset:0 0 auto;min-height:15.6rem;display:grid;place-items:center;text-align:center;text-wrap:balance;font-size:1.3rem;color:var(--muted);padding:0 1.6rem}
 .demo.montando .itens-vazio,.demo.pronto .itens-vazio{display:none}
-.total{display:flex;justify-content:space-between;align-items:baseline;padding-top:1.4rem;visibility:hidden}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding-top:1.2rem;visibility:hidden}
 .demo.montando .total,.demo.pronto .total{visibility:visible}
-.total span{font-size:1.4rem;color:var(--muted)}
-.total strong{font-family:var(--font-titulo);font-size:3rem;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.total span{font-size:1.3rem;color:var(--muted)}
+.total strong{font-family:var(--font-titulo);font-size:2.6rem;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 
-/* O convite só ocupa espaço quando aparece: entra no lugar do botão "Montar", no pé da caixa.
+/* O campo de falar, no pé da tela como no app (o margin-top:auto o encosta embaixo). O botão do
+   microfone é o "Montar"; o raio do campo é o do botão + o respiro (2,2 + 0,6). */
+.campo{position:relative;display:flex;align-items:flex-end;gap:.8rem;margin:auto .8rem 0;padding:.6rem .6rem .6rem 1.4rem;background:var(--superficie);border:1px solid var(--line);border-radius:2.8rem}
+.frase{flex:1;min-width:0;align-self:center;padding:.4rem 0;font-size:1.35rem;line-height:1.45}
+.frase-texto:empty::before{content:"Descreva o orçamento…";color:var(--muted)}
+.btn-mic{flex:none;display:grid;place-items:center;width:4.4rem;height:4.4rem;border-radius:50%;border:0;background:var(--green);color:var(--on-green);cursor:pointer;transition-property:scale,background-color;transition-duration:.15s;transition-timing-function:ease-out}
+.btn-mic:hover{background:color-mix(in oklch,var(--green) 88%,var(--text))}
+.btn-mic:active{scale:.96}
+.btn-mic:disabled{cursor:default}
+.btn:disabled{opacity:.5;cursor:default}
+/* O balão de dica aponta o microfone até o primeiro toque, como os recados do app. */
+.dica{display:none;position:absolute;right:0;bottom:calc(100% + 1rem);max-width:22rem;padding:.7rem 1.2rem;border-radius:1.2rem;background:var(--dica-fundo);color:var(--dica-texto);font-size:1.3rem;font-weight:600;line-height:1.35;pointer-events:none}
+.dica::after{content:"";position:absolute;top:100%;right:2.2rem;border:.6rem solid transparent;border-top-color:var(--dica-fundo)}
+.js .demo.vivo:not(.montando):not(.pronto):not(.tocou) .dica{display:block;animation:dica-entra .3s var(--entra) .5s both}
+@keyframes dica-entra{from{opacity:0;transform:translateY(.4rem)}}
+
+/* A barra de abas da Início, só de enfeite (aria-hidden): é ela que diz "isto é o app". */
+.tela-abas{display:flex;justify-content:space-around;align-items:center;margin-top:.8rem;padding:.8rem 1.2rem 1.4rem;background:var(--superficie);border-top:1px solid var(--line-suave);border-radius:0 0 var(--canto-tela) var(--canto-tela);color:var(--muted)}
+.tela-abas svg{width:2.2rem;height:2.2rem}
+.aba-ativa{display:inline-flex;align-items:center;gap:.6rem;padding:.7rem 1.4rem;border-radius:99rem;background:var(--green-fill);color:var(--green-text);font-size:1.3rem;font-weight:600}
+.aba-ativa svg{width:2rem;height:2rem}
+
+/* O convite só ocupa espaço quando aparece, embaixo do aparelho.
    Reservar o espaço dele deixava um vazio grande antes da montagem (visto no celular em 10/11). */
-.fim{margin-top:2rem;display:none}
+.fim{margin-top:3.2rem;display:none;text-align:center}
 .demo.pronto .fim{display:block;animation:fim-entra .3s var(--entra) both}
 @keyframes fim-entra{from{opacity:0;transform:translateY(.8rem)}}
-.saidas{font-size:1.5rem;margin-bottom:1.4rem}
+.saidas{font-size:1.5rem;margin-bottom:1.4rem;text-wrap:balance}
 .de-novo{display:block;margin:1rem auto 0;background:none;border:0;min-height:4.4rem;padding:0 1.2rem;font-size:1.4rem;color:var(--muted);text-decoration:underline;text-underline-offset:.3rem;cursor:pointer}
-.demo-nota{font-size:1.3rem;color:var(--muted);margin-top:1.2rem;text-align:center;text-wrap:balance}
+.demo-nota{font-size:1.3rem;color:var(--muted);margin-top:2.8rem;text-align:center;text-wrap:balance}
+.demo.pronto .demo-nota{margin-top:1.2rem}
 
 /* Sem JavaScript (a classe .js vem do <head>): mostra o exemplo pronto, parado. Com
    JavaScript, o demo.js limpa e a pessoa monta. */
-html:not(.js) .demo .btn-montar,html:not(.js) .demo .itens-vazio,html:not(.js) .de-novo{display:none}
+html:not(.js) .btn-mic,html:not(.js) .demo .itens-vazio,html:not(.js) .de-novo{display:none}
 html:not(.js) .item{opacity:1;transform:none;filter:none}
 html:not(.js) .total{visibility:visible}
 html:not(.js) .fim{display:block}
@@ -259,7 +305,7 @@ html:not(.js) .fim{display:block}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .item{transform:none;filter:none;transition-property:opacity;transition-duration:.15s}
-  .demo.pronto .fim{animation:none}
+  .demo.pronto .fim,.js .demo.vivo .dica{animation:none}
   .barra{transition:none}
-  .btn:active,.ramo:active{scale:1}
+  .btn:active,.ramo:active,.btn-mic:active{scale:1}
 }

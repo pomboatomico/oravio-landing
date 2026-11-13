@@ -5,6 +5,10 @@
    pedido é contado, os itens entram com os preços e sai o PDF. Depois disso, o convite é "faça
    com os seus preços".
 
+   Desde 13/11/2026 (v5.2) tudo acontece dentro de um celular desenhado com a cara da Início do
+   app (index.html e inicio.css): a pergunta chega como notificação, o botão "Montar" é o
+   microfone do campo de falar, no pé da tela, e um balão aponta para ele até o primeiro toque.
+
    Não chama a IA nem o app: os três exemplos são fixos, aqui embaixo, com preços fictícios. Assim
    não gasta o limite da Groq, não abre porta para abuso e funciona sem conta. Os itens e o fluxo
    espelham o que o app faz de verdade (conferir antes de salvar, PDF, PIX, link de aceite).
@@ -42,7 +46,8 @@
     var ramos = demo.querySelectorAll('[data-ramo]');
     var balao = document.getElementById('demo-balao');
     var frase = document.getElementById('demo-frase');
-    var cliente = document.getElementById('demo-cliente');
+    var nomes = demo.querySelectorAll('[data-cliente]'); // na notificação e na folha
+    var inicial = demo.querySelector('[data-inicial]');
     var lista = document.getElementById('demo-itens');
     var total = document.getElementById('demo-total');
     var procurando = document.getElementById('demo-procurando');
@@ -69,7 +74,8 @@
       ramos.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-ramo') === ramo)); });
       demo.classList.remove('montando', 'pronto');
       balao.textContent = ex.balao;
-      if (cliente) cliente.textContent = ex.cliente;
+      nomes.forEach(function (el) { el.textContent = ex.cliente; });
+      if (inicial) inicial.textContent = ex.cliente.charAt(0);
       frase.textContent = '';
       lista.textContent = '';
       total.textContent = brl(0);
@@ -81,7 +87,7 @@
       var minhaVez = ++vez;
       var ex = EXEMPLOS[atual];
       botao.disabled = true;
-      demo.classList.add('montando');
+      demo.classList.add('montando', 'tocou'); // 'tocou': o balão de dica não volta mais
       if (window.umami && typeof window.umami.track === 'function') {
         try { window.umami.track('demo-montar', { ramo: atual }); } catch (e) {}
       }
@@ -152,7 +158,11 @@
         montar();
       });
     });
-    botao.addEventListener('click', montar);
+    // O microfone continua na tela depois de montar: tocar de novo recomeça, como "Montar de novo".
+    botao.addEventListener('click', function () {
+      if (demo.classList.contains('pronto')) preparar(atual);
+      montar();
+    });
     deNovo.addEventListener('click', function () { preparar(atual); montar(); });
 
     preparar('oficina');

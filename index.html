@@ -97,8 +97,11 @@
         </div>
       </div>
 
-      <!-- A demonstração: em cima, a conversa (o cliente pergunta, você conta); embaixo, a FOLHA do
-           orçamento se montando. A folha é o objeto do mundo de quem orça: é ela que vai pro cliente. -->
+      <!-- A demonstração (v5.2, 13/11/2026): acontece DENTRO de um celular com a cara da Início do
+           app, para a pessoa ver o app funcionando e não um formulário do site. A mensagem do
+           cliente chega como notificação no topo, a FOLHA do orçamento se monta no meio e o campo
+           de falar fica no pé, como no app. Fora do aparelho fica só o que é da página: título,
+           ramos, convite e nota. O porquê está em docs/landing.md, no repositório do app. -->
       <div class="demo" id="demo" aria-labelledby="demo-titulo">
         <h2 class="demo-titulo" id="demo-titulo">Experimente aqui, sem criar conta</h2>
         <div class="ramos" role="group" aria-label="Negócio do exemplo">
@@ -107,29 +110,47 @@
           <button type="button" class="ramo" data-ramo="eletrica" aria-pressed="false">Eletricista</button>
         </div>
 
-        <p class="rotulo">O cliente pergunta no WhatsApp:</p>
-        <p class="balao" id="demo-balao">Oi! Quanto fica a revisão do Onix? Óleo, pastilha da frente e amortecedor.</p>
+        <div class="celular">
+          <div class="tela">
+            <div class="tela-status" aria-hidden="true"><span>9:41</span><svg viewBox="0 0 52 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="1"/><rect x="9" y="3" width="3" height="9" rx="1"/><rect x="13.5" y=".5" width="3" height="11.5" rx="1"/><path d="M27 3.2c2.3 0 4.4.9 6 2.4l-1.2 1.3A6.7 6.7 0 0 0 27 5a6.7 6.7 0 0 0-4.8 1.9L21 5.6a8.6 8.6 0 0 1 6-2.4Zm0 3.4c1.3 0 2.5.5 3.4 1.3L27 11.5l-3.4-3.6c.9-.8 2.1-1.3 3.4-1.3Z"/><rect x="37.5" y="1.5" width="12" height="9" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="39.3" y="3.3" width="8.4" height="5.4" rx="1.2"/><rect x="50.3" y="4.3" width="1.4" height="3.4" rx=".7"/></svg></div>
 
-        <p class="rotulo">Você conta no Oravio:</p>
-        <p class="frase"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19v3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><rect x="9" y="2" width="6" height="13" rx="3"/></svg><span class="frase-texto" id="demo-frase">Orçamento pra Carla Mendes. Troca de óleo com filtro, pastilha de freio da frente e amortecedores da frente.</span></p>
+            <div class="notificacao">
+              <span class="notif-avatar" data-inicial aria-hidden="true">C</span>
+              <p class="notif-topo"><strong data-cliente>Carla Mendes</strong><span>WhatsApp</span></p>
+              <p class="notif-texto"><span class="so-leitor">O cliente pergunta no WhatsApp: </span><span id="demo-balao">Oi! Quanto fica a revisão do Onix? Óleo, pastilha da frente e amortecedor.</span></p>
+            </div>
 
-        <div class="folha">
-          <p class="folha-cabeca"><span class="folha-titulo">Orçamento</span><span class="folha-cliente" id="demo-cliente">Carla Mendes</span></p>
-          <div class="resultado">
-            <ul class="itens" id="demo-itens">
-              <li class="item"><span class="item-qtd">1×</span><span>Troca de óleo 5W30 + filtro</span><span class="item-preco">R$ 289,90</span></li>
-              <li class="item"><span class="item-qtd">1×</span><span>Pastilha de freio dianteira (par)</span><span class="item-preco">R$ 340,00</span></li>
-              <li class="item"><span class="item-qtd">1×</span><span>Amortecedores dianteiros (par)</span><span class="item-preco">R$ 1.290,00</span></li>
-            </ul>
-            <p class="itens-vazio">Os itens entram aqui, com os preços da sua tabela.</p>
-            <p class="procurando" id="demo-procurando" aria-hidden="true"></p>
-            <p class="total"><span>Total</span><strong id="demo-total">R$ 1.919,90</strong></p>
+            <div class="folha">
+              <p class="folha-cabeca"><span class="folha-titulo">Orçamento</span><span class="folha-cliente" data-cliente>Carla Mendes</span></p>
+              <div class="resultado">
+                <ul class="itens" id="demo-itens">
+                  <li class="item"><span class="item-qtd">1×</span><span>Troca de óleo 5W30 + filtro</span><span class="item-preco">R$ 289,90</span></li>
+                  <li class="item"><span class="item-qtd">1×</span><span>Pastilha de freio dianteira (par)</span><span class="item-preco">R$ 340,00</span></li>
+                  <li class="item"><span class="item-qtd">1×</span><span>Amortecedores dianteiros (par)</span><span class="item-preco">R$ 1.290,00</span></li>
+                </ul>
+                <p class="itens-vazio">Os itens entram aqui, com os preços da sua tabela.</p>
+                <p class="procurando" id="demo-procurando" aria-hidden="true"></p>
+                <p class="total"><span>Total</span><strong id="demo-total">R$ 1.919,90</strong></p>
+              </div>
+            </div>
+
+            <!-- O campo de falar, no pé da tela como no app. O botão do microfone é o "Montar". -->
+            <div class="campo">
+              <p class="frase"><span class="so-leitor">Você conta no Oravio: </span><span class="frase-texto" id="demo-frase">Orçamento pra Carla Mendes. Troca de óleo com filtro, pastilha de freio da frente e amortecedores da frente.</span></p>
+              <button type="button" class="btn-mic" id="demo-montar" aria-label="Montar orçamento"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19v3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><rect x="9" y="2" width="6" height="13" rx="3"/></svg></button>
+              <p class="dica" aria-hidden="true">Toque para montar o orçamento</p>
+            </div>
+
+            <div class="tela-abas" aria-hidden="true">
+              <span class="aba-ativa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Início</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4M12 16h4M8 11h.01M8 16h.01"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
           </div>
         </div>
         <p class="so-leitor" id="demo-aviso" aria-live="polite"></p>
 
-        <!-- O botão "Montar" e o convite dividem o mesmo lugar, no pé da caixa: um sai, o outro entra. -->
-        <button type="button" class="btn btn-primario btn-largo btn-montar" id="demo-montar">Montar orçamento</button>
         <div class="fim">
           <p class="saidas">Sai em PDF com a sua marca, QR do PIX e link para o cliente aceitar.</p>
           <a data-track="cta-signup" href="https://app.oravio.com.br/cadastro" class="btn btn-primario btn-largo">Fazer com os meus preços</a>
