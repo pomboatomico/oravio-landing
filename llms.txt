@@ -4,6 +4,7 @@
 
 - Para quem: oficinas, clínicas, salões, assistências técnicas, locadoras e autônomos que fazem orçamento no balcão ou na rua, muitas vezes com uma mão só.
 - Ordem de serviço (planos pagos): quando o cliente aceita, ou quando ele já deixa o aparelho, o Oravio abre uma ordem de serviço com número próprio e acompanha o trabalho até a entrega (em serviço, pronto, entregue), com fotos de entrada, assinatura de retirada, garantia e um link para o cliente acompanhar. Nos planos Profissional e Equipe, imprime o PDF da ordem, etiquetas com QR, a folha do fechamento do dia e comandas em branco para preencher à caneta.
+- Calculadora de preço (todos os planos, inclusive o Grátis): a partir do custo do produto ou do material e tempo do serviço, dos gastos do mês, impostos, taxas e da margem desejada, o Oravio sugere o preço de venda, mostra o desconto máximo sem prejuízo e quanto a pessoa já cobrou pelo item nos últimos 12 meses. Os custos nunca aparecem para o cliente.
 - País e idioma: Brasil, português; valores em reais (R$) e pagamento por PIX.
 - Onde funciona: no navegador do celular e do computador; pode ser instalado na tela inicial como aplicativo.
 - Sem internet: o app abre, mostra os dados e salva orçamentos; eles são enviados sozinhos quando a conexão volta. Transformar voz ou foto em orçamento precisa de internet.
